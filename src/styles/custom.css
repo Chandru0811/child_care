@@ -97,7 +97,7 @@
 }
 
 /* Style for the square mark */
-.custom-checkbox {
+/* .custom-checkbox {
   width: 20px;
   height: 20px;
   border: 1px solid rgb(230, 227, 227);
@@ -106,7 +106,7 @@
   justify-content: center;
   cursor: pointer;
   border-radius: 5px;
-}
+} */
 /* Style for the square inside the square mark */
 .inner-square {
   width: 7.5px;
