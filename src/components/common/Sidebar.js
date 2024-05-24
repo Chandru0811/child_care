@@ -21,7 +21,7 @@ function Sidebar({ onLogout }) {
       courseIndex: true,
       classIndex: true,
       leadListingIndex: true,
-      enrollmentIndex: false,
+      enrollmentIndex: true,
       staffIndex: true,
       teacherIndex: true,
       staffAttendanceIndex: false,
@@ -94,7 +94,7 @@ function Sidebar({ onLogout }) {
           },
           {
             title: "Enrollment",
-            path: "/lead/enrollment",
+            path: "/lead/enrollment/add",
             access: storedScreens.enrollmentIndex,
           },
         ],
@@ -340,9 +340,9 @@ function Sidebar({ onLogout }) {
           </p>
         </NavLink>
         <div className="collapse navbar-collapse" id="sidebarCollapse">
-          <ul className="nav-links" style={{ listStyle: "none" }}>
+          <ul className="nav-links" style={{ listStyle: "none"}}>
             <NavLink to="/" onClick={() => handleMenuClick(null)}>
-              <li className="py-2 px-5 links_name_hover">
+              <li className="py-2 px-4 links_name_hover home">
                 <i className="bx bx-grid-alt icon-large"></i>
                 <span className="ms-3">Home</span>
               </li>
@@ -387,7 +387,7 @@ function Sidebar({ onLogout }) {
                     </Nav.Link>
 
                     <Collapse in={item.isOpen}>
-                      <ul className="nav-links" style={{ listStyle: "none" }}>
+                      <ul className="nav-links" style={{ listStyle: "none",marginLeft:"3px" }}>
                         {item.subMenus.map(
                           (subMenu, subIndex) =>
                             subMenu.access && (
@@ -420,7 +420,7 @@ function Sidebar({ onLogout }) {
               to="/sendNotification"
               onClick={() => handleMenuClick(null)}
             >
-              <li className="py-2 px-5 links_name_hover">
+              <li className="py-2 px-4 links_name_hover home">
                 <i className="bx bx-send icon-large"></i>
                 <span className="ms-3">Send Notification</span>
               </li>

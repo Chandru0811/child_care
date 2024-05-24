@@ -169,7 +169,7 @@ function SubjectEdit({ id, onSuccess }) {
             <button
                 type="submit"
                 onSubmit={formik.handleSubmit}
-                className="btn btn-button btn-sm"
+                className="btn btn-button"
                 disabled={loadIndicator}
               >
                 {loadIndicator && (

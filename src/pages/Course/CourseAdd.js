@@ -334,7 +334,7 @@ function CourseAdd({ onSuccess }) {
                     <input
                       type="color"
                       {...formik.getFieldProps("colorCode")}
-                      className="form-control-color circle"
+                      className="circle"
                     />
                   </div>
                   <input

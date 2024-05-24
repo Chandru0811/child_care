@@ -83,7 +83,7 @@ const StudentListing = () => {
               <Link to="/student">
                 <button
                   type="button"
-                  className="btn btn-button "
+                  className="btn btn-button btn-sm"
                   style={{ fontWeight: "600px !important" }}
                 >
                   Add <i className="bx bx-plus"></i>

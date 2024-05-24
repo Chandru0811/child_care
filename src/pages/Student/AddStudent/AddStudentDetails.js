@@ -599,7 +599,7 @@ const AddStudentDetails = forwardRef(
 
                 <div className="mb-5">
                   <div className="row mt-5">
-                    <h6 className="text-start" style={{ color: "#ff7500" }}>
+                    <h6 className="text-start headColor">
                       Videography/Photography
                     </h6>
                     <div className="col-lg-6 col-sm-12 mt-3 ps-4">

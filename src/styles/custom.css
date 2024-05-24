@@ -182,6 +182,9 @@
 .btn-button i {
   font-weight: 600;
 }
+.headColor{
+  color:rgb(68, 71, 255) !important;
+}
 .btn-button:hover {
   color: #fff !important;
   background-color: rgb(68, 71, 255) !important;

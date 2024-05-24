@@ -24,6 +24,7 @@ import ClassEdit from "../pages/Class/ClassEdit";
 import ClassView from "../pages/Class/ClassView";
 import Lead from "../pages/Lead/Lead";
 import EnrollmentAdd from "../pages/Lead/Enrollment/EnrollmentAdd";
+import LeadAdd from "../pages/Lead/LeadAdd";
 import EnrollmentEdit from "../pages/Lead/Enrollment/EnrollmentEdit";
 import LeadView from "../pages/Lead/LeadView";
 import StudentAdd from "../pages/Student/StudentAdd";
@@ -140,7 +141,8 @@ function Admin({ handleLogout }) {
               <Route path="/class/view" element={<ClassView />} />
 
               <Route path="/lead/lead" element={<Lead />} />
-              <Route path="/lead/lead/add" element={<EnrollmentAdd />} />
+              <Route path="/lead/enrollment/add" element={<EnrollmentAdd />} />
+              <Route path="/lead/lead/add" element={<LeadAdd />} />
               <Route path="/lead/lead/edit" element={<EnrollmentEdit />} />
               <Route path="/lead/lead/view" element={<LeadView />} />
 

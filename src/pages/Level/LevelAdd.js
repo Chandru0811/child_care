@@ -143,7 +143,7 @@ function LevelAdd({ onSuccess }) {
               </Button>
               <Button
                 type="submit"
-                className="btn btn-button btn-sm"
+                className="btn btn-button"
                 disabled={loadIndicator}
               >
                 {loadIndicator && (
@@ -152,7 +152,7 @@ function LevelAdd({ onSuccess }) {
                     aria-hidden="true"
                   ></span>
                 )}
-                Submit
+                Save
               </Button>
               {/* <Button variant="danger" type="submit">
                 Submit

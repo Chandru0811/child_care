@@ -130,7 +130,7 @@ const StaffAccountAdd = forwardRef(
                 <div class="input-group-text inputGroup">
                   <input
                     type="color"
-                    className="form-control-color  circle"
+                    className="circle"
                     {...formik.getFieldProps("colorCode")}
                   />
                 </div>

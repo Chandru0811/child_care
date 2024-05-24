@@ -218,7 +218,7 @@ const ReportAttendance= () => {
           <div className="col-md-4 col-12 d-flex align-items-end">
             <button
               type="submit"
-              className="btn btn-light btn-border btn-sm mt-3"
+              className="btn btn-button mt-3"
             >
               Search
             </button>

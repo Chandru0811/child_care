@@ -244,7 +244,7 @@ const StaffAccountEdit = forwardRef(
                   <input
                     type="color"
                     {...formik.getFieldProps("colorCode")}
-                    className="form-control-color  circle"
+                    className="circle"
                   />
                 </div>
                 <input

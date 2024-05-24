@@ -217,7 +217,7 @@ function ScheduleTeacherAdd({ onSuccess }) {
       <div className="mb-5d-flex justify-content-end">
         <button
           type="button"
-          className=""
+          className="btn btn-button btn-sm"
           onClick={handleShow}
         >
           Add <i class="bx bx-plus"></i>
@@ -393,7 +393,7 @@ function ScheduleTeacherAdd({ onSuccess }) {
               </Button>
               <Button
                 type="submit"
-                className="btn btn-button btn-sm"
+                className="btn btn-button"
                 disabled={loadIndicator}
               >
                 {loadIndicator && (
@@ -402,7 +402,7 @@ function ScheduleTeacherAdd({ onSuccess }) {
                     aria-hidden="true"
                   ></span>
                 )}
-                Submit
+                Save
               </Button>
             </Modal.Footer>
           </Modal.Body>

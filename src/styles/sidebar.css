@@ -7,6 +7,9 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+.home{
+  color:#525f7f !important
+}
 
 .sidebar {
   position: fixed;
@@ -390,8 +393,8 @@ nav .profile-details i {
   color: #fff;
   padding: 0.5rem 0.9rem;
   font-weight: 600;
-  background-color: #D86300;
-  border-color: #D86300;
+  /* background-color: #D86300;
+  border-color: #D86300; */
 }
 
 .btn-button2 i {
@@ -399,8 +402,8 @@ nav .profile-details i {
 }
 .btn-button2:hover {
   color: #fff;
-  background-color: #D86300;
-  border-color: #D86300;
+  /* background-color: #D86300;
+  border-color: #D86300; */
 }
 
 
@@ -408,8 +411,8 @@ nav .profile-details i {
   color: #fff;
   padding: 0.5rem 0.9rem;
   font-weight: 600;
-  background-color: #e60504;
-  border-color: #e60504;
+  /* background-color: #e60504;
+  border-color: #e60504; */
 }
 
 .btn-button i {
@@ -417,14 +420,14 @@ nav .profile-details i {
 }
 .btn-button:hover {
   color: #fff;
-  background-color: #fa0101;
-  border-color: #fa0101;
+  /* background-color: #fa0101;
+  border-color: #fa0101; */
 }
 .btn-check:focus + .btn-button,
 .btn-button:focus {
   color: #fff;
-  background-color: #fa0101;
-  border-color: #fa0101;
+  /* background-color: #fa0101;
+  border-color: #fa0101; */
   box-shadow: 0 0 0 0.25rem #fa010188;
 }
 .btn-check:checked + .btn-button,
@@ -433,8 +436,8 @@ nav .profile-details i {
 .btn-button.active,
 .show > .btn-button.dropdown-toggle {
   color: #fff;
-  background-color: #fa0101;
-  border-color: #fa0101;
+  /* background-color: #fa0101;
+  border-color: #fa0101; */
 }
 .btn-check:checked + .btn-button:focus,
 .btn-check:active + .btn-button:focus,
@@ -446,8 +449,8 @@ nav .profile-details i {
 .btn-button:disabled,
 .btn-button.disabled {
   color: #fff;
-  background-color: #ff3f3f;
-  border-color: #ff3f3f;
+  /* background-color: #ff3f3f;
+  border-color: #ff3f3f; */
 }
 
 .btn-button-check:checked + .btn-button,
@@ -455,8 +458,8 @@ nav .profile-details i {
 .btn-button.show,
 .btn-button:first-child:active,
 :not(.btn-button-check) + .btn-button:active {
-  background-color: #fa0101;
-  border-color: #fa0101;
+  /* background-color: #fa0101;
+  border-color: #fa0101; */
   color: #fff;
 }
 

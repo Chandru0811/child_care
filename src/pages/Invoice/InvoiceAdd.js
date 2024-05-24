@@ -658,7 +658,7 @@ export default function InvoiceAdd() {
           <div className="row mt-3">
             <div className="col-12 text-end">
               <button
-                className="btn btn-sm btn-danger me-2"
+                className="btn btn-sm btn-button me-2"
                 type="button"
                 onClick={() => {
                   setRows((pr) => [...pr, {}]);

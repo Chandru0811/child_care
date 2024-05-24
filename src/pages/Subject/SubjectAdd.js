@@ -165,7 +165,7 @@ function SubjectAdd({ onSuccess }) {
             </Button>
             <Button
                 type="submit"
-                className="btn btn-button btn-sm"
+                className="btn btn-button"
                 disabled={loadIndicator}
               >
                 {loadIndicator && (
@@ -174,7 +174,7 @@ function SubjectAdd({ onSuccess }) {
                     aria-hidden="true"
                   ></span>
                 )}
-                Submit
+                Save
               </Button>
           </Modal.Footer>
         </form>

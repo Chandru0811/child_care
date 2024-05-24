@@ -389,7 +389,7 @@ function ScheduleTeacherEdit({ id, onSuccess }) {
               </Button>
               <Button
                 type="submit"
-                className="btn btn-button btn-sm"
+                className="btn btn-button"
                 disabled={loadIndicator}
               >
                 {loadIndicator && (
