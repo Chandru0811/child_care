@@ -22,7 +22,7 @@ const EditCourseDetail = forwardRef(
     
     const [data, setData] = useState([]);
     const { id } = useParams();
-
+   console.log("object",formData)
     const formik = useFormik({
       initialValues: {
         courseId: formData.courseId || "",
@@ -50,10 +50,10 @@ const EditCourseDetail = forwardRef(
             formDatas.append("startTime", data.startTime);
             formDatas.append("endTime", data.endTime);
             formDatas.append("signatureDate", data.signatureDate);
-            formDatas.append("studentDetailId", id);
+            formDatas.append("childDetailId", id);
             formDatas.append("detailId", data.courseDetailId);
             const response = await api.put(
-              `/updateStudentCourseDetail/${data.courseDetailId}`,
+              `/updateChildCourseDetail/${data.courseDetailId}`,
               formDatas,
               {
                 headers: {
@@ -80,9 +80,9 @@ const EditCourseDetail = forwardRef(
             formDatas.append("courseDay", data.courseDay);
             formDatas.append("endDate", data.endDate);
             formDatas.append("endTime", data.endTime);
-            formDatas.append("studentDetailId", id);
+            formDatas.append("childDetailId", id);
             const response = await api.post(
-              `/createStudentCourseDetails/${id}`,
+              `/createChildCourseDetail/${id}`,
               formDatas,
               {
                 headers: {
@@ -117,27 +117,27 @@ const EditCourseDetail = forwardRef(
 
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllStudentDetails/${formData.id}`);
+        const response = await api.get(`/getAllChildDetails/${formData.id}`);
         if (
-          response.data.studentCourseDetailModels &&
-          response.data.studentCourseDetailModels.length > 0
+          response.data.childCourseDetailModels &&
+          response.data.childCourseDetailModels.length > 0
         ) {
           formik.setValues({
-            ...response.data.studentCourseDetailModels[0],
-            courseDetailId: response.data.studentCourseDetailModels[0].id,
+            ...response.data.childCourseDetailModels[0],
+            courseDetailId: response.data.childCourseDetailModels[0].id,
             startDate:
-              response.data.studentCourseDetailModels[0].startDate.substring(
+              response.data.childCourseDetailModels[0].startDate.substring(
                 0,
                 10
               ),
             endDate:
-              response.data.studentCourseDetailModels[0].endDate.substring(
+              response.data.childCourseDetailModels[0].endDate.substring(
                 0,
                 10
               ),
 
             courseDay:
-              response.data.studentCourseDetailModels[0].courseDay.substring(
+              response.data.childCourseDetailModels[0].courseDay.substring(
                 0,
                 10
               ),

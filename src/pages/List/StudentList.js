@@ -3,7 +3,7 @@ import api from "../../config/URL";
 
 const fetchAllStudentsWithIds = async () => {
   try {
-    const response = await api.get("getAllStudentNamesWithIds");
+    const response = await api.get("getAllChildNamesWithIds");
     return response.data;
   } catch (error) {
     toast.error("Error fetching center data:", error);

@@ -7,12 +7,12 @@ import React, {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
-// import fetchAllCentersWithIds from "../../../List/CenterList";
+import fetchAllCentersWithIds from "../../../List/CenterList";
 import api from "../../../../config/URL";
 import { logDOM } from "@testing-library/react";
 
 const validationSchema = Yup.object().shape({
-  centerId: Yup.string().required("*Centre is required"),
+  childCareId: Yup.string().required("*Centre is required"),
   // preferredDay: Yup.array().of(Yup.string().required("*Select Days")),
   preferredDay: Yup.array()
     .min(1, "*Select at least one preferred day")
@@ -25,7 +25,7 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
 
   const formik = useFormik({
     initialValues: {
-      centerId: formData.centerId || "",
+      childCareId: formData.childCareId || "",
       preferredDay: formData.preferredDay || "",
       enquiryDate: formData.enquiryDate || "",
       marketingSource: formData.marketingSource || "",
@@ -65,12 +65,12 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
   });
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
                 {centerData &&
                   centerData.map((centerId) => (
                     <option key={centerId.id} value={centerId.id}>
-                      {centerId.centerNames}
+                      {centerId.childCareNames}
                     </option>
                   ))}
               </select>
@@ -495,7 +495,7 @@ const Form5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext 
                         key={referedStudentCenterNameId.id}
                         value={referedStudentCenterNameId.id}
                       >
-                        {referedStudentCenterNameId.centerNames}
+                        {referedStudentCenterNameId.childCareNames}
                       </option>
                     ))}
                 </select>

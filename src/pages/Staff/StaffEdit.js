@@ -17,13 +17,13 @@ const steps = [{ tooltip: "Personal Information" }, { tooltip: "Account Informat
 { tooltip: "Required Information" },{ tooltip: "Login Information" },{ tooltip: "Salary Information" },{ tooltip: "Leave Information" },{ tooltip: "Contract Informationn" } ];
 
 function StaffEdit() {
-  const { staff_id } = useParams();
+  const { id } = useParams();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const [loadIndicator, setLoadIndicator] = useState(false);
   const childRef = React.useRef();
-  const [formData, setFormData] = useState({ staff_id });
-  console.log("perant", formData);
+  const [formData, setFormData] = useState({ id });
+  console.log("perant", id);
 
   const isStepSkipped = (step) => {
     return skipped.has(step);

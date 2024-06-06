@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 import api from "../../../config/URL";
 import { toast } from "react-toastify";
 
 function HolidayAdd() {
   const validationSchema = Yup.object({
-    centerId: Yup.string().required("*Center Name is required"),
+    childCareId: Yup.string().required("*Center Name is required"),
     holidayName: Yup.string().required("*Holiday Name is required"),
     startDate: Yup.string().required("*Select the start date"),
     endDate: Yup.string().required("*Select the end date"),
@@ -21,7 +21,7 @@ function HolidayAdd() {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      childCareId: "",
       holidayName: "",
       startDate: "",
       endDate: "",
@@ -33,7 +33,7 @@ function HolidayAdd() {
       console.log(values);
       try {
         const payload = {
-          centerId: values.centerId,
+          childCareId: values.childCareId,
           holidayName: values.holidayName,
           startDate: values.startDate,
           endDate: values.endDate,
@@ -62,12 +62,12 @@ function HolidayAdd() {
   });
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -121,10 +121,10 @@ function HolidayAdd() {
                       Center Name<span className="text-danger">*</span>
                     </label>
                     <select
-                      {...formik.getFieldProps("centerId")}
-                      name="centerId"
+                      {...formik.getFieldProps("childCareId")}
+                      name="childCareId"
                       className={`form-select ${
-                        formik.touched.centerId && formik.errors.centerId
+                        formik.touched.childCareId && formik.errors.childCareId
                           ? "is-invalid"
                           : ""
                       }`}
@@ -133,7 +133,7 @@ function HolidayAdd() {
                       {centerData &&
                         centerData.map((center) => (
                           <option key={center.id} value={center.id}>
-                            {center.centerNames}
+                            {center.childCareNames}
                           </option>
                         ))}
                     </select>

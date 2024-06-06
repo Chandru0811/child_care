@@ -11,8 +11,8 @@ import { toast } from "react-toastify";
 import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
-  centerId: Yup.string().required("*Centre is required!"),
-  studentName: Yup.string().required("*Student Name is required!"),
+  childCareId: Yup.string().required("*Centre is required!"),
+  childName: Yup.string().required("*Student Name is required!"),
   dateOfBirth: Yup.date()
     .required("*Date of Birth is required!")
     .max(new Date(), "*Date of Birth cannot be in the future!"),
@@ -24,7 +24,7 @@ const validationSchema = Yup.object().shape({
   schoolName: Yup.string().required("*School Name is required!"),
   allowMagazine: Yup.string().required("*Select a filed!"),
   allowSocialMedia: Yup.string().required("*Select a filed!"),
-  studentChineseName: Yup.string().required(
+  childChineseName: Yup.string().required(
     "*Student Chinese Name is required!"
   ),
   file: Yup.string().required("*Select a Profile Image!"),
@@ -40,7 +40,7 @@ const validationSchema = Yup.object().shape({
   ),
   race: Yup.string().required("*Select a Race!"),
   referByStudent: Yup.string().required("*Refer By Student is required!"),
-  referByParent: Yup.string().required("*Refer By Parent is required!"),
+  referByChild: Yup.string().required("*Refer By Parent is required!"),
 });
 
 const AddStudentDetails = forwardRef(
@@ -54,16 +54,16 @@ const AddStudentDetails = forwardRef(
         toast.error(error);
       }
     };
-
+   console.log("object",formData)
     useEffect(() => {
       fetchData();
     }, []);
 
     const formik = useFormik({
       initialValues: {
-        centerId: formData.centerId || "",
-        studentName: formData.studentName || "",
-        studentChineseName: formData.studentChineseName || "",
+        childCareId: formData.childCareId || "",
+        childName: formData.childName || "",
+        childChineseName: formData.childChineseName || "",
         file: null || "",
         age: formData.age || "",
         medicalCondition: formData.medicalCondition || "",
@@ -77,20 +77,20 @@ const AddStudentDetails = forwardRef(
         primaryLanguageSpokenEnglish:
           formData.primaryLanguageSpokenEnglish || "",
         referByParent: formData.referByParent || "",
-        referByStudent: formData.referByStudent || "",
+        referByChild: formData.referByChild || "",
         remark: formData.remark || "",
         allowMagazine: formData.allowMagazine || "",
         allowSocialMedia: formData.allowSocialMedia || "",
       },
-      validationSchema: validationSchema,
+      // validationSchema: validationSchema,
       onSubmit: async (values) => {
         setLoadIndicators(true);
         try {
           const formData = new FormData();
 
           // Add each data field manually to the FormData object
-          formData.append("studentName", values.studentName);
-          formData.append("studentChineseName", values.studentChineseName);
+          formData.append("childName", values.childName);
+          formData.append("childChineseName", values.childChineseName);
           formData.append("dateOfBirth", values.dateOfBirth);
           formData.append("age", values.age);
           formData.append("gender", values.gender);
@@ -101,22 +101,22 @@ const AddStudentDetails = forwardRef(
           formData.append("race", values.race);
           formData.append("nationality", values.nationality);
           formData.append("referByParent", values.referByParent);
-          formData.append("referByStudent", values.referByStudent);
+          formData.append("referByChild", values.referByChild);
           formData.append("remark", values.remark);
           formData.append("allowMagazine", values.allowMagazine);
           formData.append("allowSocialMedia", values.allowSocialMedia);
-          formData.append("centerId", values.centerId);
-          formData.append("center", values.centerId);
+          formData.append("childCareId", values.childCareId);
+          // formData.append("center", values.centerId);
           formData.append(
             "primaryLanguageSpokenEnglish",
             values.primaryLanguageSpokenEnglish
           );
           formData.append("primaryLanguageSpokenChinese", "Chinese");
-          formData.append("groupName", values.groupName);
+          // formData.append("groupName", values.groupName);
           formData.append("file", values.file);
 
           const response = await api.post(
-            "/createStudentDetailsWithProfileImageLatest",
+            "/createChildDetailsWithProfileImageLatest",
             formData,
             {
               headers: {
@@ -126,7 +126,7 @@ const AddStudentDetails = forwardRef(
           );
 
           if (response.status === 201) {
-            const student_id = response.data.student_id;
+            const student_id = response.data.child_id;
             toast.success(response.data.message);
             setFormData((prv) => ({ ...prv, ...values, student_id }));
             handleNext();
@@ -161,23 +161,23 @@ const AddStudentDetails = forwardRef(
                       </label>
                       <br />
                       <select
-                        name="centerId"
+                        name="childCareId"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.centerId}
+                        value={formik.values.childCareId}
                         className="form-select"
                       >
                         <option selected></option>
                         {centerData &&
                           centerData.map((centerId) => (
                             <option key={centerId.id} value={centerId.id}>
-                              {centerId.centerNames}
+                              {centerId.childCareNames}
                             </option>
                           ))}
                       </select>
-                      {formik.touched.centerId && formik.errors.centerId && (
+                      {formik.touched.childCareId && formik.errors.childCareId && (
                         <div className="text-danger">
-                          <small>{formik.errors.centerId}</small>
+                          <small>{formik.errors.childCareId}</small>
                         </div>
                       )}
                     </div>
@@ -193,15 +193,15 @@ const AddStudentDetails = forwardRef(
                       <input
                         className="form-control "
                         type="text"
-                        name="studentChineseName"
+                        name="childChineseName"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.studentChineseName}
+                        value={formik.values.childChineseName}
                       />
-                      {formik.touched.studentChineseName &&
-                        formik.errors.studentChineseName && (
+                      {formik.touched.childChineseName &&
+                        formik.errors.childChineseName && (
                           <div className="text-danger">
-                            <small>{formik.errors.studentChineseName}</small>
+                            <small>{formik.errors.childChineseName}</small>
                           </div>
                         )}
                     </div>
@@ -384,17 +384,17 @@ const AddStudentDetails = forwardRef(
                       </label>
                       <br />
                       <input
-                        name="studentName"
+                        name="childName"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.studentName}
+                        value={formik.values.childName}
                         className="form-control "
                         type="text"
                       />
-                      {formik.touched.studentName &&
-                        formik.errors.studentName && (
+                      {formik.touched.childName &&
+                        formik.errors.childName && (
                           <div className="text-danger">
-                            <small>{formik.errors.studentName}</small>
+                            <small>{formik.errors.childName}</small>
                           </div>
                         )}
                     </div>
@@ -565,15 +565,15 @@ const AddStudentDetails = forwardRef(
                       <input
                         className="form-control "
                         type="text"
-                        name="referByStudent"
+                        name="referByChild"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.referByStudent}
+                        value={formik.values.referByChild}
                       />
-                      {formik.touched.referByStudent &&
-                        formik.errors.referByStudent && (
+                      {formik.touched.referByChild &&
+                        formik.errors.referByChild && (
                           <div className="error text-danger ">
-                            <small>{formik.errors.referByStudent}</small>
+                            <small>{formik.errors.referByChild}</small>
                           </div>
                         )}
                     </div>

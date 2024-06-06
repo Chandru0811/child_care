@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
-  centerId: Yup.string().required("*Centre is required!"),
+  childCareId: Yup.string().required("*Centre is required!"),
   studentName: Yup.string().required("*Student Name is required!"),
   dateOfBirth: Yup.date()
     .required("*Date of Birth is required!")
@@ -58,9 +58,9 @@ const AddStudentDetails = forwardRef(
 
     const formik = useFormik({
       initialValues: {
-        centerId: formData.centerId || "",
-        studentName: formData.studentName || "",
-        studentChineseName: formData.studentChineseName || "",
+        childCareId: formData.childCareId || "",
+        childName: formData.childName || "",
+        childChineseName: formData.childChineseName || "",
         profileImage: null || "",
         age: formData.age || "",
         medicalCondition: formData.medicalCondition || "",
@@ -74,7 +74,7 @@ const AddStudentDetails = forwardRef(
         primaryLanguageSpokenEnglish: true,
         primaryLanguageSpokenChinese: false,
         referByParent: formData.referByParent || "",
-        referByStudent: formData.referByStudent || "",
+        referByChild: formData.referByChild || "",
         remark: formData.remark || "",
         allowMagazine: false || "",
         allowSocialMedia: false || "",
@@ -163,23 +163,23 @@ const AddStudentDetails = forwardRef(
                       </label>
                       <br />
                       <select
-                        name="centerId"
+                        name="childCareId"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.centerId}
+                        value={formik.values.childCareId}
                         className="form-select"
                       >
                         <option selected></option>
                         {centerData &&
                           centerData.map((centerId) => (
                             <option key={centerId.id} value={centerId.id}>
-                              {centerId.centerNames}
+                              {centerId.childCareNames}
                             </option>
                           ))}
                       </select>
-                      {formik.touched.centerId && formik.errors.centerId && (
+                      {formik.touched.childCareId && formik.errors.childCareId && (
                         <div className="text-danger">
-                          <small>{formik.errors.centerId}</small>
+                          <small>{formik.errors.childCareId}</small>
                         </div>
                       )}
                     </div>
@@ -386,17 +386,17 @@ const AddStudentDetails = forwardRef(
                       </label>
                       <br />
                       <input
-                        name="studentName"
+                        name="childName"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.studentName}
+                        value={formik.values.childName}
                         className="form-control "
                         type="text"
                       />
-                      {formik.touched.studentName &&
-                        formik.errors.studentName && (
+                      {formik.touched.childName &&
+                        formik.errors.childName && (
                           <div className="text-danger">
-                            <small>{formik.errors.studentName}</small>
+                            <small>{formik.errors.childName}</small>
                           </div>
                         )}
                     </div>
@@ -543,16 +543,16 @@ const AddStudentDetails = forwardRef(
                       </label>
                       <br />
                       <input
-                        name="referByStudent"
+                        name="referByChild"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.referByStudent}
+                        value={formik.values.referByChild}
                         className="form-control"
                       />
-                      {formik.touched.referByStudent &&
-                        formik.errors.referByStudent && (
+                      {formik.touched.referByChild &&
+                        formik.errors.referByChild && (
                           <div className="error text-danger ">
-                            <small>{formik.errors.referByStudent}</small>
+                            <small>{formik.errors.referByChild}</small>
                           </div>
                         )}
                     </div>

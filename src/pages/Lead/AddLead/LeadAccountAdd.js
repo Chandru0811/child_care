@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
-  center: Yup.string().required("*Centre is required!"),
+  childCareId: Yup.string().required("*Centre is required!"),
   // preferredDay: Yup.array().of(Yup.string().required("*Select Days")),
   preferredDay: Yup.array()
     .min(1, "*Select at least one preferred day!")
@@ -22,7 +22,7 @@ const LeadAccountAdd = forwardRef(
 
     const formik = useFormik({
       initialValues: {
-        center: formData.center,
+        childCareId: formData.childCareId,
         preferredDay: formData.preferredDay || "",
         enquiryDate: formData.enquiryDate || "",
         marketingSource: formData.marketingSource || "",
@@ -90,22 +90,22 @@ const LeadAccountAdd = forwardRef(
                 </lable>
                 <select
                   className="form-select"
-                  name="center"
+                  name="childCareId"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.center}
+                  value={formik.values.childCareId}
                 >
                   <option selected></option>
                   {centerData &&
                     centerData.map((center) => (
                       <option key={center.id} value={center.id}>
-                        {center.centerNames}
+                        {center.childCareNames}
                       </option>
                     ))}
                 </select>
-                {formik.touched.center && formik.errors.center && (
+                {formik.touched.childCareId && formik.errors.childCareId && (
                   <div className="error text-danger">
-                    <small>{formik.errors.center}</small>
+                    <small>{formik.errors.childCareId}</small>
                   </div>
                 )}
               </div>

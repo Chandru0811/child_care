@@ -116,7 +116,7 @@ const AddEmergencyContact = forwardRef(
             if (formData.emergencyContactId !== null) {
                 console.log("Emergency Contact ID:", formData.emergencyContactId);
                 const response = await api.put(
-                    `/updateStudentEmergencyContact/${formData.emergencyContactId}`,
+                    `/updateChildEmergencyContact/${formData.emergencyContactId}`,
                     data,
                     {
                         headers: {
@@ -133,7 +133,7 @@ const AddEmergencyContact = forwardRef(
                 }
             } else {
                 const response = await api.post(
-                    `/createStudentEmergencyContacts/${formData.id}`,
+                    `/createChildEmergencyContacts/${formData.id}`,
                     data,
                     {
                         headers: {
@@ -162,7 +162,7 @@ const AddEmergencyContact = forwardRef(
       const getData = async () => {
         try {
           const response = await api.get(
-            `/getAllStudentDetails/${formData.id}`
+            `/getAllChildDetails/${formData.id}`
           );
           if (
             response.data.studentEmergencyContacts &&

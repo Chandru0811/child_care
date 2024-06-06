@@ -10,11 +10,11 @@ import api from "../../config/URL";
 import { toast } from "react-toastify";
 
 const validationSchema = Yup.object().shape({
-  centerName: Yup.string().required("*Centre Name is required"),
+  childCareName: Yup.string().required("*Centre Name is required"),
   code: Yup.number()
     .typeError("*Enter a valid number")
     .required("*Code is required"),
-  centerManager: Yup.string().required("*Select the Center Manager"),
+    childCareManager: Yup.string().required("*Select the Center Manager"),
   zipCode: Yup.number()
     .typeError("*Zip Code must be number")
     .required("*Zip Code is required")
@@ -56,9 +56,9 @@ function CenterEdit() {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      centerName: "",
+      childCareName: "",
       code: "",
-      centerManager: "",
+      childCareManager: "",
       address: "",
       zipCode: "",
       mobile: "",
@@ -69,52 +69,52 @@ function CenterEdit() {
       taxRegistrationNumber: "",
       bankName: "",
       bankBranch: "",
-      bankAccountNumber: "",
+      bankAccountNumber: "", 
       bankAccountName: "",
       invoiceNotes: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       setLoadIndicator(true);
-      // try {
-      //   const response = await api.put(`/updateCenter/${id}`, values, {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   });
-      //   if (response.status === 200) {
-      //     toast.success(response.data.message);
-      //     navigate("/center");
-      //   } else {
-      //     toast.error(response.data.message);
-      //   }
-      // } catch (error) {
-      //   toast.error(error);
-      // }finally {
-      //   setLoadIndicator(false);
-      // }
+      try {
+        const response = await api.put(`/updateChildCare/${id}`, values, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.status === 200) {
+          toast.success(response.data.message);
+          navigate("/center");
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error);
+      }finally {
+        setLoadIndicator(false);
+      }
     },
   });
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const response = await api.get(`/getAllCenterById/${id}`);
-  //     const formattedData = {
-  //       ...response.data,
-  //       openingDate: response.data.openingDate
-  //         ? new Date(response.data.openingDate).toISOString().substring(0, 10)
-  //         : null,
-  //     };
-  //     formik.setValues(formattedData);
-  //     setData(response.data);
-  //   };
+  useEffect(() => {
+    const getData = async () => {
+      const response = await api.get(`/getAllChildCareById/${id}`);
+      const formattedData = {
+        ...response.data,
+        openingDate: response.data.openingDate
+          ? new Date(response.data.openingDate).toISOString().substring(0, 10)
+          : null,
+      };
+      formik.setValues(formattedData);
+      setData(response.data);
+    };
 
-  //   getData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [id]);
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const refreshData = async () => {
     try {
-      const response = await api.get(`/getAllCenterById/${id}`);
+      const response = await api.get(`/getAllChildCareById/${id}`);
       setData(response.data);
     } catch (error) {
       toast.error("Error Fetching Data");
@@ -170,19 +170,19 @@ function CenterEdit() {
                   </label>
                   <input
                     type="text"
-                    name="centerName"
+                    name="childCareName"
                     className={`form-control  ${
-                      formik.touched.centerName && formik.errors.centerName
+                      formik.touched.childCareName && formik.errors.childCareName
                         ? "is-invalid"
                         : ""
                     }`}
                     aria-label="Username"
                     aria-describedby="basic-addon1"
-                    {...formik.getFieldProps("centerName")}
+                    {...formik.getFieldProps("childCareName")}
                   />
-                  {formik.touched.centerName && formik.errors.centerName && (
+                  {formik.touched.childCareName && formik.errors.childCareName && (
                     <div className="invalid-feedback">
-                      {formik.errors.centerName}
+                      {formik.errors.childCareName}
                     </div>
                   )}
                 </div>
@@ -213,10 +213,10 @@ function CenterEdit() {
                     Centre Manager<span className="text-danger">*</span>
                   </label>
                   <select
-                    {...formik.getFieldProps("centerManager")}
+                    {...formik.getFieldProps("childCareManager")}
                     className={`form-select    ${
-                      formik.touched.centerManager &&
-                      formik.errors.centerManager
+                      formik.touched.childCareManager &&
+                      formik.errors.childCareManager
                         ? "is-invalid"
                         : ""
                     }`}
@@ -227,10 +227,10 @@ function CenterEdit() {
                     <option value="Jeanette Aw">Jeanette Aw</option>
                     <option value="Baey Yam Keng">Baey Yam Keng</option>
                   </select>
-                  {formik.touched.centerManager &&
-                    formik.errors.centerManager && (
+                  {formik.touched.childCareManager &&
+                    formik.errors.childCareManager && (
                       <div className="invalid-feedback">
-                        {formik.errors.centerManager}
+                        {formik.errors.childCareManager}
                       </div>
                     )}
                 </div>
@@ -562,8 +562,8 @@ function CenterEdit() {
                 </tr>
               </thead>
               <tbody>
-                {data.centerRegistrations &&
-                  data.centerRegistrations.map((registration, index) => (
+                {data.childCareRegistrations &&
+                  data.childCareRegistrations.map((registration, index) => (
                     <tr key={index}>
                       <td>{registration.id}</td>
                       <td>{registration.registrationDate.substring(0, 10)}</td>
@@ -605,8 +605,8 @@ function CenterEdit() {
                 </tr>
               </thead>
               <tbody>
-                {data.centerBreaks &&
-                  data.centerBreaks.map((centerBreak, index) => (
+                {data.childCareBreaks &&
+                  data.childCareBreaks.map((centerBreak, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{centerBreak.breakName}</td>
@@ -673,8 +673,8 @@ function CenterEdit() {
                 </tr>
               </thead>
               <tbody>
-                {data.centerClassRooms &&
-                  data.centerClassRooms.map((centerClassRoom, index) => (
+                {data.childCareClassRooms &&
+                  data.childCareClassRooms.map((centerClassRoom, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{centerClassRoom.classRoomName}</td>
@@ -714,8 +714,8 @@ function CenterEdit() {
                 </tr>
               </thead>
               <tbody>
-                {data.centerPackages &&
-                  data.centerPackages.map((centerPackage, index) => (
+                {data.childCarePackages &&
+                  data.childCarePackages.map((centerPackage, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{centerPackage.packageName || "--"}</td>

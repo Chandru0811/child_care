@@ -33,7 +33,7 @@ function AddClass({ id, onSuccess }) {
       console.log("Form values:", values);
       try {
         const response = await api.post(
-          `/createCenterClassRooms/${id}`,
+          `/createChildClassClassRooms/${id}`,
           values,
           {
             headers: {

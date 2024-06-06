@@ -54,7 +54,7 @@ function StudentSummary({ data }) {
                     </li>
                   </div>
                   <div className="d-flex align-items-center mb-3">
-                    {data.studentParentsDetails.length === 0 ? (
+                    {data.childParentsDetails.length === 0 ? (
                       <box-icon
                         name="x-circle"
                         type="solid"
@@ -73,7 +73,7 @@ function StudentSummary({ data }) {
                     </li>
                   </div>
                   <div className="d-flex align-items-center mb-3">
-                    {data.studentEmergencyContacts.length === 0 ? (
+                    {data.childEmergencyContacts.length === 0 ? (
                       <box-icon
                         name="x-circle"
                         type="solid"
@@ -92,7 +92,7 @@ function StudentSummary({ data }) {
                     </li>
                   </div>
                   <div className="d-flex align-items-center mb-3">
-                    {data.studentCourseDetailModels.length === 0 ? (
+                    {data.childCourseDetailModels.length === 0 ? (
                       <box-icon
                         name="x-circle"
                         type="solid"
@@ -111,7 +111,7 @@ function StudentSummary({ data }) {
                     </li>
                   </div>
                   <div className="d-flex align-items-center mb-3">
-                    {data.studentRelationModels.length === 0 ? (
+                    {data.childRelationModels.length === 0 ? (
                       <box-icon
                         name="x-circle"
                         type="solid"
@@ -130,7 +130,7 @@ function StudentSummary({ data }) {
                     </li>
                   </div>
                   <div className="d-flex align-items-center mb-3">
-                    {data.studentTermsAndConditions.length === 0 ? (
+                    {data.childTermsAndConditions.length === 0 ? (
                       <box-icon
                         name="x-circle"
                         type="solid"

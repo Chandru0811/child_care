@@ -49,7 +49,7 @@ const SendNotification = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get("/getAllSmsPushNotifications");
+        const response = await api.get("/getAllChildCarePushNotifications");
         setDatas(response.data);
         console.log("message", response.data);
       } catch (error) {
@@ -99,7 +99,7 @@ const SendNotification = () => {
     destroyDataTable();
     setLoading(true);
     try {
-      const response = await api.get("/getAllSmsPushNotifications");
+      const response = await api.get("/getAllChildCarePushNotifications");
       setDatas(response.data);
       initializeDataTable(); // Reinitialize DataTable after successful data update
     } catch (error) {
@@ -116,9 +116,9 @@ const SendNotification = () => {
             <div>
               <h2>Send Notification</h2>
             </div>
-      {storedScreens?.sendNotificationCreate && (
+      {/* {storedScreens?.sendNotificationCreate && ( */}
         <SendNotificationAdd onSuccess={refreshData} />
-      )}
+      {/* )} */}
       </div>
       <hr />
       {/* {/ <SendNotificationAdd /> /} */}
@@ -152,12 +152,12 @@ const SendNotification = () => {
                 <td>{data.messageDescription}</td>
                 <td>{data.datePosted}</td>
                 <td>
-                  {storedScreens?.sendNotificationUpdate && (
+                  {/* {storedScreens?.sendNotificationUpdate && ( */}
                     <SendNotificationEdit
                       id={data.id}
                       onSuccess={refreshData}
                     />
-                  )}
+                  {/* )} */}
                 </td>
               </tr>
             ))}

@@ -72,7 +72,7 @@ const StaffContactEdit = forwardRef(
             }
           } else {
             const response = await api.post(
-              `/createUserContactInfo/${formData.staff_id}`,
+              `/createUserContactInfo/${formData.id}`,
               values,
               {
                 headers: {
@@ -113,7 +113,7 @@ const StaffContactEdit = forwardRef(
       const getData = async () => {
         try {
           const response = await api.get(
-            `/getAllUsersById/${formData.staff_id}`
+            `/getAllUsersById/${formData.id}`
           );
           if (
             response.data.userContactInfo &&

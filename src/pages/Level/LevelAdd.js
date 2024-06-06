@@ -41,9 +41,9 @@ function LevelAdd({ onSuccess }) {
           },
         });
         if (response.status === 201) {
-          onSuccess();
           handleClose();
-          toast.success(response.data.message);
+          onSuccess();
+          // toast.success(response.data.message);
         } else {
           toast.error(response.data.message);
         }

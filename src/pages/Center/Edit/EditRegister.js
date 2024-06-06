@@ -32,7 +32,7 @@ function EditRegisteration({ id, onSuccess }) {
       setLoadIndicator(true);
       try {
         const response = await api.put(
-          `/updateCenterRegistrations/${id}`,
+          `/updateChildCareRegistrations/${id}`,
           values,
           {
             headers: {

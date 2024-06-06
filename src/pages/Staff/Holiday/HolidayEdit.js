@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 import api from "../../../config/URL";
 import { toast } from "react-toastify";
 
 function HolidayEdit() {
   const validationSchema = Yup.object({
-    centerId: Yup.string().required("*Center Name is required"),
+    childCareId: Yup.string().required("*Center Name is required"),
     holidayName: Yup.string().required("*Holiday Name is required"),
     startDate: Yup.string().required("*Select the start date"),
     endDate: Yup.string().required("*Select the end date"),
@@ -22,7 +22,7 @@ function HolidayEdit() {
   const { id } = useParams();
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      childCareId: "",
       holidayName: "",
       startDate: "",
       endDate: "",
@@ -34,7 +34,7 @@ function HolidayEdit() {
       console.log(values);
       try {
         const payload = {
-          centerId: values.centerId,
+          childCareId: values.childCareId,
           holidayName: values.holidayName,
           startDate: values.startDate,
           endDate: values.endDate,
@@ -63,32 +63,32 @@ function HolidayEdit() {
   });
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get(`/getAllUserHolidayById/${id}`);
-  //       const formattedResponseData = {
-  //         ...response.data,
-  //         startDate: response.data.startDate.substring(0, 10),
-  //         endDate: response.data.endDate.substring(0, 10),
-  //       };
-  //       formik.setValues(formattedResponseData);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get(`/getAllUserHolidayById/${id}`);
+        const formattedResponseData = {
+          ...response.data,
+          startDate: response.data.startDate.substring(0, 10),
+          endDate: response.data.endDate.substring(0, 10),
+        };
+        formik.setValues(formattedResponseData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  //   getData();
-  //   fetchData();
-  // }, []);
+    getData();
+    fetchData();
+  }, []);
 
   return (
     <section className="HolidayAdd p-3">
@@ -137,10 +137,10 @@ function HolidayEdit() {
                       Center Name<span className="text-danger">*</span>
                     </label>
                     <select
-                      {...formik.getFieldProps("centerId")}
-                      name="centerId"
+                      {...formik.getFieldProps("childCareId")}
+                      name="childCareId"
                       className={`form-select ${
-                        formik.touched.centerId && formik.errors.centerId
+                        formik.touched.childCareId && formik.errors.childCareId
                           ? "is-invalid"
                           : ""
                       }`}
@@ -149,13 +149,13 @@ function HolidayEdit() {
                       {centerData &&
                         centerData.map((center) => (
                           <option key={center.id} value={center.id}>
-                            {center.centerNames}
+                            {center.childCareNames}
                           </option>
                         ))}
                     </select>
-                    {formik.touched.centerId && formik.errors.centerId && (
+                    {formik.touched.childCareId && formik.errors.childCareId && (
                       <div className="invalid-feedback">
-                        {formik.errors.centerId}
+                        {formik.errors.childCareId}
                       </div>
                     )}
                   </div>

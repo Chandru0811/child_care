@@ -35,6 +35,7 @@ const AddParentGuardian = forwardRef(
     const [selectedPrimaryContactIndex, setSelectedPrimaryContactIndex] =
       useState(null);
 
+   console.log("object",formData)
     const formik = useFormik({
       initialValues: {
         parentInformation: formData.parentInformation
@@ -74,11 +75,12 @@ const AddParentGuardian = forwardRef(
           });
 
           const response = await api.post(
-            `/createMultipleStudentParentsDetailsWithProfileImages/${formData.student_id}`,
+            `http://localhost:8080/api/createMultipleChildParentsDetailsWithProfileImages/${formData.student_id}`,
             formDatas,
             {
               headers: {
                 "Content-Type": "multipart/form-data",
+                "Authorization":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcmVtQDIwMjQiLCJpYXQiOjE3MTY3OTUzNjksImV4cCI6MTcyMTk3OTM2OX0.qF-lf8Fd6el0RIKkXbCm2zwkb-_0_759bvakQU8cI-L2b4h2y1DZ9e-o8OHOwhzEGrvukUR6dxVkOZK7Kvuqog",
               },
             }
           );

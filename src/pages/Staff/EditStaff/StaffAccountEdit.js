@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import api from "../../../config/URL";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
   startDate: Yup.string().required("*Start Date is required!"),
@@ -27,20 +27,21 @@ const validationSchema = Yup.object().shape({
   workingDays: Yup.array()
     .of(Yup.string().required("*Working Days is required!"))
     .min(1, "*Working Days is required!"),
-  centerId: Yup.string().required("*Centres is required!"),
+    childCareId: Yup.string().required("*Centres is required!"),
 });
 
 const StaffAccountEdit = forwardRef(
   ({ formData,setLoadIndicators, setFormData, handleNext }, ref) => {
+
     const [centerData, setCenterData] = useState(null);
 
     const fetchData = async () => {
-      // try {
-      //   const centerData = await fetchAllCentersWithIds();
-      //   setCenterData(centerData);
-      // } catch (error) {
-      //   toast.error(error);
-      // }
+      try {
+        const centerData = await fetchAllCentersWithIds();
+        setCenterData(centerData);
+      } catch (error) {
+        toast.error(error);
+      }
     };
 
     const formik = useFormik({
@@ -55,7 +56,7 @@ const StaffAccountEdit = forwardRef(
         endDate: "",
         approvelContentRequired: "",
         workingDays: [],
-        centerId: "",
+        childCareId: "",
       },
       validationSchema: validationSchema,
       // onSubmit: async (values) => {
@@ -83,6 +84,7 @@ const StaffAccountEdit = forwardRef(
       //     toast.error(error);
       //   }
       // },
+
       onSubmit: async (values) => {
         // console.log("Api Data:", values);
         setLoadIndicators(true);
@@ -117,7 +119,7 @@ const StaffAccountEdit = forwardRef(
               ...values,
               approvelContentRequired: Approval,
             };
-            values.userId = formData.staff_id;
+            values.userId = formData.id;
             const response = await api.post(
               `/createUserAccountInfo`,
               updatedData,
@@ -164,7 +166,7 @@ const StaffAccountEdit = forwardRef(
       const getData = async () => {
         try {
           const response = await api.get(
-            `/getAllUsersById/${formData.staff_id}`
+            `/getAllUsersById/${formData.id}`
           );
           if (
             response.data.userAccountInfo &&
@@ -581,9 +583,9 @@ const StaffAccountEdit = forwardRef(
               </lable>
               <div className="input-group mb-3">
                 <select
-                  {...formik.getFieldProps("centerId")}
+                  {...formik.getFieldProps("childCareId")}
                   className={`form-select  ${
-                    formik.touched.centerId && formik.errors.centerId
+                    formik.touched.childCareId && formik.errors.childCareId
                       ? "is-invalid"
                       : ""
                   }`}
@@ -591,15 +593,15 @@ const StaffAccountEdit = forwardRef(
                 >
                   <option selected></option>
                   {centerData &&
-                    centerData.map((centerId) => (
-                      <option key={centerId.id} value={centerId.id}>
-                        {centerId.centerNames}
+                    centerData.map((id) => (
+                      <option key={id.id} value={id.id}>
+                        {id.childCareNames}
                       </option>
                     ))}
                 </select>
-                {formik.touched.centerId && formik.errors.centerId && (
+                {formik.touched.childCareId && formik.errors.childCareId && (
                   <div className="invalid-feedback">
-                    {formik.errors.centerId}
+                    {formik.errors.childCareId}
                   </div>
                 )}
               </div>

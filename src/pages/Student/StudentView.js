@@ -22,7 +22,7 @@ function StudentView() {
 
   const [centerData, setCenterData] = useState(null);
   const [courseData, setCourseData] = useState(null);
-
+ console.log("object",courseData)
   const fetchData = async () => {
     try {
       const centerData = await fetchAllCentersWithIds();
@@ -37,7 +37,7 @@ function StudentView() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllStudentDetails/${id}`);
+        const response = await api.get(`/getAllChildDetails/${id}`);
         // console.log("Api data:", response.data);
         setData(response.data);
         console.log("StudentDetails", response.data);
@@ -64,7 +64,7 @@ function StudentView() {
                 </button>
               </Link>
             )} */}
-            {storedScreens?.transferOutCreate && (
+            {/* {storedScreens?.transferOutCreate && ( */}
               <Link to={`/student/view/transferOut/${data.id}`}>
                 <button
                   className="btn btn-border btn-sm mx-2 stdViewBtn"
@@ -73,7 +73,7 @@ function StudentView() {
                   Transfer Out
                 </button>
               </Link>
-            )}
+            {/* )} */}
             {/* {storedScreens?.withdrawCreate && (
               <Link to={"/student/withdraw"}>
                 <button
@@ -84,7 +84,7 @@ function StudentView() {
                 </button>
               </Link>
             )} */}
-            {storedScreens?.endClassCreate && (
+            {/* {storedScreens?.endClassCreate && ( */}
               <Link to={`/student/view/endClass/${data.id}`}>
                 <button
                   className="btn btn-border btn-sm mx-2 stdViewBtn"
@@ -93,8 +93,8 @@ function StudentView() {
                   End Class
                 </button>
               </Link>
-            )}
-            {storedScreens?.registerNewCreate && (
+            {/* )}
+            {storedScreens?.registerNewCreate && ( */}
               <Link to={`/student/register/course/${data.id}`}>
                 <button
                   className="btn btn-border btn-sm mx-2 stdViewBtn"
@@ -103,8 +103,8 @@ function StudentView() {
                   Register New Course
                 </button>
               </Link>
-            )}
-            {storedScreens?.deductDepositCreate && (
+            {/* )}
+            {storedScreens?.deductDepositCreate && ( */}
               <Link to={"/student/view/deposit"}>
                 <button
                   className="btn btn-border btn-sm ms-2 "
@@ -113,7 +113,7 @@ function StudentView() {
                   Deduct Deposit
                 </button>
               </Link>
-            )}
+            {/* )} */}
             <StudentSummary className="ms-2" data={data} />
             <Link to={"/student"}>
               <button
@@ -159,8 +159,8 @@ function StudentView() {
                                 <b className="mx-2">:</b>
                                 {centerData &&
                                   centerData.map((center) =>
-                                    parseInt(data.centerId) === center.id
-                                      ? center.centerNames || "--"
+                                    parseInt(data.childCareId) === center.id
+                                      ? center.childCareNames || "--"
                                       : ""
                                   )}
                               </p>
@@ -177,7 +177,7 @@ function StudentView() {
                             <div className="col-6">
                               <p className="text-muted text-sm">
                                 <b className="mx-2">:</b>
-                                {data.studentName || "--"}
+                                {data.childName || "--"}
                               </p>
                             </div>
                           </div>
@@ -190,7 +190,7 @@ function StudentView() {
                             <div className="col-6">
                               <p className="text-muted text-sm">
                                 <b className="mx-2">:</b>{" "}
-                                {data.studentChineseName || "--"}
+                                {data.childChineseName || "--"}
                               </p>
                             </div>
                           </div>
@@ -350,7 +350,7 @@ function StudentView() {
                             <div className="col-6">
                               <p className="text-muted text-sm">
                                 <b className="mx-2">:</b>{" "}
-                                {data.referByStudent || "--"}
+                                {data.referByChild || "--"}
                               </p>
                             </div>
                           </div>
@@ -466,11 +466,11 @@ function StudentView() {
                             <div className="col-6">
                               <p className="text-muted text-sm">
                                 <b className="mx-2">:</b>
-                                {data.studentEmergencyContacts &&
-                                data.studentEmergencyContacts.length > 0 &&
-                                data.studentEmergencyContacts[0]
+                                {data.childEmergencyContacts &&
+                                data.childEmergencyContacts.length > 0 &&
+                                data.childEmergencyContacts[0]
                                   .emergencyContactName
-                                  ? data.studentEmergencyContacts[0]
+                                  ? data.childEmergencyContacts[0]
                                       .emergencyContactName
                                   : "--"}
                               </p>
@@ -485,11 +485,11 @@ function StudentView() {
                             <div className="col-6">
                               <p className="text-muted text-sm">
                                 <b className="mx-2">:</b>
-                                {data.studentEmergencyContacts &&
-                                data.studentEmergencyContacts.length > 0 &&
-                                data.studentEmergencyContacts[0]
+                                {data.childEmergencyContacts &&
+                                data.childEmergencyContacts.length > 0 &&
+                                data.childEmergencyContacts[0]
                                   .emergencyContactNo
-                                  ? data.studentEmergencyContacts[0]
+                                  ? data.childEmergencyContacts[0]
                                       .emergencyContactNo
                                   : "--"}
                               </p>
@@ -504,11 +504,11 @@ function StudentView() {
                             <div className="col-6">
                               <p className="text-muted text-sm">
                                 <b className="mx-2">:</b>
-                                {data.studentEmergencyContacts &&
-                                data.studentEmergencyContacts.length > 0 &&
-                                data.studentEmergencyContacts[0]
+                                {data.childEmergencyContacts &&
+                                data.childEmergencyContacts.length > 0 &&
+                                data.childEmergencyContacts[0]
                                   .emergencyRelation
-                                  ? data.studentEmergencyContacts[0]
+                                  ? data.childEmergencyContacts[0]
                                       .emergencyRelation
                                   : "--"}
                               </p>
@@ -531,7 +531,7 @@ function StudentView() {
                         <h5 className="my-4">
                           Authorized Person to take Child From Home
                         </h5>
-                        {data?.studentEmergencyContacts?.[0]?.emergencyAuthorizedContactModels?.map(
+                        {data?.childEmergencyContacts?.[0]?.emergencyAuthorizedContactModels?.map(
                           (emergency, index) => (
                             <div className="row" key={index}>
                               <div className="d-flex align-items-center justify-content-between">
@@ -669,9 +669,9 @@ function StudentView() {
                     Parent / Guardian
                   </button>
                 </h2>
-                {data.studentParentsDetails &&
-                  data.studentParentsDetails.length > 0 &&
-                  data.studentParentsDetails.map((parent, index) => (
+                {data.childParentsDetails &&
+                  data.childParentsDetails.length > 0 &&
+                  data.childParentsDetails.map((parent, index) => (
                     <div
                       id="panelsStayOpen-collapseThree"
                       class="accordion-collapse collapse"
@@ -839,10 +839,10 @@ function StudentView() {
                               <div className="col-6">
                                 <p className="text-muted text-sm">
                                   <b className="mx-2">:</b>
-                                  {data.studentParentsDetails &&
-                                  data.studentParentsDetails.length > 0 &&
-                                  data.studentParentsDetails[0].address
-                                    ? data.studentParentsDetails[0].address
+                                  {data.childParentsDetails &&
+                                  data.childParentsDetails.length > 0 &&
+                                  data.childParentsDetails[0].address
+                                    ? data.childParentsDetails[0].address
                                     : "--"}
                                 </p>
                               </div>
@@ -980,8 +980,8 @@ function StudentView() {
                       </div>
                     </div>
                   ))}
-                {(!data.studentParentsDetails ||
-                  data.studentParentsDetails.length === 0) && (
+                {(!data.childParentsDetails ||
+                  data.childParentsDetails.length === 0) && (
                   <div
                     id="panelsStayOpen-collapseThree"
                     class="accordion-collapse collapse"
@@ -1033,22 +1033,22 @@ function StudentView() {
                           </tr>
                         </thead>
                         <tbody>
-                          {data.studentRelationModels &&
-                            data.studentRelationModels.map((std, index) => (
+                          {data.childRelationModels &&
+                            data.childRelationModels.map((std, index) => (
                               <tr key={std.id}>
                                 <td>{index + 1}</td>
                                 <td>
                                   {centerData &&
                                     centerData.map((center) =>
-                                      parseInt(data.center) === center.id
-                                        ? center.centerNames || "--"
+                                      parseInt(data.childCareId) === center.id
+                                        ? center.childCareNames || "--"
                                         : ""
                                     )}
                                 </td>
                                 <td>
-                                  {std.studentRelationStudentName || "--"}
+                                  {std.childRelationChildName || "--"}
                                 </td>
-                                <td>{std.studentRelation || "--"}</td>
+                                <td>{std.childRelation || "--"}</td>
                               </tr>
                             ))}
                         </tbody>
@@ -1105,15 +1105,15 @@ function StudentView() {
                           </tr>
                         </thead>
                         <tbody>
-                          {data.studentCourseDetailModels &&
-                            data.studentCourseDetailModels.map((std, index) => (
+                          {data.childCourseDetailModels &&
+                            data.childCourseDetailModels.map((std, index) => (
                               <tr key={std.id}>
                                 <td>{index + 1}</td>
                                 <td>
                                   {" "}
                                   {courseData &&
                                     courseData.map((course) =>
-                                      parseInt(std.course) === course.id
+                                      parseInt(std.id) === course.id
                                         ? course.courseNames || "--"
                                         : ""
                                     )}
@@ -1145,9 +1145,9 @@ function StudentView() {
                         </tbody>
                       </table>
                     </div>
-                    {data.studentCourseDetailModels &&
-                      data.studentCourseDetailModels.length > 0 &&
-                      data.studentCourseDetailModels.map((parent) => (
+                    {data.childCourseDetailModels &&
+                      data.childCourseDetailModels.length > 0 &&
+                      data.childCourseDetailModels.map((parent) => (
                         <div className="container-fluid col-12 p-2">
                           <h6>Parent Signature</h6>
                           <img
@@ -1161,8 +1161,8 @@ function StudentView() {
                           ></img>
                         </div>
                       ))}
-                    {(!data.studentCourseDetailModels ||
-                      data.studentCourseDetailModels.length === 0) && (
+                    {(!data.childCourseDetailModels ||
+                      data.childCourseDetailModels?.length === 0) && (
                       <img
                         // src={BlockImg}
                         className="img-fluid rounded"

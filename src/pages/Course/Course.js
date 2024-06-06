@@ -15,21 +15,21 @@ const Course = () => {
   // const { id } = useParams();
   const tableRef = useRef(null);
   const [datas, setDatas] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get("/getAllCourses");
-  //       setDatas(response.data);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching data ", error);
-  //     }
-  //   };
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get("/getAllCourses");
+        setDatas(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data ", error);
+      }
+    };
+    getData();
+  }, []);
 
   useEffect(() => {
     if (!loading) {
@@ -125,20 +125,20 @@ const Course = () => {
                         )}
                       </td>
                       <td>
-                        {storedScreens?.courseRead && (
+                        {/* {storedScreens?.courseRead && ( */}
                           <Link to={`/course/view/${data.id}`}>
                             <button className="btn btn-sm">
                               <FaEye />
                             </button>
                           </Link>
-                        )}
-                        {storedScreens?.courseUpdate && (
+                        {/* )}
+                        {storedScreens?.courseUpdate && ( */}
                           <Link to={`/course/edit/${data.id}`}>
                             <button className="btn btn-sm">
                               <FaEdit />
                             </button>
                           </Link>
-                        )}
+                        {/* )} */}
                         {/* {storedScreens?.courseDelete && (
                     <Delete
                       onSuccess={refreshData}
@@ -146,7 +146,7 @@ const Course = () => {
                     />
                   )} */}
 
-                        {storedScreens?.curriculumIndex && (
+                        {/* {storedScreens?.curriculumIndex && ( */}
                           <OverlayTrigger
                             placement="top"
                             overlay={
@@ -159,7 +159,7 @@ const Course = () => {
                               </button>
                             </Link>
                           </OverlayTrigger>
-                        )}
+                        {/* )} */}
                       </td>
                     </tr>
                   ))}

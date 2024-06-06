@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 import { toast } from "react-toastify";
 import api from "../../../config/URL";
-// import fetchAllEmployeeListByCenter from "../../List/EmployeeList";
+import fetchAllEmployeeListByCenter from "../../List/EmployeeList";
 
 const validationSchema = Yup.object({
-  centerId: Yup.string().required("*Select a Centre Name"),
+  childCareId: Yup.string().required("*Select a Centre Name"),
   userId: Yup.string().required("*Employee Name is required"),
   leaveType: Yup.string().required("*Select a Leave Type"),
   fromDate: Yup.string().required("*From Date is required"),
@@ -28,7 +28,7 @@ function LeaveAdminEdit() {
   const { id } = useParams();
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      childCareId: "",
       centerName: "",
       userId: "",
       leaveType: "",
@@ -53,8 +53,8 @@ function LeaveAdminEdit() {
       // console.log("user Data", values.userId)
 
       centerData.forEach((center) => {
-        if (parseInt(values.centerId) === center.id) {
-          selectedCenterName = center.centerNames || "--";
+        if (parseInt(values.childCareId) === center.id) {
+          selectedCenterName = center.childCareNames || "--";
         }
       });
 
@@ -65,8 +65,8 @@ function LeaveAdminEdit() {
       });
 
       const payload = {
-        centerId: values.centerId,
-        centerName: selectedCenterName,
+        childCareId: values.childCareId,
+        childCareName: selectedCenterName,
         userId: values.userId,
         employeeName: selectedTeacherName,
         leaveType: values.leaveType,
@@ -108,21 +108,21 @@ function LeaveAdminEdit() {
   });
 
   const fetchData = async () => {
-    // try {
-    //   const centers = await fetchAllCentersWithIds();
-    //   setCenterData(centers);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centers = await fetchAllCentersWithIds();
+      setCenterData(centers);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const fetchTeacher = async (centerId) => {
-    // try {
-    //   const teacher = await fetchAllEmployeeListByCenter(centerId);
-    //   setTeacherData(teacher);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const teacher = await fetchAllEmployeeListByCenter(centerId);
+      setTeacherData(teacher);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const calculateDays = (fromDate, toDate) => {
@@ -161,26 +161,26 @@ function LeaveAdminEdit() {
     fetchTeacher(centerId);
   };
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get(`/getUserLeaveRequestById/${id}`);
-  //       console.log(response.data);
-  //       formik.setValues(response.data);
-  //       fetchData();
-  //       fetchTeacher(response.data.centerId);
-  //       const { daysDifference } = calculateDays(
-  //         response.data.fromDate,
-  //         response.data.toDate
-  //       );
-  //       setDaysDifference(daysDifference);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get(`/getUserLeaveRequestById/${id}`);
+        console.log(response.data);
+        formik.setValues(response.data);
+        fetchData();
+        fetchTeacher(response.data.centerId);
+        const { daysDifference } = calculateDays(
+          response.data.fromDate,
+          response.data.toDate
+        );
+        setDaysDifference(daysDifference);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  //   getData();
-  // }, [id]);
+    getData();
+  }, [id]);
 
   return (
     <section>

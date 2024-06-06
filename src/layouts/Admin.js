@@ -29,7 +29,6 @@ import EnrollmentEdit from "../pages/Lead/Enrollment/EnrollmentEdit";
 import LeadView from "../pages/Lead/LeadView";
 import StudentAdd from "../pages/Student/StudentAdd";
 import StudentEdit from "../pages/Student/StudentEdit";
-import StudentListing from "../pages/Student/Listing/StudentListing";
 import StudentView from "../pages/Student/StudentView";
 import StudentTransferOut from "../pages/Student/StudentTransferOut";
 import StudentChangeClass from "../pages/Student/StudentChangeClass";
@@ -102,6 +101,7 @@ import SendNotification from "../pages/SendNotification/SendNotification";
 import SendNotificationAdd from "../pages/SendNotification/SendNotificationAdd";
 import SendNotificationEdit from "../pages/SendNotification/SendNotificationEdit";
 import Home from "../pages/Home";
+import Student from "../pages/Student/Student";
 
 function Admin({ handleLogout }) {
   return (
@@ -110,179 +110,205 @@ function Admin({ handleLogout }) {
         <Sidebar onLogout={handleLogout} />
         <div className="h-screen flex-grow-1 overflow-y-lg-auto">
           <main className="py-6 bg-surface-secondary">
-           <div style={{minHeight: '85vh'}}>
-           <Routes>
-              <Route path="/" element={<Home />}/>
-              <Route path="/center" element={<Center />} />
-              <Route path="/center/add" element={<CenterAdd />} />
-              <Route path="/center/view" element={<CenterView />} />
-              <Route path="/center/edit" element={<CenterEdit />} />
+            <div style={{ minHeight: "85vh" }}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/center" element={<Center />} />
+                <Route path="/center/add" element={<CenterAdd />} />
+                <Route path="/center/view/:id" element={<CenterView />} />
+                <Route path="/center/edit/:id" element={<CenterEdit />} />
 
-              <Route path="/course" element={<Course />} />
-              <Route path="/course/add" element={<CourseAdd />} />
-              <Route path="/course/edit" element={<CourseEdit />} />
-              <Route path="/course/view" element={<CourseView />} />
-              {/* <Route path="/course/curriculum/:id" element={<Curriculum />} />
+                <Route path="/course" element={<Course />} />
+                <Route path="/course/add" element={<CourseAdd />} />
+                <Route path="/course/edit/:id" element={<CourseEdit />} />
+                <Route path="/course/view/:id" element={<CourseView />} />
+                {/* <Route path="/course/curriculum/:id" element={<Curriculum />} />
               <Route path="/curriculum" element={<Curriculum />} /> */}
 
-              <Route path="/level" element={<Level />} />
-              <Route path="/level/add" element={<LevelAdd />} />
-              <Route path="/level/edit" element={<LevelEdit />} />
-              <Route path="/level/view" element={<LevelView />} />
+                <Route path="/level" element={<Level />} />
+                <Route path="/level/add" element={<LevelAdd />} />
+                <Route path="/level/edit/:id" element={<LevelEdit />} />
+                <Route path="/level/view/:id" element={<LevelView />} />
 
-              <Route path="/subject" element={<Subject />} />
-              <Route path="/subject/add" element={<SubjectAdd />} />
-              <Route path="/subject/edit" element={<SubjectEdit />} />
-              <Route path="/subject/view" element={<SubjectView />} />
+                <Route path="/subject" element={<Subject />} />
+                <Route path="/subject/add" element={<SubjectAdd />} />
+                <Route path="/subject/edit" element={<SubjectEdit />} />
+                <Route path="/subject/view/:id" element={<SubjectView />} />
 
-              <Route path="/class" element={<Class />} />
-              <Route path="/class/add" element={<ClassAdd />} />
-              <Route path="/class/edit" element={<ClassEdit />} />
-              <Route path="/class/view" element={<ClassView />} />
+                <Route path="/class" element={<Class />} />
+                <Route path="/class/add" element={<ClassAdd />} />
+                <Route path="/class/edit/:id" element={<ClassEdit />} />
+                <Route path="/class/view/:id" element={<ClassView />} />
 
-              <Route path="/lead/lead" element={<Lead />} />
-              <Route path="/lead/enrollment/add" element={<EnrollmentAdd />} />
-              <Route path="/lead/lead/add" element={<LeadAdd />} />
-              <Route path="/lead/lead/edit" element={<EnrollmentEdit />} />
-              <Route path="/lead/lead/view" element={<LeadView />} />
+                <Route path="/lead/lead" element={<Lead />} />
+                {/* <Route
+                  path="/lead/enrollment/add"
+                  element={<EnrollmentAdd />}
+                /> */}
+                <Route path="/lead/lead/add" element={<EnrollmentAdd />} />
+                <Route path="/lead/lead/edit/:id" element={<EnrollmentEdit />} />
+                <Route path="/lead/lead/view/:id" element={<LeadView />} />
 
-              {/* Document  */}
-              <Route path="/document" element={<Document />} />
-              <Route path="/document/add" element={<DocumentAdd />} />
-              <Route path="/document/edit" element={<DocumentEdit />} />
-              <Route path="/document/view/:id" element={<DocumentView />} />
-              <Route path="/documentfile" element={<DocumentFile />} />
-              {/* Report */}
-              <Route path="/report/attendance" element={<ReportAttendance />} />
-              <Route path="/report/enrolment" element={<Enrollment />} />
-              <Route path="/report/fee" element={<Fee />} />
-              <Route path="/report/package" element={<Package />} />
-              <Route path="/report/sales" element={<Sales />} />
-              <Route path="/report/studentreport" element={<StudentReport />} />
-              <Route path="/report/document" element={<DocumentReport />} />
-              <Route path="/report/replace_class" element={<ReplaceClass />} />
-              <Route
-                path="/report/document/view"
-                element={<DocumentReportView />}
-              />
-              <Route path="/report/assessment" element={<AssessmentReport />} />
+                {/* Document  */}
+                <Route path="/document" element={<Document />} />
+                <Route path="/document/add" element={<DocumentAdd />} />
+                <Route path="/document/edit" element={<DocumentEdit />} />
+                <Route path="/document/view/:id" element={<DocumentView />} />
+                <Route path="/documentfile" element={<DocumentFile />} />
+                {/* Report */}
+                <Route
+                  path="/report/attendance"
+                  element={<ReportAttendance />}
+                />
+                <Route path="/report/enrolment" element={<Enrollment />} />
+                <Route path="/report/fee" element={<Fee />} />
+                <Route path="/report/package" element={<Package />} />
+                <Route path="/report/sales" element={<Sales />} />
+                <Route
+                  path="/report/studentreport"
+                  element={<StudentReport />}
+                />
+                <Route path="/report/document" element={<DocumentReport />} />
+                <Route
+                  path="/report/replace_class"
+                  element={<ReplaceClass />}
+                />
+                <Route
+                  path="/report/document/view"
+                  element={<DocumentReportView />}
+                />
+                <Route
+                  path="/report/assessment"
+                  element={<AssessmentReport />}
+                />
 
-              {/* Student */}
-              {/* <Route path="/student" element={<Student />} /> */}
-              <Route path="/student" element={<StudentAdd />} />
-              <Route
-                path="/student/studentedit/:id"
-                element={<StudentEdit />}
-              />
-              <Route path="/student/view/:id" element={<StudentView />} />
-              <Route
-                path="/student/view/transferOut/:id"
-                element={<StudentTransferOut />}
-              />
-              <Route
-                path="/student/view/changeClass"
-                element={<StudentChangeClass />}
-              />
-              <Route
-                path="/student/view/endClass/:id"
-                element={<StudentEndClass />}
-              />
-              <Route
-                path="/student/view/deposit"
-                element={<StudentDeposit />}
-              />
-              <Route path="/student/withdraw" element={<WithdrawAdd />} />
-              <Route
-                path="/student/register/course/:id"
-                element={<StudentRegisterCourse />}
-              />
-              <Route path="/studentlisting" element={<StudentListing />} />
+                {/* Student */}
+                <Route path="/student" element={<Student />} />
+                <Route path="/student/add" element={<StudentAdd />} />
+                <Route
+                  path="/student/edit/:id"
+                  element={<StudentEdit />}
+                />
+                <Route path="/student/view/:id" element={<StudentView />} />
+                <Route
+                  path="/student/view/transferOut/:id"
+                  element={<StudentTransferOut />}
+                />
+                <Route
+                  path="/student/view/changeClass"
+                  element={<StudentChangeClass />}
+                />
+                <Route
+                  path="/student/view/endClass/:id"
+                  element={<StudentEndClass />}
+                />
+                <Route
+                  path="/student/view/deposit"
+                  element={<StudentDeposit />}
+                />
+                <Route path="/student/withdraw" element={<WithdrawAdd />} />
+                <Route
+                  path="/student/register/course/:id"
+                  element={<StudentRegisterCourse />}
+                />
+                {/* <Route path="/studentlisting" element={<StudentListing />} /> */}
 
-              {/* Attendances */}
-              <Route path="/attendance/list" element={<AttendancesCourse />} />
-              <Route path="/attendance" element={<Attendances/>} />
-              <Route path="/attendance/add" element={<AttendancesAdd />} />
-              <Route path="/attendance/edit" element={<AttendancesEdit />} />
+                {/* Attendances */}
+                <Route
+                  path="/attendance/list"
+                  element={<AttendancesCourse />}
+                />
+                <Route path="/attendance" element={<Attendances />} />
+                <Route path="/attendance/add" element={<AttendancesAdd />} />
+                <Route path="/attendance/edit" element={<AttendancesEdit />} />
 
-              {/* ScheduleTeacher */}
-              <Route path="/scheduleteacher" element={<ScheduleTeacher />} />
-              <Route
-                path="/scheduleteacher/add"
-                element={<ScheduleTeacherAdd />}
-              />
-              <Route
-                path="/scheduleteacher/edit/:id"
-                element={<ScheduleTeacherEdit />}
-              />
-              <Route
-                path="/scheduleteacher/view/:id"
-                element={<ScheduleTeacherView />}
-              />
-              <Route
-                path="/scheduleteacher/scheduletime/:id"
-                element={<ScheduleTime />}
-              />
+                {/* ScheduleTeacher */}
+                <Route path="/scheduleteacher" element={<ScheduleTeacher />} />
+                <Route
+                  path="/scheduleteacher/add"
+                  element={<ScheduleTeacherAdd />}
+                />
+                <Route
+                  path="/scheduleteacher/edit/:id"
+                  element={<ScheduleTeacherEdit />}
+                />
+                <Route
+                  path="/scheduleteacher/view/:id"
+                  element={<ScheduleTeacherView />}
+                />
+                <Route
+                  path="/scheduleteacher/scheduletime/:id"
+                  element={<ScheduleTime />}
+                />
 
-              <Route path="/holiday" element={<Holiday />} />
-              <Route path="/holiday/add" element={<HolidayAdd />} />
-              <Route path="/holiday/edit" element={<HolidayEdit />} />
-              <Route path="/holiday/list" element={<HolidayView />} />
+                <Route path="/holiday" element={<Holiday />} />
+                <Route path="/holiday/add" element={<HolidayAdd />} />
+                <Route path="/holiday/edit/:id" element={<HolidayEdit />} />
+                <Route path="/holiday/list/:id" element={<HolidayView />} />
 
-              <Route path="/deduction" element={<Deduction />} />
-              <Route path="/deduction/add" element={<DeductionAdd />} />
-              <Route path="/deduction/edit" element={<DeductionEdit />} />
-              <Route path="/deduction/list" element={<DeductionView />} />
+                <Route path="/deduction" element={<Deduction />} />
+                <Route path="/deduction/add" element={<DeductionAdd />} />
+                <Route path="/deduction/edit/:id" element={<DeductionEdit />} />
+                <Route path="/deduction/list/:id" element={<DeductionView />} />
 
-              <Route path="/leaveadmin" element={<LeaveAdmin />} />
-              <Route path="/leaveadmin/edit" element={<LeaveAdminEdit />} />
-              <Route path="/leaveadmin/view" element={<LeaveAdminView />} />
+                <Route path="/leaveadmin" element={<LeaveAdmin />} />
+                <Route path="/leaveadmin/edit" element={<LeaveAdminEdit />} />
+                <Route path="/leaveadmin/view" element={<LeaveAdminView />} />
 
-              <Route path="/leave" element={<Leave />} />
-              <Route path="/leave/add" element={<LeaveAdd />} />
-              <Route path="/leave/view" element={<LeaveView />} />
+                <Route path="/leave" element={<Leave />} />
+                <Route path="/leave/add" element={<LeaveAdd />} />
+                <Route path="/leave/view/:id" element={<LeaveView />} />
 
-              <Route path="/staff" element={<Staff />} />
-              <Route path="/staff/add" element={<StaffAdd />} />
-              <Route path="/staff/edit" element={<StaffEdit />} />
-              <Route path="/staff/view" element={<StaffView />} />
-              <Route path="/staff/leave" element={<StaffLeave />} />
-              <Route path="/staff/leave/view" element={<StaffLeaveView />} />
-              <Route path="/staff/payslip" element={<StaffPayslip />} />
+                <Route path="/staff" element={<Staff />} />
+                <Route path="/staff/add" element={<StaffAdd />} />
+                <Route path="/staff/edit/:id" element={<StaffEdit />} />
+                <Route path="/staff/view/:id" element={<StaffView />} />
+                <Route path="/staff/leave" element={<StaffLeave />} />
+                <Route path="/staff/leave/view" element={<StaffLeaveView />} />
+                <Route path="/staff/payslip" element={<StaffPayslip />} />
 
-              <Route path="/teacher" element={<Teacher />} />
-              <Route path="/teacher/add" element={<TeacherAdd />} />
-              <Route path="/teacher/edit" element={<TeacherEdit />} />
-              <Route path="/teacher/view" element={<TeacherView />} />
-              <Route path="/teacher/leave" element={<TeacherLeave />} />
-              <Route
-                path="/teacher/leave/view"
-                element={<TeacherLeaveView />}
-              />
-              <Route path="/teacher/payslip" element={<TeacherPayslip />} />
+                <Route path="/teacher" element={<Teacher />} />
+                <Route path="/teacher/add" element={<TeacherAdd />} />
+                <Route path="/teacher/edit" element={<TeacherEdit />} />
+                <Route path="/teacher/view" element={<TeacherView />} />
+                <Route path="/teacher/leave" element={<TeacherLeave />} />
+                <Route
+                  path="/teacher/leave/view"
+                  element={<TeacherLeaveView />}
+                />
+                <Route path="/teacher/payslip" element={<TeacherPayslip />} />
 
-              <Route path="/employeepayslip" element={<Payslip />} />
-              <Route path="/employeepayslip/view" element={<ViewPayslip />} />
-              {/* Roles */}
-              <Route path="/role/add" element={<RolesAdd />} />
-              {/* Invoice */}
-              <Route path="/invoice" element={<Invoice />} />
-              <Route path="/invoice/add" element={<InvoiceAdd />} />
-              <Route path="/invoice/edit/:id" element={<InvoiceEdit />} />
-              <Route path="/invoice/view/:id" element={<InvoiceView />} />
+                <Route path="/employeepayslip" element={<Payslip />} />
+                <Route path="/employeepayslip/view" element={<ViewPayslip />} />
+                {/* Roles */}
+                <Route path="/role/add" element={<RolesAdd />} />
+                {/* Invoice */}
+                <Route path="/invoice" element={<Invoice />} />
+                <Route path="/invoice/add" element={<InvoiceAdd />} />
+                <Route path="/invoice/edit/:id" element={<InvoiceEdit />} />
+                <Route path="/invoice/view/:id" element={<InvoiceView />} />
 
-              <Route
-                path="/invoice/invoicepayment"
-                element={<InvoicePayment />}
-              />
-              <Route path="/payment" element={<Payment />} />
+                <Route
+                  path="/invoice/invoicepayment"
+                  element={<InvoicePayment />}
+                />
+                <Route path="/payment" element={<Payment />} />
 
-              
-              {/* Send Notification */}
-              <Route path="/sendNotification" element={<SendNotification />} />
-              <Route path="/sendNotification/add" element={<SendNotificationAdd />} />
-              <Route path="/sendNotification/edit" element={<SendNotificationEdit />} />
-            </Routes>
-           </div>
+                {/* Send Notification */}
+                <Route
+                  path="/sendNotification"
+                  element={<SendNotification />}
+                />
+                <Route
+                  path="/sendNotification/add"
+                  element={<SendNotificationAdd />}
+                />
+                <Route
+                  path="/sendNotification/edit"
+                  element={<SendNotificationEdit />}
+                />
+              </Routes>
+            </div>
             <Footer />
           </main>
         </div>

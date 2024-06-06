@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 // import QR from "../../assets/images/view.png";
-// import Logo from "../../assets/images/Logo.png";
+import Logo from "../../assets/images/Logo.png";
 import { Link, useParams } from "react-router-dom";
 import api from "../../config/URL";
-// import fetchAllCoursesWithIds from "../List/CourseList";
-// import fetchAllStudentsWithIds from "../List/StudentList";
+import fetchAllCoursesWithIds from "../List/CourseList";
+import fetchAllStudentsWithIds from "../List/StudentList";
 import { BsFillSendFill } from "react-icons/bs";
 import { toast } from "react-toastify";
 // import jsPDF from "jspdf";
@@ -24,18 +24,18 @@ function InvoiceView() {
 
   const fetchData = async () => {
     setLoadIndicator(true);
-    // try {
-    //   const courseData = await fetchAllCoursesWithIds();
-    //   const studentData = await fetchAllStudentsWithIds();
-    //   setCourseData(courseData);
-    //   setStudentData(studentData);
-    // } catch (error) {
-    //   toast.error(error.message || "Error fetching data");
-    // } finally {
-    //   setLoadIndicator(false);
-    // }
+    try {
+      const courseData = await fetchAllCoursesWithIds();
+      const studentData = await fetchAllStudentsWithIds();
+      setCourseData(courseData);
+      setStudentData(studentData);
+    } catch (error) {
+      toast.error(error.message || "Error fetching data");
+    } finally {
+      setLoadIndicator(false);
+    }
   };
-
+   console.log("object",data)
   useEffect(() => {
     const getData = async () => {
       try {
@@ -269,11 +269,11 @@ function InvoiceView() {
           {/* <button className="btn btn-border btn-sm me-1 " onClick={generatePDF}>
             Generate Pdf
           </button> */}
-          {storedScreens?.paymentCreate && (
+          {/* {storedScreens?.paymentCreate && ( */}
             <Link to="/invoice/payment">
               <button className="btn btn-button btn-sm">Pay Now</button>
             </Link>
-          )}
+          {/* )} */}
         </div>
       </div>
       <div className="card shadow border-0 minHeight">
@@ -281,7 +281,7 @@ function InvoiceView() {
           <div className="row">
             <div className="col-lg-6 col-md-6 col-12 p-3">
               <div className="d-flex justify-content-center flex-column align-items-start">
-                {/* <img src={Logo} alt=".." /> */}
+                <img src={Logo} alt=".." />
                 <p className="text-center fw-small">
                   Learning Languages The Creative Way
                 </p>
@@ -310,7 +310,7 @@ function InvoiceView() {
                 </div>
                 <div className="col-6">
                   - &nbsp;&nbsp;
-                  {data.studentName || "--"}{" "}
+                  {data.childName || "--"}{" "}
                 </div>
               </div>
               <div className="row my-1">
@@ -318,7 +318,7 @@ function InvoiceView() {
                   <p>Student Id</p>
                 </div>
                 <div className="col-6">
-                  - &nbsp; {data.studentUniqueId || "--"}
+                  - &nbsp; {data.childUniqueId || "--"}
                 </div>
               </div>
             </div>

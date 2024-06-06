@@ -15,6 +15,7 @@ const validationSchema = Yup.object().shape({
 });
 const StaffPersonalEdit = forwardRef(
   ({ formData,setLoadIndicators, setFormData, handleNext }, ref) => {
+    console.log("object",formData)
     const formik = useFormik({
       initialValues: {
         teacherName: formData.teacherName || "",
@@ -44,7 +45,7 @@ const StaffPersonalEdit = forwardRef(
           formDatas.append("gender", data.gender);
           formDatas.append("role", data.role);
           const response = await api.put(
-            `/updateUser/${formData.staff_id}`,
+            `/updateUserById/${formData.id}`,
             formDatas,
             {
               headers: {
@@ -66,12 +67,12 @@ const StaffPersonalEdit = forwardRef(
         }
       },
     });
-
+  
     useEffect(() => {
       const getData = async () => {
         try {
           const response = await api.get(
-            `/getAllUsersById/${formData.staff_id}`
+            `/getAllUserById/${formData.id}`
           );
           const dateOfBirth = response.data.dateOfBirth.substring(0, 10);
           formik.setValues({

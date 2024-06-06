@@ -13,7 +13,7 @@ function Attendances () {
   const [centerData, setCenterData] = useState(null);
   // const [courseData, setCourseData] = useState(null);
   const [selectedCenter, setSelectedCenter] = useState("1");
-  // const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedBatch, setSelectedBatch] = useState("1");
   const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
   const [count, setCount] = useState(0);
@@ -48,32 +48,32 @@ function Attendances () {
 
   const fetchData = async () => {
     // setLoadIndicator(true);
-    // try {
-    //   const requestBody = {
-    //     centerId: selectedCenter,
-    //     batchId: selectedBatch,
-    //     date: selectedDate,
-    //   };
+    try {
+      const requestBody = {
+        centerId: selectedCenter,
+        batchId: selectedBatch,
+        date: selectedDate,
+      };
 
-    //   const response = await api.post(
-    //     "getAllTeacherWithStudentAttendance",
-    //     requestBody
-    //   );
-    //   setAttendanceData(response.data);
-    // } catch (error) {
-    //   toast.error("Error fetching data:", error);
-    // }
+      const response = await api.post(
+        "getAllTeacherWithChildAttendance",
+        requestBody
+      );
+      setAttendanceData(response.data);
+    } catch (error) {
+      toast.error("Error fetching data:", error);
+    }
   };
 
-  // const [count, setCount] = useState(0);
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setCount((prevCount) => prevCount + 1); // Increment count every 5 seconds
-  //   }, 5000);
 
-  //   return () => clearInterval(intervalId); // Clean up the interval on unmount
-  // }, []);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCount((prevCount) => prevCount + 1); // Increment count every 5 seconds
+    }, 5000);
+
+    return () => clearInterval(intervalId); // Clean up the interval on unmount
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -114,36 +114,36 @@ function Attendances () {
   };
 
   const handleSubmit = async (teacherIndex, attendanceItem) => {
-    // try {
-    //   const teacherAttendanceData = attendanceData[teacherIndex];
-    //   const flattenedData = teacherAttendanceData.students
-    //     .filter((student) => student.studentUniqueId)
-    //     .map((student) => ({
-    //       id: student.id,
-    //       studentName: student.studentName,
-    //       attendanceDate: selectedDate,
-    //       biometric: false,
-    //       studentUniqueId: student.studentUniqueId,
-    //       attendanceStatus: student.attendance,
-    //       remarks: student.remarks,
-    //       userId: attendanceItem.userId,
-    //       studentId: student.studentId,
-    //       centerId: attendanceItem.centerId,
-    //       classId: attendanceItem.classId,
-    //       courseId: attendanceItem.courseId,
-    //       batchId: parseInt(selectedBatch),
-    //     }));
-    //   // console.log("Submition Data", flattenedData);
-    //   const response = await api.post("markStudentAttendance", flattenedData);
-    //   if (response.status === 201) {
-    //     toast.success(response.data.message);
-    //     fetchData();
-    //   } else {
-    //     toast.error(response.data.message);
-    //   }
-    // } catch (error) {
-    //   toast.error("Error marking attendance:", error);
-    // }
+    try {
+      const teacherAttendanceData = attendanceData[teacherIndex];
+      const flattenedData = teacherAttendanceData.students
+        .filter((student) => student.studentUniqueId)
+        .map((student) => ({
+          id: student.id,
+          studentName: student.studentName,
+          attendanceDate: selectedDate,
+          biometric: false,
+          studentUniqueId: student.studentUniqueId,
+          attendanceStatus: student.attendance,
+          remarks: student.remarks,
+          userId: attendanceItem.userId,
+          studentId: student.studentId,
+          centerId: attendanceItem.centerId,
+          classId: attendanceItem.classId,
+          courseId: attendanceItem.courseId,
+          batchId: parseInt(selectedBatch),
+        }));
+      // console.log("Submition Data", flattenedData);
+      const response = await api.post("markChildAttendance", flattenedData);
+      if (response.status === 201) {
+        toast.success(response.data.message);
+        fetchData();
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Error marking attendance:", error);
+    }
   };
 
   return (
@@ -163,7 +163,7 @@ function Attendances () {
               {centerData &&
                 centerData.map((center) => (
                   <option key={center.id} value={center.id}>
-                    {center.centerNames}
+                    {center.childCareNames}
                   </option>
                 ))}
             </select>

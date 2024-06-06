@@ -55,9 +55,10 @@ const EditEmergencyContact = forwardRef(
       setRows((prev) => [...prev, {}]);
     };
 
+    console.log("object",formData)
     const formik = useFormik({
       initialValues: {
-        emergencyContactId: "",
+        childEmergencyContactId : "",
         emergencyContactName: formData.emergencyContactName || "",
         authorizedRelation: formData.authorizedRelation || "",
         emergencyContactNo: formData.emergencyContactNo || "",
@@ -75,8 +76,9 @@ const EditEmergencyContact = forwardRef(
       // validationSchema: validationSchema,
       onSubmit: async (data) => {
         setLoadIndicators(true);
+        
         try {
-          if (data.emergencyContactId !== null) {
+          if (data.emergencyContactId!== null) {
             // console.log("ID :",data.emergencyContactId);
             const formDatas = new FormData();
             formDatas.append("emergencyContactName", data.emergencyContactName);
@@ -100,6 +102,8 @@ const EditEmergencyContact = forwardRef(
               formDatas.append("files", contact.files);
             });
             formDatas.append("deleteEmergencyAuthorizedContactIds", 1);
+            console.log("data",data.emergencyContactId
+          )
             const response = await api.put(
               `/updateEmergencyContactWithEmergencyAuthorizedContact/${data.emergencyContactId}`,
               formDatas,
@@ -162,17 +166,17 @@ const EditEmergencyContact = forwardRef(
 
     const fetchData = async () => {
       try {
-        const response = await api.get(`/getAllStudentDetails/${formData.id}`);
+        const response = await api.get(`/getAllChildDetails/${formData.id}`);
         if (
-          response.data.studentEmergencyContacts &&
-          response.data.studentEmergencyContacts.length > 0
+          response.data.childEmergencyContacts &&
+          response.data.childEmergencyContacts.length > 0
         ) {
           formik.setValues({
-            ...response.data.studentEmergencyContacts[0],
-            emergencyContactId: response.data.studentEmergencyContacts[0].id,
+            ...response.data.childEmergencyContacts[0],
+            emergencyContactId: response.data.childEmergencyContacts[0].id,
           });
           setRows(
-            response.data.studentEmergencyContacts[0]
+            response.data.childEmergencyContacts[0]
               .emergencyAuthorizedContactModels
           );
           // setData(
@@ -180,7 +184,7 @@ const EditEmergencyContact = forwardRef(
           // );
           console.log(
             "AuthorizedContactModels:",
-            response.data.studentEmergencyContacts[0]
+            response.data.childEmergencyContacts[0]
               .emergencyAuthorizedContactModels
           );
         } else {

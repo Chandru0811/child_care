@@ -65,7 +65,7 @@ const StaffLoginEdit = forwardRef(
             }
           } else {
             const response = await api.post(
-              `/createUserLoginInfo/${formData.staff_id}`,
+              `/createUserLoginInfo/${formData.id}`,
               values,
               {
                 headers: {
@@ -104,7 +104,7 @@ const StaffLoginEdit = forwardRef(
       const getData = async () => {
         try {
           const response = await api.get(
-            `/getAllUsersById/${formData.staff_id}`
+            `/getAllUsersById/${formData.id}`
           );
           if (
             response.data.userLoginInfoModels &&

@@ -6,11 +6,11 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import api from "../../config/URL";
 import { toast } from "react-toastify";
-// import fetchAllCentersWithIds from "../List/CenterList";
-// import fetchAllStudentsWithIds from "../List/StudentList";
-// import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
-// import fetchAllPackageListByCenter from "../List/PackageListByCenter";
-// import fetchAllStudentListByCenter from "../List/StudentListByCenter";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllStudentsWithIds from "../List/StudentList";
+import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
+import fetchAllPackageListByCenter from "../List/PackageListByCenter";
+import fetchAllStudentListByCenter from "../List/StudentListByCenter";
 
 export default function InvoiceEdit() {
   //  const Rows=[];
@@ -26,11 +26,11 @@ export default function InvoiceEdit() {
 
 
   const [rows, setRows] = useState([{}]);
-
+console.log("rows",rows)
   const validationSchema = Yup.object({
-    centerId: Yup.string().required("*Select a Centre"),
+    childCareId: Yup.string().required("*Select a Centre"),
     parent: Yup.string().required("*Select a parent"),
-    studentId: Yup.string().required("*Select a Student"),
+    childId: Yup.string().required("*Select a Student"),
     courseId: Yup.string().required("*Select a Course"),
     schedule: Yup.string().required("*Select a Schedule"),
     invoiceDate: Yup.string().required("*Invoice Date is required"),
@@ -47,9 +47,9 @@ export default function InvoiceEdit() {
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      childCareId: "",
       parent: "",
-      studentId: "",
+      childId: "",
       courseId: "",
       schedule: "",
       noOfLessons: "",
@@ -76,20 +76,20 @@ export default function InvoiceEdit() {
         },
       ],
     },
-    validationSchema: validationSchema,
+    // validationSchema: validationSchema,
     onSubmit: async (values) => {
       setLoadIndicator(true);
       const payload = {
         generateInvoice: {
-          centerId: values.centerId,
+          childCareId: values.childCareId,
           parent: values.parent,
-          studentId: values.studentId,
+          childId: values.childId,
           courseId: values.courseId,
           schedule: values.schedule,
           invoiceDate: values.invoiceDate,
           noOfLessons: values.noOfLessons,
           dueDate: values.dueDate,
-          packageId: values.packageId,
+          packageId: 3,
           invoicePeriodFrom: values.invoicePeriodFrom,
           invoicePeriodTo: values.invoicePeriodTo,
           // subTotal: parseFloat(values.subTotal), // Ensure numerical values are parsed correctly
@@ -139,52 +139,52 @@ export default function InvoiceEdit() {
   };
 
   const fetchData = async (id) => {
-    // try {
-    //   const centerId = id; // Set the default center ID
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
+    try {
+      const centerId = id; // Set the default center ID
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
 
-    //   const studentData = await fetchAllStudentListByCenter(centerId);
-    //   setStudentData(studentData);
+      const studentData = await fetchAllStudentListByCenter(centerId);
+      setStudentData(studentData);
 
-    //   if (formik.centerId) {
-    //     try {
-    //       const packages = await fetchAllPackageListByCenter(formik.centerId);
-    //       setPackageData(packages);
-    //     } catch (error) {
-    //       toast.error(error);
-    //     }
-    //   }
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+      if (formik.centerId) {
+        try {
+          const packages = await fetchAllPackageListByCenter(formik.centerId);
+          setPackageData(packages);
+        } catch (error) {
+          toast.error(error);
+        }
+      }
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const fetchCourses = async (centerId) => {
-    // try {
-    //   const courses = await fetchAllCoursesWithIdsC(centerId);
-    //   setCourseData(courses);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const courses = await fetchAllCoursesWithIdsC(centerId);
+      setCourseData(courses);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const fetchPackage = async (centerId) => {
-    // try {
-    //   const courses = await fetchAllPackageListByCenter(centerId);
-    //   setPackageData(courses);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const courses = await fetchAllPackageListByCenter(centerId);
+      setPackageData(courses);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const fetchStudent = async (centerId) => {
-    // try {
-    //   const studentId = await fetchAllStudentListByCenter(centerId);
-    //   setStudentData(studentId);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const studentId = await fetchAllStudentListByCenter(centerId);
+      setStudentData(studentId);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const handleCenterChange = (event) => {
@@ -192,7 +192,7 @@ export default function InvoiceEdit() {
     setPackageData(null);
     setStudentData(null);
     const centerId = event.target.value;
-    formik.setFieldValue("centerId", centerId);
+    formik.setFieldValue("childCareId", centerId);
     fetchCourses(centerId);
     fetchPackage(centerId);
     fetchStudent(centerId);
@@ -210,12 +210,13 @@ export default function InvoiceEdit() {
           invoicePeriodTo: response.data.invoicePeriodTo.substring(0, 10),
         };
         formik.setValues(formattedResponseData);
-        setRows(response.data.invoiceItems);
-        formik.setFieldValue("centerId", response.data.centerId);
+        setRows(response.data.invoiceItemsModelList);
+        formik.setFieldValue("childCareId", response.data.childCareId);
+        formik.setFieldValue("invoiceItems", response.data.invoiceItemsModelList);
 
-        fetchCourses(response.data.centerId);
-        fetchPackage(response.data.centerId);
-        fetchData(response.data.centerId);
+        fetchCourses(response.data.childCareId);
+        fetchPackage(response.data.childCareId);
+        fetchData(response.data.childCareId);
         // console.log("Response:", response);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -230,27 +231,29 @@ export default function InvoiceEdit() {
   // Inside your component function
   useEffect(() => {
     // Calculate total Item Amounts
-    const totalItemAmount = formik.values.invoiceItems.reduce(
+    if(formik.values.invoiceItemsModelList){  
+    const totalItemAmount = formik.values.invoiceItemsModelList.reduce(
       (total, item) => total + parseFloat(item.itemAmount || 0),
       0
     );
     formik.setFieldValue("creditAdviceOffset", totalItemAmount.toFixed(2));
 
     // Calculate total Gst
-    const totalGst = formik.values.invoiceItems.reduce(
+    const totalGst = formik.values.invoiceItemsModelList.reduce(
       (total, item) => total + parseFloat(item.gstAmount || 0),
       0
     );
     formik.setFieldValue("gst", totalGst.toFixed(2));
 
     // Calculate total Amount
-    const totalAmount = formik.values.invoiceItems.reduce(
+    const totalAmount = formik.values.invoiceItemsModelList.reduce(
       (total, item) => total + parseFloat(item.totalAmount || 0),
       0
     );
     formik.setFieldValue("totalAmount", totalAmount.toFixed(2));
+  }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formik.values.invoiceItems]);
+  }, [formik.values.invoiceItemsModelList]);
 
   return (
     <div className="container-fluid my-4 center">
@@ -266,10 +269,10 @@ export default function InvoiceEdit() {
                 </label>
                 <br />
                 <select
-                  {...formik.getFieldProps("centerId")}
-                  name="centerId"
+                  {...formik.getFieldProps("childCareId")}
+                  name="childCareId"
                   className={`form-select ${
-                    formik.touched.centerId && formik.errors.centerId
+                    formik.touched.childCareId && formik.errors.childCareId
                       ? "is-invalid"
                       : ""
                   }`}
@@ -279,13 +282,13 @@ export default function InvoiceEdit() {
                   {centerData &&
                     centerData.map((centerId) => (
                       <option key={centerId.id} value={centerId.id}>
-                        {centerId.centerNames}
+                        {centerId.childCareNames}
                       </option>
                     ))}
                 </select>
-                {formik.touched.centerId && formik.errors.centerId && (
+                {formik.touched.childCareId && formik.errors.childCareId && (
                   <div className="invalid-feedback">
-                    {formik.errors.centerId}
+                    {formik.errors.childCareId}
                   </div>
                 )}
               </div>
@@ -313,10 +316,10 @@ export default function InvoiceEdit() {
                 </label>
                 <br />
                 <select
-                  name="studentId"
-                  {...formik.getFieldProps("studentId")}
+                  name="childId"
+                  {...formik.getFieldProps("childId")}
                   className={`form-select ${
-                    formik.touched.studentId && formik.errors.studentId
+                    formik.touched.childId && formik.errors.childId
                       ? "is-invalid"
                       : ""
                   }`}
@@ -329,9 +332,9 @@ export default function InvoiceEdit() {
                       </option>
                     ))}
                 </select>
-                {formik.touched.studentId && formik.errors.studentId && (
+                {formik.touched.childId && formik.errors.childId && (
                   <div className="invalid-feedback">
-                    {formik.errors.studentId}
+                    {formik.errors.childId}
                   </div>
                 )}
               </div>
@@ -629,99 +632,101 @@ export default function InvoiceEdit() {
                     </tr>
                   </thead>
                   <tbody>
-                    {rows.map((row, index) => (
-                      <tr key={index}>
-                        <td>
-                          <input
-                            {...formik.getFieldProps(
-                              `invoiceItems[${index}].item`
-                            )}
-                            className="form-control"
-                            type="text"
-                            style={{ width: "80%" }}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            {...formik.getFieldProps(
-                              `invoiceItems[${index}].itemAmount`
-                            )}
-                            className="form-control"
-                            type="text"
-                            style={{ width: "80%" }}
-                            onChange={(e) => {
-                              const newValue = e.target.value;
-                              formik.setFieldValue(
-                                `invoiceItems[${index}].itemAmount`,
-                                newValue
-                              );
-                              // Calculate total amount when item amount changes
-                              const gstValue =
-                                formik.values.invoiceItems[index].gstAmount ||
-                                0;
-                              const totalAmount = calculateTotalAmount(
-                                newValue,
-                                gstValue
-                              );
-                              formik.setFieldValue(
-                                `invoiceItems[${index}].totalAmount`,
-                                totalAmount
-                              );
-                            }}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            {...formik.getFieldProps(
-                              `invoiceItems[${index}].taxType`
-                            )}
-                            className="form-control"
-                            type="text"
-                            style={{ width: "80%" }}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            {...formik.getFieldProps(
-                              `invoiceItems[${index}].gstAmount`
-                            )}
-                            className="form-control"
-                            type="text"
-                            style={{ width: "80%" }}
-                            onChange={(e) => {
-                              const newValue = e.target.value;
-                              formik.setFieldValue(
-                                `invoiceItems[${index}].gstAmount`,
-                                newValue
-                              );
-                              // Calculate total amount when GST changes
-                              const itemAmount =
-                                formik.values.invoiceItems[index].itemAmount ||
-                                0;
-                              const totalAmount = calculateTotalAmount(
-                                itemAmount,
-                                newValue
-                              );
-                              formik.setFieldValue(
-                                `invoiceItems[${index}].totalAmount`,
-                                totalAmount
-                              );
-                            }}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            {...formik.getFieldProps(
-                              `invoiceItems[${index}].totalAmount`
-                            )}
-                            className="form-control"
-                            type="text"
-                            style={{ width: "80%" }}
-                            readOnly
-                          />
-                        </td>
-                      </tr>
-                    ))}
+                  {rows.map((row, index) =>{ 
+                    console.log("object",row)
+                    return(
+                    <tr key={index}>
+                      <td>
+                        <input
+                          {...formik.getFieldProps(
+                            `invoiceItems[${index}].item`
+                          )}
+                          className="form-control"
+                          type="text"
+                          style={{ width: "80%" }}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          {...formik.getFieldProps(
+                            `invoiceItems[${index}].itemAmount`
+                          )}
+                          className="form-control"
+                          type="text"
+                          style={{ width: "80%" }}
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            formik.setFieldValue(
+                              `invoiceItems[${index}].itemAmount`,
+                              newValue
+                            );
+                            // Calculate total amount when item amount changes
+                            const gstValue =
+                              formik.values.invoiceItems[index].gstAmount ||
+                              0;
+                            const totalAmount = calculateTotalAmount(
+                              newValue,
+                              gstValue
+                            );
+                            formik.setFieldValue(
+                              `invoiceItems[${index}].totalAmount`,
+                              totalAmount
+                            );
+                          }}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          {...formik.getFieldProps(
+                            `invoiceItems[${index}].taxType`
+                          )}
+                          className="form-control"
+                          type="text"
+                          style={{ width: "80%" }}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          {...formik.getFieldProps(
+                            `invoiceItems[${index}].gstAmount`
+                          )}
+                          className="form-control"
+                          type="text"
+                          style={{ width: "80%" }}
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            formik.setFieldValue(
+                              `invoiceItems[${index}].gstAmount`,
+                              newValue
+                            );
+                            // Calculate total amount when GST changes
+                            const itemAmount =
+                              formik.values.invoiceItems[index].itemAmount ||
+                              0;
+                            const totalAmount = calculateTotalAmount(
+                              itemAmount,
+                              newValue
+                            );
+                            formik.setFieldValue(
+                              `invoiceItems[${index}].totalAmount`,
+                              totalAmount
+                            );
+                          }}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          {...formik.getFieldProps(
+                            `invoiceItems[${index}].totalAmount`
+                          )}
+                          className="form-control"
+                          type="text"
+                          style={{ width: "80%" }}
+                          readOnly
+                        />
+                      </td>
+                    </tr>
+                  )})}
                   </tbody>
                 </table>
               </div>

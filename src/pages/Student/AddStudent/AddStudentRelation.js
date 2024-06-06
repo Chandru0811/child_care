@@ -6,7 +6,7 @@ import api from "../../../config/URL";
 import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
-  studentRelationStudentName: Yup.string().required("*Student Name is required!"),
+  childRelationChildName: Yup.string().required("*Student Name is required!"),
 });
 
 const Addrelation = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext }, ref) => {
@@ -27,17 +27,17 @@ const Addrelation = forwardRef(({ formData,setLoadIndicators, setFormData, handl
 
   const formik = useFormik({
     initialValues: {
-      studentRelationCenter: formData.studentRelationCenter || "",
-      studentRelation: formData.studentRelation || "",
-      studentRelationStudentName: formData.studentRelationStudentName || "",
+      childRelationChildCare: formData.childRelationChildCare || "",
+      childRelation: formData.childRelation || "",
+      childRelationChildName: formData.childRelationChildName || "",
     },
     validationSchema: validationSchema,
     onSubmit: async (data) => {
       setLoadIndicators(true);
       try {
-        const requestData = { ...data, studentId: formData.student_id };
+        const requestData = { ...data, childId: formData.student_id };
         const response = await api.post(
-          `/createStudentRelations`,
+          `/createChildRelation`,
           requestData,
           {
             headers: {
@@ -80,16 +80,16 @@ const Addrelation = forwardRef(({ formData,setLoadIndicators, setFormData, handl
                       </label>
                       <br />
                       <select
-                        name="studentRelationCenter"
+                        name="childRelationChildCare"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.studentRelationCenter}
+                        value={formik.values.childRelationChildCare}
                         className="form-select "
                       >
                         <option selected></option>
                          {centerData &&
                           centerData.map((studentRelationCenter) => (
-                        <option key={studentRelationCenter.id} value={studentRelationCenter.id}>{studentRelationCenter.centerNames}</option>
+                        <option key={studentRelationCenter.id} value={studentRelationCenter.id}>{studentRelationCenter.childCareNames}</option>
                       ))}
                       </select>
                     </div>
@@ -101,9 +101,9 @@ const Addrelation = forwardRef(({ formData,setLoadIndicators, setFormData, handl
                       <select
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.studentRelation}
+                        value={formik.values.childRelation}
                         className="form-select "
-                        name="studentRelation"
+                        name="childRelation"
                       >
                         <option value=""></option>
                         <option value="Mother">Mother</option>
@@ -121,16 +121,16 @@ const Addrelation = forwardRef(({ formData,setLoadIndicators, setFormData, handl
                       </label>
                       <br />
                       <input
-                        name="studentRelationStudentName"
+                        name="childRelationChildName"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.studentRelationStudentName}
+                        value={formik.values.childRelationChildName}
                         className="form-control "
                       />
-                      {formik.touched.studentRelationStudentName &&
-                        formik.errors.studentRelationStudentName && (
+                      {formik.touched.childRelationChildName &&
+                        formik.errors.childRelationChildName && (
                           <div className="text-danger">
-                            <small>{formik.errors.studentRelationStudentName}</small>
+                            <small>{formik.errors.childRelationChildName}</small>
                           </div>
                         )}
                     </div>

@@ -33,7 +33,7 @@ const StudentEndClass = () => {
       lastLessonDate: "",
       reason: "",
       otherReason: "",
-      centerRemark: "",
+      childCareRemark: "",
       parentRemark: "",
     },
     validationSchema: validationSchema,
@@ -42,7 +42,7 @@ const StudentEndClass = () => {
       setLoadIndicator(true)
       values.studentId = id;
       try {
-        const response = await api.post("/createStudentEndClass", values, {
+        const response = await api.post("/createChildEndClass", values, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -67,7 +67,7 @@ const StudentEndClass = () => {
       toast.error(error);
     }
   };
-
+ console.log("object",courseData)
   const fetchClasses = async (courseId) => {
     try {
       const classes = await fetchAllClassesWithIds(courseId);
@@ -90,11 +90,11 @@ const StudentEndClass = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllStudentDetails/${id}`);
-        if (response.data.studentCourseDetailModels.length > 0) {
+        const response = await api.get(`/getAllChildDetails/${id}`);
+        if (response.data.childCourseDetailModels.length > 0) {
           const formattedResponseData = {
-            ...response.data.studentCourseDetailModels[0],
-            currentCourse: response.data.studentCourseDetailModels[0].courseId,
+            ...response.data.childCourseDetailModels[0],
+            currentCourse: response.data.childCourseDetailModels[0].courseId,
           };
           formik.setValues(formattedResponseData);
         } else {
@@ -313,15 +313,15 @@ const StudentEndClass = () => {
 
                 <textarea
                   className={`form-control   ${
-                    formik.touched.centerRemark && formik.errors.centerRemark
+                    formik.touched.childCareRemark && formik.errors.childCareRemark
                       ? "is-invalid"
                       : ""
                   }`}
-                  {...formik.getFieldProps("centerRemark")}
+                  {...formik.getFieldProps("childCareRemark")}
                 ></textarea>
-                {formik.touched.centerRemark && formik.errors.centerRemark && (
+                {formik.touched.childCareRemark && formik.errors.childCareRemark && (
                   <div className="invalid-feedback">
-                    {formik.errors.centerRemark}
+                    {formik.errors.childCareRemark}
                   </div>
                 )}
               </div>

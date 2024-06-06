@@ -19,7 +19,7 @@ const EditParentGuardian = forwardRef(
     const getData = async () => {
       setLoadIndicators(true);
       try {
-        const response = await api.get(`/getAllStudentDetails/${formData.id}`);
+        const response = await api.get(`/getAllChildDetails/${formData.id}`);
         setData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -68,13 +68,13 @@ const EditParentGuardian = forwardRef(
                     </tr>
                   </thead>
                   <tbody>
-                    {data.studentParentsDetails &&
-                      data.studentParentsDetails.map((parent, index) => (
+                    {data.childParentsDetails &&
+                      data.childParentsDetails.map((parent, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td>
-                            {/* <p className="my-2 d-flex">
-                              {parent.profileImage ? (
+                            <p className="my-2 d-flex">
+                              {/* {parent.profileImage ? (
                                 <img
                                   src={parent.profileImage}
                                   onError={(e) => {
@@ -91,13 +91,13 @@ const EditParentGuardian = forwardRef(
                                   style={{ width: "40px", height: "40px" }}
                                   alt="Img"
                                 />
-                              )}
+                              )} */}
 
                               {parent.parentName}
                               {parent.primaryContact === true && (
                                 <GoDotFill className="text-primary" />
                               )}
-                            </p> */}
+                            </p>
                           </td>
                           <td>
                             {parent.parentDateOfBirth?.substring(0, 10) || "-"}

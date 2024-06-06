@@ -4,7 +4,7 @@ import api from "../../config/URL";
 const fetchAllPackageListByCenter = async (id) => {
   try {
     const response = await api.get(
-      `getCenterPackageIdsAndNamesByCenterId/${id}`
+      `getChildCarePackageIdsAndNamesByChildCareId/${id}`
     );
     return response.data;
   } catch (error) {

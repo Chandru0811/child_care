@@ -4,11 +4,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../config/URL";
 import { toast } from "react-toastify";
-// import fetchAllCentersWithIds from "../../List/CenterList";
-// import fetchAllEmployeeListByCenter from "../../List/EmployeeList";
+import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllEmployeeListByCenter from "../../List/EmployeeList";
 
 const validationSchema = Yup.object({
-  centerId: Yup.string().required("*Center Name is required"),
+  childCareId: Yup.string().required("*Center Name is required"),
   userId: Yup.string().required("*Employee Name is required"),
   deductionName: Yup.string().required("*Select the Deduction Name"),
   deductionMonth: Yup.string().required("*Select the Deduction Month"),
@@ -24,7 +24,7 @@ function DeductionEdit() {
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      childCareId: "",
       userId: "",
       deductionMonth: "",
       deductionAmount: "",
@@ -65,36 +65,36 @@ function DeductionEdit() {
   };
 
   const fetchData = async () => {
-    // try {
-    //   const centers = await fetchAllCentersWithIds();
-    //   setCenterData(centers);
-    // } catch (error) {
-    //   toast.error(error.message);
-    // }
+    try {
+      const centers = await fetchAllCentersWithIds();
+      setCenterData(centers);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const fetchUserName = async (centerId) => {
-    // try {
-    //   const userNames = await fetchAllEmployeeListByCenter(centerId);
-    //   setUserNameData(userNames);
-    // } catch (error) {
-    //   toast.error(error.message);
-    // }
+    try {
+      const userNames = await fetchAllEmployeeListByCenter(centerId);
+      setUserNameData(userNames);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get(`/getAllUserDeductionById/${id}`);
-  //       formik.setValues(response.data);
-  //       fetchUserName(response.data.centerId);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-  //   getData();
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get(`/getUserDeductionById/${id}`);
+        formik.setValues(response.data);
+        fetchUserName(response.data.centerId);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    getData();
+    fetchData();
+  }, []);
 
   return (
     <section className="HolidayAdd p-3">
@@ -141,9 +141,9 @@ function DeductionEdit() {
                   <lable className="">Centre Name</lable>
                   <span className="text-danger">*</span>
                   <select
-                    {...formik.getFieldProps("centerId")}
+                    {...formik.getFieldProps("childCareId")}
                     className={`form-select ${
-                      formik.touched.centerId && formik.errors.centerId
+                      formik.touched.childCareId && formik.errors.childCareId
                         ? "is-invalid"
                         : ""
                     }`}
@@ -154,13 +154,13 @@ function DeductionEdit() {
                     {centerData &&
                       centerData.map((center) => (
                         <option key={center.id} value={center.id}>
-                          {center.centerNames}
+                          {center.childCareNames}
                         </option>
                       ))}
                   </select>
-                  {formik.touched.centerId && formik.errors.centerId && (
+                  {formik.touched.childCareId && formik.errors.childCareId && (
                     <div className="invalid-feedback">
-                      {formik.errors.centerId}
+                      {formik.errors.childCareId}
                     </div>
                   )}
                 </div>

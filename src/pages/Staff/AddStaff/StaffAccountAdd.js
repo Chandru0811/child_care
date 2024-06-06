@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import api from "../../../config/URL";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
   startDate: Yup.string().required("*Start Date is required"),
@@ -26,7 +26,7 @@ const validationSchema = Yup.object().shape({
   workingDays: Yup.array()
     .of(Yup.string().required("*Working Days is required"))
     .min(1, "*Working Days is required"),
-  centerId: Yup.string().required("*Centres is required"),
+    childCareId: Yup.string().required("*Centres is required"),
 });
 
 const StaffAccountAdd = forwardRef(
@@ -34,12 +34,12 @@ const StaffAccountAdd = forwardRef(
     const [centerData, setCenterData] = useState(null);
 
     const fetchData = async () => {
-      // try {
-      //   const centerData = await fetchAllCentersWithIds();
-      //   setCenterData(centerData);
-      // } catch (error) {
-      //   toast.error(error);
-      // }
+      try {
+        const centerData = await fetchAllCentersWithIds();
+        setCenterData(centerData);
+      } catch (error) {
+        toast.error(error);
+      }
     };
 
     useEffect(() => {
@@ -58,7 +58,7 @@ const StaffAccountAdd = forwardRef(
         endDate: formData.endDate,
         approvelContentRequired: formData.approvelContentRequired,
         workingDays: formData.workingDays || [],
-        centerId: formData.centerId,
+        childCareId: formData.childCareId,
       },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
@@ -72,7 +72,7 @@ const StaffAccountAdd = forwardRef(
         };
         try {
           const response = await api.post(
-            `/createUserAccountInfo`,
+            `/createUserWithProfileImage`,
             updatedData,
             {
               headers: {
@@ -469,9 +469,9 @@ const StaffAccountAdd = forwardRef(
               </lable>
               <div className="input-group mb-3">
                 <select
-                  {...formik.getFieldProps("centerId")}
+                  {...formik.getFieldProps("childCareId")}
                   className={`form-select  ${
-                    formik.touched.centerId && formik.errors.centerId
+                    formik.touched.childCareId && formik.errors.childCareId
                       ? "is-invalid"
                       : ""
                   }`}
@@ -481,13 +481,13 @@ const StaffAccountAdd = forwardRef(
                   {centerData &&
                     centerData.map((centerId) => (
                       <option key={centerId.id} value={centerId.id}>
-                        {centerId.centerNames}
+                        {centerId.childCareNames}
                       </option>
                     ))}
                 </select>
-                {formik.touched.centerId && formik.errors.centerId && (
+                {formik.touched.childCareId && formik.errors.childCareId && (
                   <div className="invalid-feedback">
-                    {formik.errors.centerId}
+                    {formik.errors.childCareId}
                   </div>
                 )}
               </div>

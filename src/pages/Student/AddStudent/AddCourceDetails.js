@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
 const AddcourseDetail = forwardRef(
   ({ formData,setLoadIndicators, setFormData, handleNext }, ref) => {
     const [courseData, setCourseData] = useState(null);
-
+  console.log("object",formData)
     const formik = useFormik({
       initialValues: {
         courseId: formData.courseId || "",
@@ -45,12 +45,12 @@ const AddcourseDetail = forwardRef(
           formDatas.append("endDate", data.endDate);
           formDatas.append("endTime", data.endTime);
           formDatas.append("signatureDate", data.signatureDate);
-          formDatas.append("studentDetailId ", formData.student_id); // Assuming formDatas.student_id is defined
+          formDatas.append("childDetailId ", formData.student_id); // Assuming formDatas.student_id is defined
 
           // You don't need to set parentSignature to null in formDatas, it's already null if not set
 
           const response = await api.post(
-            `/createStudentCourseDetails`,
+            `/createChildCourseDetail`,
             formDatas
           );
 

@@ -12,18 +12,24 @@ import { toast } from "react-toastify";
 // import BlockImg from "../.././../assets/images/Block_Img1.jpg";
 
 const validationSchema = Yup.object().shape({
-  termsAndConditionSignatureDate: Yup.string().required("*Signature Date is required"),
-  agree: Yup.boolean().oneOf([true], "*Agree Terms and conditions is required").required(),
+  termsAndConditionSignatureDate: Yup.string().required(
+    "*Signature Date is required"
+  ),
+  agree: Yup.boolean()
+    .oneOf([true], "*Agree Terms and conditions is required")
+    .required(),
 });
 
 const EditTermsAndCondition = forwardRef(
-  ({ formData,setLoadIndicators, setFormData, handleNext }, ref) => {
+  ({ formData, setLoadIndicators, setFormData, handleNext }, ref) => {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
+    console.log("form", formData);
     const formik = useFormik({
       initialValues: {
         file: null || "",
-        termsAndConditionSignatureDate: formData.termsAndConditionSignatureDate || "",
+        termsAndConditionSignatureDate:
+          formData.termsAndConditionSignatureDate || "",
         agree: formData.agree || "",
       },
       validationSchema: validationSchema,
@@ -33,14 +39,17 @@ const EditTermsAndCondition = forwardRef(
           if (data.stdTermsAndConditionId !== null) {
             const formDatas = new FormData();
             formDatas.append("file", data.file);
-            formDatas.append("termsAndConditionSignatureDate", data.termsAndConditionSignatureDate);
+            formDatas.append(
+              "termsAndConditionSignatureDate",
+              data.termsAndConditionSignatureDate
+            );
             formDatas.append("agree", data.agree);
             formDatas.append(
               "studentTermsAndConditionId",
               data.stdTermsAndConditionId
             );
             const response = await api.put(
-              `/updateStudentTermsAndConditions/${data.stdTermsAndConditionId}`,
+              `/updateChildTermsAndConditions/${data.stdTermsAndConditionId}`,
               formDatas,
               {
                 headers: {
@@ -58,9 +67,9 @@ const EditTermsAndCondition = forwardRef(
             const formDatas = new FormData();
             formDatas.append("file", data.file);
             formDatas.append("agree", data.agree);
-            formDatas.append("studentDetailId", formData.student_id);
+            formDatas.append("childDetailId", formData.student_id);
             const response = await api.post(
-              `/createStudentTermsAndConditions/${data.id}`,
+              `/createChildTermsAndConditions/${data.id}`,
               formDatas,
               {
                 headers: {
@@ -77,7 +86,7 @@ const EditTermsAndCondition = forwardRef(
           }
         } catch (error) {
           toast.error(error);
-        }finally {
+        } finally {
           setLoadIndicators(false);
         }
       },
@@ -96,16 +105,16 @@ const EditTermsAndCondition = forwardRef(
       const getData = async () => {
         try {
           const response = await api.get(
-            `/getAllStudentDetails/${formData.id}`
+            `/getAllChildDetails/${formData.id}`
           );
           if (
-            response.data.studentTermsAndConditions &&
-            response.data.studentTermsAndConditions.length > 0
+            response.data.childTermsAndConditions &&
+            response.data.childTermsAndConditions.length > 0
           ) {
             formik.setValues({
-              ...response.data.studentTermsAndConditions[0],
+              ...response.data.childTermsAndConditions[0],
               stdTermsAndConditionId:
-                response.data.studentTermsAndConditions[0].id,
+                response.data.childTermsAndConditions[0].id,
             });
             setData(response.data);
           } else {
@@ -197,7 +206,9 @@ const EditTermsAndCondition = forwardRef(
                     <div className="col-md-6 col-12">
                       <div className="text-start mt-2">
                         <label className="mb-1 fw-medium">
-                          <small>Signature Date<span className="text-danger">*</span></small>
+                          <small>
+                            Signature Date<span className="text-danger">*</span>
+                          </small>
                         </label>
                         <br />
                         <input
@@ -208,11 +219,14 @@ const EditTermsAndCondition = forwardRef(
                           onBlur={formik.handleBlur}
                           value={formik.values.termsAndConditionSignatureDate}
                         />
-                        {formik.touched.termsAndConditionSignatureDate && formik.errors.termsAndConditionSignatureDate && (
-                      <div className="text-danger">
-                        <small>{formik.errors.termsAndConditionSignatureDate}</small>
-                      </div>
-                    )}
+                        {formik.touched.termsAndConditionSignatureDate &&
+                          formik.errors.termsAndConditionSignatureDate && (
+                            <div className="text-danger">
+                              <small>
+                                {formik.errors.termsAndConditionSignatureDate}
+                              </small>
+                            </div>
+                          )}
                       </div>
                     </div>
                   </div>

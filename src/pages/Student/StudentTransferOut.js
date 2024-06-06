@@ -18,9 +18,9 @@ function StudentTransferOut () {
     courseId: Yup.string().required("Current Course is required"),
     // currentClass: Yup.string().required("Current Class is required"),
     lastLessonDate: Yup.string().required("Last Lesson Date  is required"),
-    centerId: Yup.string().required("Transfer To is required"),
+    childCareId: Yup.string().required("Transfer To is required"),
     reason: Yup.string().required("Reason is required"),
-    centerRemark: Yup.string().required("Centre Remark is required"),
+    childCareRemark: Yup.string().required("Centre Remark is required"),
   });
 
   const fetchData = async () => {
@@ -44,21 +44,21 @@ function StudentTransferOut () {
       courseId: "",
       // currentClass: "",
       lastLessonDate: "",
-      centerId: "",
+      childCareId: "",
       preferTiming: "",
       preferDays: "",
       preferStartDate: "",
       reason: "",
       otherReason: "",
-      centerRemark: "",
+      childCareRemark: "",
       parentRemark: "",
     },
     validationSchema: validationSchema, // Assign the validation schema
     onSubmit: async (values) => {
-      setLoadIndicator(true)
+      // setLoadIndicator(true)
       // console.log(values);
       try {
-        const response = await api.put(`/updateStudentDetail/${id}`, values, {
+        const response = await api.put(`/updatechildDetail/${id}`, values, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -78,12 +78,12 @@ function StudentTransferOut () {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllStudentDetails/${id}`);
-        if (response.data.studentCourseDetailModels.length > 0) {
+        const response = await api.get(`/getAllChildDetails/${id}`);
+        if (response.data.childCourseDetailModels.length > 0) {
           // setData(response.data);
           const formattedResponseData = {
-            courseId: response.data.studentCourseDetailModels[0].courseId,
-            centerId: response.data.centerId,
+            courseId: response.data.childCourseDetailModels[0].courseId,
+            childCareId: response.data.childCareId,
           };
           formik.setValues(formattedResponseData);
         }
@@ -95,6 +95,7 @@ function StudentTransferOut () {
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div className="container">
        
@@ -216,10 +217,10 @@ function StudentTransferOut () {
                 Transfer To<span class="text-danger">*</span>
               </lable>
               <select
-                {...formik.getFieldProps("centerId")}
-                name="centerId"
-                className={`form-control   ${
-                  formik.touched.centerId && formik.errors.centerId
+                {...formik.getFieldProps("childCareId")}
+                name="childCareId"
+                className={`form-select   ${
+                  formik.touched.childCareId && formik.errors.childCareId
                     ? "is-invalid"
                     : ""
                 }`}
@@ -230,12 +231,12 @@ function StudentTransferOut () {
                 {centerData &&
                   centerData.map((center) => (
                     <option key={center.id} value={center.id}>
-                      {center.centerNames}
+                      {center.childCareNames}
                     </option>
                   ))}
               </select>
-              {formik.touched.centerId && formik.errors.centerId && (
-                <div className="invalid-feedback">{formik.errors.centerId}</div>
+              {formik.touched.childCareId && formik.errors.childCareId && (
+                <div className="invalid-feedback">{formik.errors.childCareId}</div>
               )}
             </div>
             <div class="col-md-6 col-12 mb-2 ">
@@ -311,17 +312,17 @@ function StudentTransferOut () {
                 class="form-control "
                 type="text"
                 rows="4"
-                name="centerRemark"
+                name="childCareRemark"
                 className={`form-control  ${
-                  formik.touched.centerRemark && formik.errors.centerRemark
+                  formik.touched.childCareRemark && formik.errors.childCareRemark
                     ? "is-invalid"
                     : ""
                 }`}
-                {...formik.getFieldProps("centerRemark")}
+                {...formik.getFieldProps("childCareRemark")}
               />
-              {formik.touched.centerRemark && formik.errors.centerRemark && (
+              {formik.touched.childCareRemark && formik.errors.childCareRemark && (
                 <div className="invalid-feedback">
-                  {formik.errors.centerRemark}
+                  {formik.errors.childCareRemark}
                 </div>
               )}
             </div>

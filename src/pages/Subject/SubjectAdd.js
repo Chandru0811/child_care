@@ -44,10 +44,10 @@ function SubjectAdd({ onSuccess }) {
           },
         });
         if (response.status === 201) {
-          toast.success(response.data.message);
           navigate("/subject");
           onSuccess();
           handleClose();
+          // toast.success(response.data.message);
         } else {
           toast.error(response.data.message);
         }

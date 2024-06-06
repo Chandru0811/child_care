@@ -12,6 +12,7 @@ import AddPackage from "./Add/AddPackage";
 // import Delete from "../../components/common/Delete";
 import api from "../../config/URL";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Center = () => {
   const tableRef = useRef(null);
@@ -19,22 +20,37 @@ const Center = () => {
   // console.log("Screens : ", SCREENS);
 
   const [datas, setDatas] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const getCenterData = async () => {
+    try {
+      const response = await api.get("getAllChildCare");
+      setDatas(response.data);
+      setLoading(false);
+    } catch (error) {
+      toast.error("Error Fetching Data : ", error);
+    }
+  };
+  // useEffect(() => {
+  //   getCenterData();
+  // }, []);
+  const refreshData = async () => {
+    destroyDataTable();
+    setLoading(true);
+    try {
+      const response = await api.get("getAllChildCare");
+      setDatas(response.data);
+      initializeDataTable(); // Reinitialize DataTable after successful data update
+    } catch (error) {
+      console.error("Error refreshing data:", error);
+    }
+    setLoading(false);
+  };
+
 
   useEffect(() => {
-    const getCenterData = async () => {
-      try {
-        const response = await api.get("/getAllCenter");
-        setDatas(response.data);
-        setLoading(false);
-      } catch (error) {
-        toast.error("Error Fetching Data : ", error);
-      }
-    };
+   
     getCenterData();
-  }, []);
-
-  useEffect(() => {
     if (!loading) {
       initializeDataTable();
     }
@@ -42,6 +58,18 @@ const Center = () => {
       destroyDataTable();
     };
   }, [loading]);
+
+  // useEffect(() => {
+  //   getCenterData();
+  //   if (!loading) {
+  //     const table = $(tableRef.current).DataTable({
+  //       responsive: true,
+  //     });
+  //     return () => {
+  //       table.destroy();
+  //     };
+  //   }
+  // }, [loading]);
 
   const initializeDataTable = () => {
     if ($.fn.DataTable.isDataTable(tableRef.current)) {
@@ -58,19 +86,7 @@ const Center = () => {
     }
   };
 
-  const refreshData = async () => {
-    destroyDataTable();
-    setLoading(true);
-    try {
-      const response = await api.get("/getAllCenter");
-      setDatas(response.data);
-      initializeDataTable(); // Reinitialize DataTable after successful data update
-    } catch (error) {
-      console.error("Error refreshing data:", error);
-    }
-    setLoading(false);
-  };
-
+ 
   return (
     <div className="container-fluid center">
       <div className="card shadow border-0 mb-2">
@@ -123,8 +139,8 @@ const Center = () => {
                   {datas.map((data, index) => (
                     <tr key={index}>
                       <th scope="row">{index + 1}</th>
-                      <td>{data.centerName}</td>
-                      <td>{data.centerManager}</td>
+                      <td>{data.childCareName}</td>
+                      <td>{data.childCareManager}</td>
                       <td>{data.code}</td>
                       <td>{data.uenNumber}</td>
                       <td>{data.mobile}</td>
@@ -194,7 +210,7 @@ const Center = () => {
                           {/* {storedScreens?.centerListingDelete && (
                       <Delete
                         onSuccess={refreshData}
-                        path={`/deleteCenter/${data.id}`}
+                        path={`/deleteChildCare/${data.id}`}
                         style={{ display: "inline-block" }}
                       />
                     )} */}

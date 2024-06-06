@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../../config/URL";
 import { toast } from "react-toastify";
-// import fetchAllSubjectsWithIds from "../../../List/SubjectList";
+import fetchAllSubjectsWithIds from "../../../List/SubjectList";
 
 const validationSchema = Yup.object().shape({
   studentName: Yup.string().required("*Name is required"),
@@ -67,12 +67,12 @@ const Form1 = forwardRef(({ formData, setFormData, handleNext }, ref) => {
   });
 
   const fetchData = async () => {
-    // try {
-    //   const subjectData = await fetchAllSubjectsWithIds();
-    //   setSubjectData(subjectData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const subjectData = await fetchAllSubjectsWithIds();
+      setSubjectData(subjectData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {

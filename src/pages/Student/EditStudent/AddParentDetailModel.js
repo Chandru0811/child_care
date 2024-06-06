@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FaEdit } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const validationSchema = Yup.object().shape({
   parentInformation: Yup.array().of(
@@ -131,8 +132,8 @@ const AddParentDetailModel = forwardRef(({ formData }) => {
           formDatas.append(`primaryContacts`,false);
         });
 
-        const response = await api.post(
-          `/createMultipleStudentParentsDetailsWithProfileImages/${id}`,
+        const response = await axios.post(
+          `/createMultipleChildParentsDetailsWithProfileImages/${id}`,
           formDatas,
           {
             headers: {
@@ -157,8 +158,9 @@ const AddParentDetailModel = forwardRef(({ formData }) => {
 
   const getData = async () => {
     try {
-      const response = await api.get(`/getAllStudentDetails/${formData.id}`);
+      const response = await api.get(`/getAllChildDetails/${formData.id}`);
       setData(response.data);
+      formik.setFieldValue(response.data)
     } catch (error) {
       console.error("Error fetching data:", error);
     }

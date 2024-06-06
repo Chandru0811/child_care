@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import api from "../../../config/URL";
 import { toast } from "react-toastify";
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../List/CenterList";
 
 function LeaveAdminView() {
   const [data, setData] = useState([]);
@@ -12,14 +12,14 @@ function LeaveAdminView() {
   // const [teacherData, setTeacherData] = useState(null);
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   // const teacherData = await fetchAllTeachersWithIds();
-    //   setCenterData(centerData);
-    //   // setTeacherData(teacherData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      // const teacherData = await fetchAllTeachersWithIds();
+      setCenterData(centerData);
+      // setTeacherData(teacherData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {

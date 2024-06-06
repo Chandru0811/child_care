@@ -4,18 +4,18 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-// import Delete from "../../components/common/Delete";
+import Delete from "../../components/common/Delete";
 import api from "../../config/URL";
-// import fetchAllCoursesWithIds from "../List/CourseList";
-// import fetchAllCentersWithIds from "../List/CenterList";
-// import fetchAllStudentsWithIds from "../List/StudentList";
+import fetchAllCoursesWithIds from "../List/CourseList";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllStudentsWithIds from "../List/StudentList";
 import { toast } from "react-toastify";
 // import { SCREENS } from "../../config/ScreenFilter";
 
 const Invoice = () => {
   const tableRef = useRef(null);
   const [datas, setDatas] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [centerData, setCenterData] = useState(null);
   const [courseData, setCourseData] = useState(null);
   const [studentData, setStudentData] = useState(null);
@@ -25,34 +25,34 @@ const Invoice = () => {
   // console.log("Screens : ", SCREENS);
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   const courseData = await fetchAllCoursesWithIds();
-    //   const studentData = await fetchAllStudentsWithIds();
-    //   const packageData = await api.get("getAllCentersPackageWithIds");
-    //   setPackageData(packageData.data);
-    //   setCenterData(centerData);
-    //   setCourseData(courseData);
-    //   setStudentData(studentData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerDatas = await fetchAllCentersWithIds();
+      const courseData = await fetchAllCoursesWithIds();
+      const studentData = await fetchAllStudentsWithIds();
+      const packageData = await api.get("getAllChildCarePackageWithIds");
+      setPackageData(packageData.data);
+      setCenterData(centerDatas);
+      setCourseData(courseData);
+      setStudentData(studentData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get("/getAllGenerateInvoices");
-  //       setDatas(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   getData();
-  //   fetchData();
-  // }, []);
+   console.log("centerData",centerData)
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get("/getAllGenerateInvoices");
+        setDatas(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (!loading) {
@@ -146,15 +146,15 @@ const Invoice = () => {
                 <td>
                   {centerData &&
                     centerData.map((center) =>
-                      parseInt(data.centerId) === center.id
-                        ? center.centerNames || "--"
+                      parseInt(data.childCareId) === center.id
+                        ? center.childCareNames || "--"
                         : ""
                     )}
                 </td>
                 <td>
                   {studentData &&
                     studentData.map((student) =>
-                      parseInt(data.studentId) === student.id
+                      parseInt(data.childId) === student.id
                         ? student.studentNames || "--"
                         : ""
                     )}
@@ -169,26 +169,26 @@ const Invoice = () => {
                 </td>
                 <td>
                   <div className="d-flex">
-                    {storedScreens?.invoiceRead && (
+                    {/* {storedScreens?.invoiceRead && ( */}
                       <Link to={`/invoice/view/${data.id}`}>
                         <button className="btn btn-sm">
                           <FaEye />
                         </button>
                       </Link>
-                    )}
-                    {storedScreens?.invoiceUpdate && (
+                    {/* )}
+                    {storedScreens?.invoiceUpdate && ( */}
                       <Link to={`/invoice/edit/${data.id}`}>
                         <button className="btn btn-sm">
                           <FaEdit />
                         </button>
                       </Link>
-                    )}
-                    {/* {storedScreens?.invoiceDelete && (
+                    {/* )} */}
+                    {/* {storedScreens?.invoiceDelete && ( */}
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteGenerateInvoice/${data.id}`}
                       />
-                    )} */}
+                    {/* )} */}
                   </div>
                 </td>
               </tr>

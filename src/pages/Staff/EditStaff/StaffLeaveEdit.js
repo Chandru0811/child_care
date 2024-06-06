@@ -76,7 +76,7 @@ const StaffLeaveEdit = forwardRef(
             }
           } else {
             const response = await api.post(
-              `/createUserLeaveCreation/${formData.staff_id}`,
+              `/createUserLeaveCreation/${formData.id}`,
               values,
               {
                 headers: {
@@ -102,7 +102,7 @@ const StaffLeaveEdit = forwardRef(
 
     // useEffect(() => {
     //   const getData = async () => {
-    //     const response = await api.get(`/getAllUsersById/${formData.staff_id}`);
+    //     const response = await api.get(`/getAllUsersById/${formData.id}`);
     //     console.log(response.data.userLeaveCreationModels[0]);
     //     formik.setValues({
     //       ...response.data.userLeaveCreationModels[0],
@@ -118,7 +118,7 @@ const StaffLeaveEdit = forwardRef(
       const getData = async () => {
         try {
           const response = await api.get(
-            `/getAllUsersById/${formData.staff_id}`
+            `/getAllUsersById/${formData.id}`
           );
           if (
             response.data.userLeaveCreationModels &&

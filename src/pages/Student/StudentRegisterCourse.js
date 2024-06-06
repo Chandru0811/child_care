@@ -51,17 +51,17 @@ function StudentRegisterCourse() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       console.log(values);
-      setLoadIndicator(true)
+      // setLoadIndicator(true)
       const course = values.courseId;
 
       try {
         if (
           data &&
-          data.studentCourseDetailModels &&
-          data.studentCourseDetailModels.length > 0
+          data.childCourseDetailModels &&
+          data.childCourseDetailModels.length > 0
         ) {
           const response = await api.put(
-            `/updateStudentCourseDetail/${data.studentCourseDetailModels[0].id}`,
+            `/updateChildCourseDetail/${data.childCourseDetailModels[0].id}`,
             { ...values, course },
             {
               headers: {
@@ -106,23 +106,23 @@ function StudentRegisterCourse() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllStudentDetails/${id}`);
-        if (response.data.studentCourseDetailModels.length > 0) {
+        const response = await api.get(`/getAllChildDetails/${id}`);
+        if (response.data.childCourseDetailModels.length > 0) {
           setData(response.data);
           const formattedResponseData = {
-            ...response.data.studentCourseDetailModels[0],
+            ...response.data.childCourseDetailModels[0],
             startDate:
-              response.data.studentCourseDetailModels[0].startDate.substring(
+              response.data.childCourseDetailModels[0].startDate.substring(
                 0,
                 10
               ),
             endDate:
-              response.data.studentCourseDetailModels[0].endDate.substring(
+              response.data.childCourseDetailModels[0].endDate.substring(
                 0,
                 10
               ),
             courseDay:
-              response.data.studentCourseDetailModels[0].courseDay.substring(
+              response.data.childCourseDetailModels[0].courseDay.substring(
                 0,
                 10
               ),

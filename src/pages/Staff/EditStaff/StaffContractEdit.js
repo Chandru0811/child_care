@@ -70,7 +70,7 @@ const StaffContractEdit = forwardRef(({ formData,setLoadIndicators, setFormData 
       setLoadIndicators(true);
       // console.log("Api Data:", values);
       try {
-        if (values.contractId !== null) {
+        if (values.contractId === null) {
           const response = await api.put(
             `/updateUserContractCreation/${values.contractId}`,
             values,
@@ -89,7 +89,7 @@ const StaffContractEdit = forwardRef(({ formData,setLoadIndicators, setFormData 
           }
         } else {
           const response = await api.post(
-            `/createUserContractCreation/${formData.staff_id}`,
+            `/createUserContractCreation/${formData.id}`,
             values,
             {
               headers: {
@@ -116,7 +116,7 @@ const StaffContractEdit = forwardRef(({ formData,setLoadIndicators, setFormData 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllUsersById/${formData.staff_id}`);
+        const response = await api.get(`/getAllUsersById/${formData.id}`);
         if (
           response.data.userContractCreationModels &&
           response.data.userContractCreationModels.length > 0

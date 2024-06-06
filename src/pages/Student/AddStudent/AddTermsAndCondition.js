@@ -27,11 +27,11 @@ const AddTermsAndCondition = forwardRef(
         formDatas.append("file", data.file);
         formDatas.append("termsAndConditionSignatureDate", data.termsAndConditionSignatureDate);
         formDatas.append("agree", data.agree);
-        formDatas.append("studentDetailId", formData.student_id);
+        formDatas.append("childDetailId ", formData.student_id);
 
         try {
           const response = await api.post(
-            `/createStudentTermsAndConditions`,
+            `/createChildTermsAndConditions`,
             formDatas,
             {
               headers: {

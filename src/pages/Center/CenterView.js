@@ -6,19 +6,20 @@ import { toast } from "react-toastify";
 function CenterView() {
   const { id } = useParams();
   const [data, setData] = useState([]);
-  console.log(data);
+  // console.log(data);
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get(`/getAllCenterById/${id}`);
-  //       setData(response.data);
-  //     } catch (error) {
-  //       toast.error("Error Fetching Data", error);
-  //     }
-  //   };
-  //   getData();
-  // }, [id]);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get(`/getAllChildCareById/${id}`);
+        setData(response.data);
+      } catch (error) {
+        toast.error("Error Fetching Data", error);
+      }
+    };
+    getData();
+  }, [id]);
+
   return (
     <div className="container-fluid center">
         <div className="card shadow border-0 mb-2 top-header">
@@ -52,7 +53,7 @@ function CenterView() {
                 </div>
                 <div className="col-6">
                   <p className="text-muted text-sm">
-                    : {data.centerName || "--"}
+                    : {data.childCareName || "--"}
                   </p>
                 </div>
               </div>
@@ -74,7 +75,7 @@ function CenterView() {
                 </div>
                 <div className="col-6">
                   <p className="text-muted text-sm">
-                    : {data.centerManager || "--"}
+                    : {data.childCareManager || "--"}
                   </p>
                 </div>
               </div>
@@ -251,8 +252,8 @@ function CenterView() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.centerRegistrations &&
-                    data.centerRegistrations.map((registration, index) => (
+                  {data.childCareRegistrations &&
+                    data.childCareRegistrations.map((registration, index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>
@@ -287,8 +288,8 @@ function CenterView() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.centerBreaks &&
-                    data.centerBreaks.map((centerBreak, index) => (
+                  {data.childCareBreaks &&
+                    data.childCareBreaks.map((centerBreak, index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{centerBreak.breakName}</td>
@@ -346,8 +347,8 @@ function CenterView() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.centerClassRooms &&
-                    data.centerClassRooms.map((centerClassRoom, index) => (
+                  {data.childCareClassRooms &&
+                    data.childCareClassRooms.map((centerClassRoom, index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{centerClassRoom.classRoomName}</td>
@@ -378,8 +379,8 @@ function CenterView() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.centerPackages &&
-                    data.centerPackages.map((centerPackage, index) => (
+                  {data.childCarePackages &&
+                    data.childCarePackages.map((centerPackage, index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{centerPackage.packageName || "--"}</td>

@@ -6,7 +6,7 @@ import api from "../../../config/URL";
 import fetchAllCentersWithIds from "../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
-  studentRelationStudentName: Yup.string().required("*Student Name is required!"),
+  childRelationChildName: Yup.string().required("*Student Name is required!"),
 });
 
 const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext }, ref) => {
@@ -25,27 +25,28 @@ const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormDat
     fetchData();
   }, []);
 
+  console.log("object",formData)
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await api.get(
-          `/getAllStudentDetails/${formData.id}`
+          `/getAllChildDetails/${formData.id}`
         );
         if (
-          response.data.studentRelationModels &&
-          response.data.studentRelationModels.length > 0
+          response.data.childRelationModels &&
+          response.data.childRelationModels.length > 0
         ) {
           formik.setValues({
-            ...response.data.studentRelationModels[0],
-            stdRealtionId: response.data.studentRelationModels[0].id,
+            ...response.data.childRelationModels[0],
+            stdRealtionId: response.data.childRelationModels[0].id,
           });
         } else {
           // If there are no emergency contacts, set default values or handle the case as needed
           formik.setValues({
             stdRealtionId: null,
-            studentRelationCenter: "",
-            studentRelation: "",
-            studentRelationStudentName: "",
+            childRelationChildCare: "",
+            childRelation: "",
+            childRelationChildName: "",
           });
         }
       } catch (error) {
@@ -59,9 +60,9 @@ const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormDat
 
   const formik = useFormik({
     initialValues: {
-      studentRelationCenter: formData.studentRelationCenter || "",
-      studentRelation: formData.studentRelation || "",
-      studentRelationStudentName: formData.studentRelationStudentName || "",
+      childRelationChildCare: formData.childRelationChildCare || "",
+      childRelation: formData.childRelation || "",
+      childRelationChildName: formData.childRelationChildName || "",
     },
     validationSchema: validationSchema,
     onSubmit: async (data) => {
@@ -69,7 +70,7 @@ const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormDat
       try {
         if (data.stdRealtionId !== null) {
             const response = await api.put(
-                `/updateStudentRelation/${data.stdRealtionId}`,
+                `/updateChildRelation/${data.stdRealtionId}`,
                 data,
                 {
                     headers: {
@@ -85,7 +86,7 @@ const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormDat
             }
         } else {
             const response = await api.post(
-                `/createStudentRelations/${data.id}`,
+                `/createChildRelations/${data.id}`,
                 data,
                 {
                     headers: {
@@ -127,16 +128,16 @@ const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormDat
                       </label>
                       <br />
                       <select
-                        name="studentRelationCenter"
+                        name="childRelationChildCare"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.studentRelationCenter}
+                        value={formik.values.childRelationChildCare}
                         className="form-select "
                       >
                         <option selected></option>
                          {centerData &&
                           centerData.map((studentRelationCenter) => (
-                        <option key={studentRelationCenter.id} value={studentRelationCenter.id}>{studentRelationCenter.centerNames}</option>
+                        <option key={studentRelationCenter.id} value={studentRelationCenter.id}>{studentRelationCenter.childCareNames}</option>
                       ))}
                       </select>
                     </div>
@@ -148,9 +149,9 @@ const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormDat
                       <select
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.studentRelation}
+                        value={formik.values.childRelation}
                         className="form-select "
-                        name="studentRelation"
+                        name="childRelation"
                       >
                         <option value=""></option>
                         <option value="Mother">Mother</option>
@@ -168,16 +169,16 @@ const EditStudentRelation = forwardRef(({ formData,setLoadIndicators, setFormDat
                       </label>
                       <br />
                       <input
-                        name="studentRelationStudentName"
+                        name="childRelationChildName"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.studentRelationStudentName}
+                        value={formik.values.childRelationChildName}
                         className="form-control "
                       />
-                      {formik.touched.studentRelationStudentName &&
-                        formik.errors.studentRelationStudentName && (
+                      {formik.touched.childRelationChildName &&
+                        formik.errors.childRelationChildName && (
                           <div className="text-danger">
-                            <small>{formik.errors.studentRelationStudentName}</small>
+                            <small>{formik.errors.childRelationChildName}</small>
                           </div>
                         )}
                     </div>

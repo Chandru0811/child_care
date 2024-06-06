@@ -135,8 +135,8 @@ function ScheduleTeacherAdd({ onSuccess }) {
       });
 
       let requestBody = {
-        centerId: values.centerId,
-        centerName: selectedCenterName,
+        childCareId: values.centerId,
+        childCareName: selectedCenterName,
         className: selectedClassName,
         classId: values.classId,
         course: selectedCourseName,
@@ -249,7 +249,7 @@ function ScheduleTeacherAdd({ onSuccess }) {
                     {centerData &&
                       centerData.map((center) => (
                         <option key={center.id} value={center.id}>
-                          {center.centerNames}
+                          {center.childCareNames}
                         </option>
                       ))}
                   </select>

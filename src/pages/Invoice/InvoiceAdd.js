@@ -6,10 +6,10 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import api from "../../config/URL";
 import { toast } from "react-toastify";
-// import fetchAllCentersWithIds from "../List/CenterList";
-// import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
-// import fetchAllPackageListByCenter from "../List/PackageListByCenter";
-// import fetchAllStudentListByCenter from "../List/StudentListByCenter";
+import fetchAllCentersWithIds from "../List/CenterList";
+import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
+import fetchAllPackageListByCenter from "../List/PackageListByCenter";
+import fetchAllStudentListByCenter from "../List/StudentListByCenter";
 
 export default function InvoiceAdd() {
   const [rows, setRows] = useState([{}]);
@@ -73,9 +73,9 @@ export default function InvoiceAdd() {
         // Prepare the payload to send to the API
         const payload = {
           generateInvoice: {
-            centerId: values.center,
+            childCareId: values.center,
             parent: values.parent,
-            studentId: values.student,
+            childId: values.student,
             courseId: values.course,
             schedule: values.schedule,
             invoiceDate: values.invoiceDate,
@@ -123,39 +123,39 @@ export default function InvoiceAdd() {
   });
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const fetchCourses = async (centerId) => {
-    // try {
-    //   const courseData = await fetchAllCoursesWithIdsC(centerId);
-    //   setCourseData(courseData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const courseData = await fetchAllCoursesWithIdsC(centerId);
+      setCourseData(courseData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const fetchPackage = async (centerId) => {
-    // try {
-    //   const packageData = await fetchAllPackageListByCenter(centerId);
-    //   setPackageData(packageData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const packageData = await fetchAllPackageListByCenter(centerId);
+      setPackageData(packageData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const fetchStudent = async (centerId) => {
-    // try {
-    //   const student = await fetchAllStudentListByCenter(centerId);
-    //   setStudentData(student);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const student = await fetchAllStudentListByCenter(centerId);
+      setStudentData(student);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const handleCenterChange = (event) => {
@@ -231,7 +231,7 @@ export default function InvoiceAdd() {
                   {centerData &&
                     centerData.map((center) => (
                       <option key={center.id} value={center.id}>
-                        {center.centerNames}
+                        {center.childCareNames}
                       </option>
                     ))}
                 </select>

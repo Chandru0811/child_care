@@ -32,7 +32,7 @@ function Sidebar({ onLogout }) {
       payrollIndex: false,
       payslipIndex: true,
       rolesMatrixIndex: true,
-      studentListingIndex: true,
+      studentIndex: true,
       attendanceIndex: true,
       scheduleTeacherIndex: true,
       documentListingIndex: true,
@@ -162,9 +162,9 @@ function Sidebar({ onLogout }) {
         isOpen: false,
         subMenus: [
           {
-            title: "Student Listing",
-            path: "/studentlisting",
-            access: storedScreens.studentListingIndex,
+            title: "Student ",
+            path: "/student",
+            access: storedScreens.studentIndex,
           },
           {
             title: "Attendance",
