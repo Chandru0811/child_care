@@ -166,7 +166,7 @@ const StaffAccountEdit = forwardRef(
       const getData = async () => {
         try {
           const response = await api.get(
-            `/getAllUsersById/${formData.id}`
+            `/getAllUserById/${formData.id}`
           );
           if (
             response.data.userAccountInfo &&

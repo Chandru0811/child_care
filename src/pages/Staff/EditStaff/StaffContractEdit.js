@@ -43,34 +43,12 @@ const StaffContractEdit = forwardRef(({ formData,setLoadIndicators, setFormData 
       contractDate: "",
       terminationNotice: "",
     },
-    // onSubmit: async (data) => {
-    //   try {
-    //     const response = await api.put(
-    //       `/updateUserContractCreation/${data.contractId}`,
-    //       data,
-    //       {
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //       }
-    //     );
-    //     if (response.status === 200) {
-    //       toast.success(response.data.message);
-    //       setFormData((prv) => ({ ...prv, ...data }));
-    //       navigate("/staff");
-    //     } else {
-    //       toast.error(response.data.message);
-    //     }
-    //   } catch (error) {
-    //     toast.error(error);
-    //   }
-    // },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       setLoadIndicators(true);
       // console.log("Api Data:", values);
       try {
-        if (values.contractId === null) {
+        if (values.contractId !== null) {
           const response = await api.put(
             `/updateUserContractCreation/${values.contractId}`,
             values,
@@ -116,7 +94,7 @@ const StaffContractEdit = forwardRef(({ formData,setLoadIndicators, setFormData 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllUsersById/${formData.id}`);
+        const response = await api.get(`/getAllUserById/${formData.id}`);
         if (
           response.data.userContractCreationModels &&
           response.data.userContractCreationModels.length > 0

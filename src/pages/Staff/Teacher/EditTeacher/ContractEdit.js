@@ -42,28 +42,6 @@ const ContractEdit = forwardRef(({ formData,setLoadIndicators, setFormData }, re
       contractDate: "",
       terminationNotice: "",
     },
-    // onSubmit: async (data) => {
-    //   try {
-    //     const response = await api.put(
-    //       `/updateUserContractCreation/${data.contractId}`,
-    //       data,
-    //       {
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //       }
-    //     );
-    //     if (response.status === 200) {
-    //       toast.success(response.data.message);
-    //       setFormData((prv) => ({ ...prv, ...data }));
-    //       navigate("/teacher");
-    //     } else {
-    //       toast.error(response.data.message);
-    //     }
-    //   } catch (error) {
-    //     toast.error(error);
-    //   }
-    // },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       setLoadIndicators(true)
@@ -112,28 +90,10 @@ const ContractEdit = forwardRef(({ formData,setLoadIndicators, setFormData }, re
     },
   });
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const response = await api.get(`/getAllUsersById/${formData.staff_id}`);
-  //     const userContract = response.data.userContractCreationModels[0];
-  //     formik.setValues({
-  //       ...userContract,
-  //       startDateOfEmployment: userContract.startDateOfEmployment ? userContract.startDateOfEmployment.substring(0, 10) : "",
-  //       userContractStartDate: userContract.userContractStartDate ? userContract.userContractStartDate.substring(0, 10) : "",
-  //       workingDays: userContract.workingDays ? userContract.workingDays.substring(0, 10) : "",
-  //       userContractEndDate: userContract.userContractEndDate ? userContract.userContractEndDate.substring(0, 10) : "",
-  //       contractDate: userContract.contractDate ? userContract.contractDate.substring(0, 10) : "",
-  //       contractId: userContract.id,
-  //     });
-  //   };
-  //   getData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllUsersById/${formData.staff_id}`);
+        const response = await api.get(`/getAllUserById/${formData.id}`);
         if (
           response.data.userContractCreationModels &&
           response.data.userContractCreationModels.length > 0

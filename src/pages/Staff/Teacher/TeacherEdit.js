@@ -20,13 +20,13 @@ const steps = [{ tooltip: "Personal Information" }, { tooltip: "Account Informat
 { tooltip: "Login Information" },{ tooltip: "Required Information" },{ tooltip: "Salary Information" },{ tooltip: "Leave Information" },{ tooltip: "Contract Informationn" } ];
 
 export default function TeacherEdit() {
-  const { staff_id } = useParams();
+  const { id } = useParams();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const [loadIndicator, setLoadIndicator] = useState(false);
   
   const childRef = React.useRef();
-  const [formData, setFormData] = useState({ staff_id });
+  const [formData, setFormData] = useState({ id });
   
   const isStepSkipped = (step) => {
     return skipped.has(step);

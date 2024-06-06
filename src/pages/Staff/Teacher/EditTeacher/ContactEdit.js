@@ -27,28 +27,6 @@ const ContactEdit = forwardRef(
         postalCode: "",
       },
       validationSchema: validationSchema,
-      // onSubmit: async (data) => {
-      //   try {
-      //     const response = await api.put(
-      //       `/updateUserContactInfo/${data.contactId}`,
-      //       data,
-      //       {
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //         },
-      //       }
-      //     );
-      //     if (response.status === 200) {
-      //       toast.success(response.data.message);
-      //       setFormData((prv) => ({ ...prv, ...data }));
-      //       handleNext();
-      //     } else {
-      //       toast.error(response.data.message);
-      //     }
-      //   } catch (error) {
-      //     toast.error(error);
-      //   }
-      // },
       onSubmit: async (values) => {
         setLoadIndicators(true)
         // console.log("Api Data:", values);
@@ -71,7 +49,7 @@ const ContactEdit = forwardRef(
               toast.error(response.data.message);
             }
           } else {
-            const response = await api.post(`/createUserContactInfo/${formData.staff_id}`, values, {
+            const response = await api.post(`/createUserContactInfo/${formData.id}`, values, {
               headers: {
                 "Content-Type": "application/json",
               },
@@ -92,23 +70,10 @@ const ContactEdit = forwardRef(
       },
     });
 
-    // useEffect(() => {
-    //   const getData = async () => {
-    //     const response = await api.get(`/getAllUsersById/${formData.staff_id}`);
-    //     console.log(response.data.userContactInfo[0])
-    //     formik.setValues({
-    //       ...response.data.userContactInfo[0],
-    //       contactId: response.data.userContactInfo[0].id,
-    //     });
-    //   };
-    //   getData();
-    //   // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []);
-
     useEffect(() => {
       const getData = async () => {
         try{
-          const response = await api.get(`/getAllUsersById/${formData.staff_id}`);
+          const response = await api.get(`/getAllUserById/${formData.id}`);
           if (
             response.data.userContactInfo &&
             response.data.userContactInfo.length > 0

@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import fetchAllSubjectsWithIds from "../../../List/SubjectList";
 
 const validationSchema = Yup.object().shape({
-  studentName: Yup.string().required("*Name is required"),
+  childName: Yup.string().required("*Name is required"),
   subject: Yup.string().required("*Subject is required"), // Adding validation for subject field
   gender: Yup.string().required("*Gender is required"),
   dateOfBirth: Yup.date()
@@ -31,7 +31,7 @@ const Form1 = forwardRef(({ formData, setFormData, handleNext }, ref) => {
 
   const formik = useFormik({
     initialValues: {
-      studentName: formData.studentName || "",
+      childName: formData.childName || "",
       subject: formData.subject,
       gender: formData.gender || "",
       dateOfBirth: formData.dateOfBirth || "",
@@ -96,14 +96,14 @@ const Form1 = forwardRef(({ formData, setFormData, handleNext }, ref) => {
               <input
                 type="text"
                 className="form-control "
-                name="studentName"
+                name="childName"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.studentName}
+                value={formik.values.childName}
               />
-              {formik.touched.studentName && formik.errors.studentName && (
+              {formik.touched.childName && formik.errors.childName && (
                 <div className="error text-danger ">
-                  <small>{formik.errors.studentName}</small>
+                  <small>{formik.errors.childName}</small>
                 </div>
               )}
             </div>

@@ -31,28 +31,6 @@ const StaffLeaveEdit = forwardRef(
         carryForwardLeave: "",
       },
       validationSchema: validationSchema,
-      // onSubmit: async (data) => {
-      //   try {
-      //     const response = await api.put(
-      //       `/updateUserLeaveCreation/${data.leaveId}`,
-      //       data,
-      //       {
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //         },
-      //       }
-      //     );
-      //     if (response.status === 200) {
-      //       toast.success(response.data.message);
-      //       setFormData((prv) => ({ ...prv, ...data }));
-      //       handleNext();
-      //     } else {
-      //       toast.error(response.data.message);
-      //     }
-      //   } catch (error) {
-      //     toast.error(error);
-      //   }
-      // },
       onSubmit: async (values) => {
         setLoadIndicators(true);
         // console.log("Api Data:", values);
@@ -100,25 +78,11 @@ const StaffLeaveEdit = forwardRef(
       },
     });
 
-    // useEffect(() => {
-    //   const getData = async () => {
-    //     const response = await api.get(`/getAllUsersById/${formData.id}`);
-    //     console.log(response.data.userLeaveCreationModels[0]);
-    //     formik.setValues({
-    //       ...response.data.userLeaveCreationModels[0],
-    //       year: response.data.userLeaveCreationModels[0].year.substring(0, 10),
-    //       leaveId: response.data.userLeaveCreationModels[0].id,
-    //     });
-    //   };
-    //   getData();
-    //   // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []);
-
     useEffect(() => {
       const getData = async () => {
         try {
           const response = await api.get(
-            `/getAllUsersById/${formData.id}`
+            `/getAllUserById/${formData.id}`
           );
           if (
             response.data.userLeaveCreationModels &&

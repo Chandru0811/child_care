@@ -18,29 +18,6 @@ const StaffSalaryEdit = forwardRef(
         effectiveDate: "",
         salaryType: "",
       },
-
-      // onSubmit: async (data) => {
-      //   try {
-      //     const response = await api.put(
-      //       `/updateUserSalaryCreation/${data.salaryId}`,
-      //       data,
-      //       {
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //         },
-      //       }
-      //     );
-      //     if (response.status === 200) {
-      //       toast.success(response.data.message);
-      //       setFormData((prv) => ({ ...prv, ...data }));
-      //       handleNext();
-      //     } else {
-      //       toast.error(response.data.message);
-      //     }
-      //   } catch (error) {
-      //     toast.error(error);
-      //   }
-      // },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
         setLoadIndicators(true);
@@ -93,7 +70,7 @@ const StaffSalaryEdit = forwardRef(
       const getData = async () => {
         try {
           const response = await api.get(
-            `/getAllUsersById/${formData.id}`
+            `/getAllUserById/${formData.id}`
           );
           if (
             response.data.userSalaryCreationModels &&

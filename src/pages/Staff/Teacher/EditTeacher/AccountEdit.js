@@ -9,7 +9,7 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 import api from "../../../../config/URL";
 
-// import fetchAllCentersWithIds from "../../List/CenterList";
+import fetchAllCentersWithIds from "../../../List/CenterList";
 
 const validationSchema = Yup.object().shape({
   startDate: Yup.string().required("*Start Date is required!"),
@@ -28,19 +28,19 @@ const validationSchema = Yup.object().shape({
   workingDays: Yup.array()
     .of(Yup.string().required("*Working Days is required!"))
     .min(1, "*Working Days is required!"),
-  centerId: Yup.string().required("*Centres is required!"),
+  childCareId: Yup.string().required("*Centres is required!"),
 });
 
 const AccountEdit = forwardRef(({ formData,setLoadIndicators, setFormData, handleNext }, ref) => {
   const [centerData, setCenterData] = useState(null);
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
   const formik = useFormik({
     initialValues: {
@@ -54,34 +54,9 @@ const AccountEdit = forwardRef(({ formData,setLoadIndicators, setFormData, handl
       endDate: "",
       approvelContentRequired: "",
       workingDays: [],
-      centerId: "",
+      childCareId: "",
     },
     validationSchema: validationSchema,
-    // onSubmit: async (values) => {
-    //   values.approvelContentRequired = values.approvelContentRequired === "Yes";
-
-    //   try {
-    //     const response = await api.put(
-    //       `/updateUserAccountInfo/${values.accountId}`,
-    //       values,
-    //       {
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //       }
-    //     );
-    //     if (response.status === 200) {
-    //       toast.success(response.data.message);
-    //       setFormData((prv) => ({ ...prv, ...values }));
-    //       handleNext();
-    //     } else {
-    //       toast.error(response.data.message);
-    //     }
-    //   } catch (error) {
-    //     toast.error(error);
-    //   }
-    // },
-
     onSubmit: async (values) => {
       setLoadIndicators(true);
       // console.log("Api Data:", values);
@@ -141,33 +116,11 @@ const AccountEdit = forwardRef(({ formData,setLoadIndicators, setFormData, handl
     },
   });
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get(`/getAllUsersById/${formData.staff_id}`);
-  //       const data = response.data.userAccountInfo[0];
-  //       formik.setValues({
-  //         ...data,
-  //         startDate: data.startDate ? data.startDate.substring(0, 10) : "",
-  //         endDate: data.endDate.substring(0, 10),
-  //         accountId: data.id,
-  //         approvelContentRequired: data.approvelContentRequired === true ? "Yes" : "No",
-  //       });
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //       // Handle error here, e.g., show a message to the user
-  //       // You can set default values or leave fields empty as needed
-  //     }
-  //   };
-  //   getData();
-  //  fetchData();
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllUsersById/${formData.staff_id}`);
+        const response = await api.get(`/getAllUserById/${formData.id}`);
         if (
           response.data.userAccountInfo &&
           response.data.userAccountInfo.length > 0
@@ -580,9 +533,9 @@ const AccountEdit = forwardRef(({ formData,setLoadIndicators, setFormData, handl
             </lable>
             <div className="input-group mb-3">
               <select
-                {...formik.getFieldProps("centerId")}
+                {...formik.getFieldProps("childCareId")}
                 className={`form-select  ${
-                  formik.touched.centerId && formik.errors.centerId
+                  formik.touched.childCareId && formik.errors.childCareId
                     ? "is-invalid"
                     : ""
                 }`}
@@ -592,12 +545,12 @@ const AccountEdit = forwardRef(({ formData,setLoadIndicators, setFormData, handl
                 {centerData &&
                   centerData.map((centerId) => (
                     <option key={centerId.id} value={centerId.id}>
-                      {centerId.centerNames}
+                      {centerId.childCareNames}
                     </option>
                   ))}
               </select>
-              {formik.touched.centerId && formik.errors.centerId && (
-                <div className="invalid-feedback">{formik.errors.centerId}</div>
+              {formik.touched.childCareId && formik.errors.childCareId && (
+                <div className="invalid-feedback">{formik.errors.childCareId}</div>
               )}
             </div>
           </div>

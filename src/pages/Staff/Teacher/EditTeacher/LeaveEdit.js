@@ -31,29 +31,6 @@ const LeaveEdit = forwardRef(
         carryForwardLeave: "",
       },
       validationSchema: validationSchema,
-      // onSubmit: async (data) => {
-      //   try {
-      //     const response = await api.put(
-      //       `/updateUserLeaveCreation/${data.leaveId}`,
-      //       data,
-      //       {
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //         },
-      //       }
-      //     );
-      //     if (response.status === 200) {
-      //       toast.success(response.data.message);
-      //       setFormData((prv) => ({ ...prv, ...data }));
-      //       handleNext();
-      //     } else {
-      //       toast.error(response.data.message);
-      //     }
-      //   } catch (error) {
-      //     toast.error(error);
-      //   }
-      // },
-
       onSubmit: async (values) => {
         setLoadIndicators(true)
         // console.log("Api Data:", values);
@@ -104,7 +81,7 @@ const LeaveEdit = forwardRef(
     useEffect(() => {
       const getData = async () => {
         try{
-          const response = await api.get(`/getAllUsersById/${formData.staff_id}`);
+          const response = await api.get(`/getAllUserById/${formData.staff_id}`);
           if (
             response.data.userLeaveCreationModels &&
             response.data.userLeaveCreationModels.length > 0

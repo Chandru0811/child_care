@@ -13,17 +13,17 @@ function StaffView() {
   console.log("Api Staff data:",data);
   const storedScreens = JSON.parse(sessionStorage.getItem("screens") || "{}");
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await api.get(`/getAllUsersById/${id}`);
-  //       setData(response.data);
-  //     } catch (error) {
-  //       toast.error("Error Fetching Data ", error);
-  //     }
-  //   };
-  //   getData();
-  // }, [id]);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get(`/getAllUserById/${id}`);
+        setData(response.data);
+      } catch (error) {
+        toast.error("Error Fetching Data ", error);
+      }
+    };
+    getData();
+  }, [id]);
 
   return (
     <div className="container-fluid my-4 center">
@@ -42,20 +42,20 @@ function StaffView() {
                 </button>
               </Link>
               {/* <TeacherSummary data={data} /> */}
-              {/* {storedScreens?.payrollIndex && (
+              {/* {storedScreens?.payrollIndex && ( */}
                 <Link to="/staff/payslip">
                   <button type="button" class="btn btn-border">
                     <span>Payroll</span>
                   </button>
                 </Link>
-              )}
-              {storedScreens?.leaveRequestIndex && (
+              {/* )}
+              {storedScreens?.leaveRequestIndex && ( */}
                 <Link to="/staff/leave">
                   <button type="button" class="btn btn-border">
                     <span>Leave Request</span>
                   </button>
                 </Link>
-              )} */}
+              {/* )} */}
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import TeacherSummary from "./TeacherSummary";
 import api from "../../../config/URL";
-// import BlockImg from "../.././assets/images/Block_Img1.jpg";
+import BlockImg from "../../../assets/images/Block_Img1.jpg";
 
 function TeacherView() {
   const { id } = useParams();
@@ -14,7 +14,7 @@ function TeacherView() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllUsersById/${id}`);
+        const response = await api.get(`/getAllUserById/${id}`);
         setData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -40,27 +40,27 @@ function TeacherView() {
                 </button>
               </Link>
               <TeacherSummary data={data} />
-              {/* {storedScreens?.payrollIndex && (
+              {/* {storedScreens?.payrollIndex && ( */}
                 <Link to="/teacher/payslip">
                   <button type="submit" class="btn btn-border">
                     <span>Payroll</span>
                   </button>
                 </Link>
-              )}
-              {storedScreens?.leaveRequestIndex && (
+              {/* )}
+              {storedScreens?.leaveRequestIndex && ( */}
                 <Link to="/teacher/leave">
                   <button type="submit" class="btn btn-border">
                     <span>Leave Request</span>
                   </button>
                 </Link>
-              )} */}
+              {/* )} */}
             </div>
           </div>
         </div>
       </div>
       <p class="headColor mt-3">Personal Information</p>
       <div className="d-flex justify-content-center">
-        {/* <p className="my-2 d-flex">
+        <p className="my-2 d-flex">
           {data.photo ? (
             <img
               src={data.photo}
@@ -81,7 +81,7 @@ function TeacherView() {
               height="100"
             />
           )}
-        </p> */}
+        </p>
       </div>
       <div className="row mt-4">
         <div className="col-md-6 col-12">

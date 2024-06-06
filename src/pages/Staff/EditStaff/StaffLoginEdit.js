@@ -21,28 +21,6 @@ const StaffLoginEdit = forwardRef(
         confirmPassword: "",
       },
       validationSchema: validationSchema,
-      // onSubmit: async (data) => {
-      //   try {
-      //     const response = await api.put(
-      //       `/updateUserLoginInfo/${data.loginId}`,
-      //       data,
-      //       {
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //         },
-      //       }
-      //     );
-      //     if (response.status === 200) {
-      //       toast.success(response.data.message);
-      //       setFormData((prv) => ({ ...prv, ...data }));
-      //       handleNext();
-      //     } else {
-      //       toast.error(response.data.message);
-      //     }
-      //   } catch (error) {
-      //     toast.error(error);
-      //   }
-      // },
       onSubmit: async (values) => {
         setLoadIndicators(true);
         try {
@@ -89,22 +67,11 @@ const StaffLoginEdit = forwardRef(
       },
     });
 
-    // useEffect(() => {
-    //   const getData = async () => {
-    //     const response = await api.get(`/getAllUsersById/${formData.staff_id}`);
-    //     formik.setValues({
-    //       ...response.data.userLoginInfoModels[0],
-    //       loginId: response.data.userLoginInfoModels[0].id,
-    //     });
-    //   };
-    //   getData();
-    // }, []);
-
     useEffect(() => {
       const getData = async () => {
         try {
           const response = await api.get(
-            `/getAllUsersById/${formData.id}`
+            `/getAllUserById/${formData.id}`
           );
           if (
             response.data.userLoginInfoModels &&

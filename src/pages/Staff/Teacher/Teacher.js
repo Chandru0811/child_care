@@ -4,7 +4,7 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-// import Delete from "../../components/common/Delete";
+import Delete from "../../../components/common/Delete";
 import api from "../../../config/URL";
 import { SCREENS } from "../../../config/ScreenFilter";
 
@@ -56,18 +56,18 @@ const Teacher = () => {
     }
   };
 
-  // const refreshData = async () => {
-  //   destroyDataTable();
-  //   setLoading(true);
-  //   try {
-  //     const response = await api.get("/getAllUsersByRole/teacher");
-  //     setDatas(response.data);
-  //     initializeDataTable(); // Reinitialize DataTable after successful data update
-  //   } catch (error) {
-  //     console.error("Error refreshing data:", error);
-  //   }
-  //   setLoading(false);
-  // };
+  const refreshData = async () => {
+    destroyDataTable();
+    setLoading(true);
+    try {
+      const response = await api.get("/getAllUsersByRole/teacher");
+      setDatas(response.data);
+      initializeDataTable(); // Reinitialize DataTable after successful data update
+    } catch (error) {
+      console.error("Error refreshing data:", error);
+    }
+    setLoading(false);
+  };
 
   return (
     <div>
@@ -139,26 +139,26 @@ const Teacher = () => {
                   </td>
                   <td>
                     <div className="d-flex">
-                    {storedScreens?.teacherRead && (
+                    {/* {storedScreens?.teacherRead && ( */}
                       <Link to={`/teacher/view/${data.id}`}>
                         <button className="btn btn-sm">
                           <FaEye />
                         </button>
                       </Link>
-                    )}
-                    {storedScreens?.teacherUpdate && (
+                     {/* )}
+                     {storedScreens?.teacherUpdate && ( */}
                       <Link to={`/teacher/edit/${data.id}`}>
                         <button className="btn btn-sm">
                           <FaEdit />
                         </button>
                       </Link>
-                    )}
-                    {/* {storedScreens?.teacherDelete && (
+                    {/* // )} */}
+                    {/* {storedScreens?.teacherDelete && ( */}
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteUser/${data.id}`}
                       />
-                    )} */}
+                     {/* )} */}
 
                     </div>
                   </td>

@@ -7,11 +7,11 @@ import React, {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
-// import fetchAllCentersWithIds from "../../../List/CenterList";
+import fetchAllCentersWithIds from "../../../List/CenterList";
 import api from "../../../../config/URL";
 
 const validationSchema = Yup.object().shape({
-  centerId: Yup.string().required("*Center is required!"),
+  childCareId: Yup.string().required("*Center is required!"),
   // preferredDay: Yup.array().of(Yup.string().required("*Select Days")),
   preferredDay: Yup.array()
     .min(1, "*Select at least one preferred day!")
@@ -24,7 +24,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
 
   const formik = useFormik({
     initialValues: {
-      centerId: formData.centerId,
+      childCareId: formData.childCareId,
       preferredDay: formData.preferredDay || "",
       enquiryDate: formData.enquiryDate || "",
       marketingSource: formData.marketingSource || "",
@@ -59,12 +59,12 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
   });
 
   const fetchData = async () => {
-    // try {
-    //   const centerData = await fetchAllCentersWithIds();
-    //   setCenterData(centerData);
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const centerData = await fetchAllCentersWithIds();
+      setCenterData(centerData);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const getData = async () => {
@@ -103,22 +103,22 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
               </lable>
               <select
                 className="form-select"
-                name="centerId"
+                name="childCareId"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.centerId}
+                value={formik.values.childCareId}
               >
                 <option selected></option>
                 {centerData &&
                   centerData.map((centerId) => (
                     <option key={centerId.id} value={centerId.id}>
-                      {centerId.centerNames}
+                      {centerId.childCareNames}
                     </option>
                   ))}
               </select>
-              {formik.touched.centerId && formik.errors.centerId && (
+              {formik.touched.childCareId && formik.errors.childCareId && (
                 <div className="error text-danger">
-                  <small>{formik.errors.centerId}</small>
+                  <small>{formik.errors.childCareId}</small>
                 </div>
               )}
             </div>
@@ -500,7 +500,7 @@ const EditForm5 = forwardRef(({ formData,setLoadIndicators, setFormData, handleN
                         key={referedStudentCenterNameId.id}
                         value={referedStudentCenterNameId.id}
                       >
-                        {referedStudentCenterNameId.centerNames}
+                        {referedStudentCenterNameId.childCareNames}
                       </option>
                     ))}
                 </select>
