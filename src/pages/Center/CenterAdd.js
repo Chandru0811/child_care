@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import api from "../../config/URL";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 const validationSchema = Yup.object().shape({
   childCareName: Yup.string().required("*Centre Name is required"),
@@ -48,7 +48,7 @@ const validationSchema = Yup.object().shape({
 
 function CenterAdd() {
   const navigate = useNavigate();
-  const [loadIndicator, setLoadIndicator] = useState(true);
+  const [loadIndicator, setLoadIndicator] = useState(false);
 
   const formik = useFormik({
     initialValues: {

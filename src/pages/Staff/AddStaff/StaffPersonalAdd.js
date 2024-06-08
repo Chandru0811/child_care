@@ -1,8 +1,9 @@
 import React, { forwardRef, useImperativeHandle } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import api from "../../../config/URL";
+import axios from "axios";
 
 const validationSchema = Yup.object().shape({
   teacherName: Yup.string().required("*Staff Name is required!"),
@@ -79,6 +80,7 @@ const StaffPersonalAdd = forwardRef(
 
           if (response.status === 201) {
             const user_id = response.data.user_id;
+
             toast.success(response.data.message);
             setFormData((prv) => ({ ...prv, ...values, user_id }));
             handleNext();

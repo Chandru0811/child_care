@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import "datatables.net-dt";
 import "datatables.net-responsive-dt";
 import $ from "jquery";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import fetchAllCentersWithIds from "../List/CenterList";
 import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
 import api from "../../config/URL";
@@ -58,14 +58,14 @@ const ReportAttendance= () => {
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      childCareId: "",
       courseId: "",
       attendanceStatus: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const payload = {
-        centerId: values.centerId,
+        childCareId: values.childCareId,
         attendanceDate: selectedDate,
       };
       if (values.courseId !== undefined && values.courseId !== null) {
@@ -80,7 +80,7 @@ const ReportAttendance= () => {
 
       try {
         const response = await api.post(
-          "getAttendanceByCenterIdAndDate",
+          "getAttendanceByChildCareIdAndDate",
           payload
         );
         if (response.status === 200) {
@@ -91,7 +91,7 @@ const ReportAttendance= () => {
         }
       } catch (error) {
         // Handle API call error
-        toast.error(error.message || "An error occurred while fetching data");
+        toast.error(error?.message || "An error occurred while fetching data");
       }
     },
   });
@@ -99,7 +99,7 @@ const ReportAttendance= () => {
   const fetchData = async () => {
     try {
       const centers = await fetchAllCentersWithIds();
-      formik.setValues({ centerId: centers[0].id });
+      formik.setValues({ childCareId: centers[0].id });
       setCenterData(centers);
       setLoading(false); // Set loading to false after fetching data
     } catch (error) {
@@ -120,7 +120,7 @@ const ReportAttendance= () => {
     setCourseData(null);
     formik.setFieldValue("courseId", null);
     const centerId = event.target.value;
-    formik.setFieldValue("centerId", centerId);
+    formik.setFieldValue("childCareId", centerId);
     fetchCourses(centerId);
   };
 
@@ -132,9 +132,9 @@ const ReportAttendance= () => {
           <div className="col-md-4 col-12 mb-2">
             <label className="form-label">Centre</label>
             <select
-              {...formik.getFieldProps("centerId")}
+              {...formik.getFieldProps("childCareId")}
               className={`form-select ${
-                formik.touched.centerId && formik.errors.centerId
+                formik.touched.childCareId && formik.errors.childCareId
                   ? "is-invalid"
                   : ""
               }`}
@@ -144,12 +144,12 @@ const ReportAttendance= () => {
               {centerData &&
                 centerData.map((center) => (
                   <option key={center.id} value={center.id}>
-                    {center.centerNames}
+                    {center.childCareNames}
                   </option>
                 ))}
             </select>
-            {formik.touched.centerId && formik.errors.centerId && (
-              <div className="invalid-feedback">{formik.errors.centerId}</div>
+            {formik.touched.childCareId && formik.errors.childCareId && (
+              <div className="invalid-feedback">{formik.errors.childCareId}</div>
             )}
           </div>
           <div className="col-md-4 col-12 mb-2">

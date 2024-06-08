@@ -8,7 +8,7 @@ import api from "../../config/URL";
 import Delete from "../../components/common/Delete";
 import fetchAllCentersWithIds from "../List/CenterList";
 import fetchAllSubjectsWithIds from "../List/SubjectList";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 // import { SCREENS } from "../../config/ScreenFilter";
 
 const Lead = () => {
@@ -71,13 +71,14 @@ const Lead = () => {
       table.destroy();
     }
   };
-
+  console.log("object",datas)
   const refreshData = async () => {
     destroyDataTable();
     setLoading(true);
     try {
       const response = await api.get("/getAllLeadInfo");
       setDatas(response.data);
+      
       initializeDataTable();
     } catch (error) {
       console.error("Error refreshing data:", error);

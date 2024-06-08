@@ -4,7 +4,7 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-// import Delete from "../../../components/common/Delete";
+import Delete from "../../../components/common/Delete";
 import api from "../../../config/URL";
 
 const Deduction = () => {
@@ -125,12 +125,12 @@ const Deduction = () => {
                     </Link>
                   {/* )} */}
 
-                  {/* {storedScreens?.deductionDelete && (
+                  {/* {storedScreens?.deductionDelete && ( */}
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteUserDeduction/${data.id}`}
                     />
-                  )} */}
+                  {/* )} */}
                 </td>
               </tr>
             ))}

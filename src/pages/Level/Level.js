@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 // import LevelAdd from "./LevelAdd";
 import LevelEdit from "./LevelEdit";
-// import Delete from "../../components/common/Delete";
+import Delete from "../../components/common/Delete";
 import api from "../../config/URL";
 import LevelAdd from "./LevelAdd";
 
@@ -68,7 +68,7 @@ const Level = () => {
   };
 
   return (
-    <div className="container-fluid my-4 center">
+    <div className="container-fluid my-4  center">
       <div className="card shadow border-0 mb-2 top-header">
         <div className="container my-4 px-0 ">
           <div className=" d-flex justify-content-between px-4">
@@ -127,12 +127,12 @@ const Level = () => {
                         {storedScreens?.levelUpdate && ( */}
                           <LevelEdit id={data.id} onSuccess={refreshData} />
                         {/* )} */}
-                        {/* {storedScreens?.levelDelete && (
+                        {/* {storedScreens?.levelDelete && ( */}
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteCourseLevel/${data.id}`}
                     />
-                  )} */}
+                  {/* )} */}
                       </td>
                     </tr>
                   ))}

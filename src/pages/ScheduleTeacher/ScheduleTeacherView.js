@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { FaEye } from "react-icons/fa";
 import api from "../../config/URL";
+import toast from "react-hot-toast";
 
 function ScheduleTeacherView({ id, onSuccess }) {
   const [show, setShow] = useState(false);
@@ -17,7 +18,7 @@ function ScheduleTeacherView({ id, onSuccess }) {
       setShow(true);
     }
     catch (error) {
-      console.error("Error fetching data:", error);
+      toast.error("Error fetching data:", error);
     }
     finally{
       setShow(true);
@@ -52,7 +53,7 @@ function ScheduleTeacherView({ id, onSuccess }) {
                     <p className="fw-bold">Centre</p>
                   </div>
                   <div className="col-7">
-                    <p>:&nbsp;{data.centerName}</p>
+                    <p>:&nbsp;{data.childCareName}</p>
                   </div>
                 </div>
               </div>

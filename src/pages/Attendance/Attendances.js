@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import "../../styles/sidebar.css";
 import api from "../../config/URL";
 // import AddMore from "./AddMore";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import fetchAllCentersWithIds from "../List/CenterList";
 import WebSocketService from "../../config/WebSocketService";
-// import fetchAllCoursesWithIds from "../List/CourseList";
+import fetchAllCoursesWithIds from "../List/CourseList";
 
 function Attendances () {
   const [attendanceData, setAttendanceData] = useState([]);
   console.log("Attendance Data Reload again", attendanceData);
   const [centerData, setCenterData] = useState(null);
-  // const [courseData, setCourseData] = useState(null);
+  const [courseData, setCourseData] = useState(null);
   const [selectedCenter, setSelectedCenter] = useState("1");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedBatch, setSelectedBatch] = useState("1");
@@ -50,7 +50,7 @@ function Attendances () {
     // setLoadIndicator(true);
     try {
       const requestBody = {
-        centerId: selectedCenter,
+        childChildId: selectedCenter,
         batchId: selectedBatch,
         date: selectedDate,
       };
@@ -112,12 +112,12 @@ function Attendances () {
     setAttendanceData(updatedAttendanceData);
     setAttendanceData(updatedAttendanceData);
   };
-
+console.log("object",attendanceData)
   const handleSubmit = async (teacherIndex, attendanceItem) => {
     try {
       const teacherAttendanceData = attendanceData[teacherIndex];
       const flattenedData = teacherAttendanceData.students
-        .filter((student) => student.studentUniqueId)
+        .filter((student) => student.childUniqueId)
         .map((student) => ({
           id: student.id,
           studentName: student.studentName,

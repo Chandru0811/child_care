@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { ImBlocked } from "react-icons/im";
 
 import api from "../../config/URL";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 function UnBlockTimeSlot({ onSuccess, id }) {
   const [show, setShow] = useState(false);
@@ -16,7 +16,7 @@ function UnBlockTimeSlot({ onSuccess, id }) {
     try {
       const formData = new FormData();
       formData.append("blocked", false); // Corrected append method
-      formData.append("studentId", null);
+      formData.append("childId", null);
       formData.append("name", null);
       formData.append("status", null);
       const response = await api.put(`/updateScheduleTeacher/${id}`, formData, {

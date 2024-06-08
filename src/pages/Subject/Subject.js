@@ -4,12 +4,12 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
-// import Delete from "../../components/common/Delete";
+import Delete from "../../components/common/Delete";
 import SubjectAdd from "./SubjectAdd";
 import SubjectEdit from "./SubjectEdit";
 import api from "../../config/URL";
 import { SCREENS } from "../../config/ScreenFilter";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 const Subject = () => {
   const tableRef = useRef(null);
@@ -136,12 +136,12 @@ const Subject = () => {
                             <SubjectEdit id={data.id} onSuccess={refreshData} />
                           {/* )} */}
 
-                          {/* {storedScreens?.subjectDelete && (
+                          {/* {storedScreens?.subjectDelete && ( */}
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteCourseSubject/${data.id}`}
                       />
-                    )} */}
+                    {/* )}   */}
                         </div>
                       </td>
                     </tr>

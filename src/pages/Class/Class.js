@@ -4,9 +4,9 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-// import Delete from "../../components/common/Delete";
+import Delete from "../../components/common/Delete";
 import api from "../../config/URL";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 // import { SCREENS } from "../../config/ScreenFilter";
 
 const Class = () => {
@@ -129,12 +129,12 @@ const Class = () => {
                             </button>
                           </Link>
                         {/* )} */}
-                        {/* {storedScreens?.classDelete && (
+                        {/* {storedScreens?.classDelete && ( */}
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteCourseClassListing/${data.id}`}
                     />
-                  )} */}
+                  {/* )} */}
                       </td>
                     </tr>
                   ))}

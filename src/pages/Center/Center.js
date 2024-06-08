@@ -9,9 +9,9 @@ import AddRegister from "./Add/AddRegister";
 import AddBreak from "./Add/AddBreak";
 import AddClass from "./Add/AddClass";
 import AddPackage from "./Add/AddPackage";
-// import Delete from "../../components/common/Delete";
+import Delete from "../../components/common/Delete";
 import api from "../../config/URL";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import axios from "axios";
 
 const Center = () => {
@@ -31,9 +31,9 @@ const Center = () => {
       toast.error("Error Fetching Data : ", error);
     }
   };
-  // useEffect(() => {
-  //   getCenterData();
-  // }, []);
+  useEffect(() => {
+    getCenterData();
+  }, []);
   const refreshData = async () => {
     destroyDataTable();
     setLoading(true);
@@ -58,18 +58,6 @@ const Center = () => {
       destroyDataTable();
     };
   }, [loading]);
-
-  // useEffect(() => {
-  //   getCenterData();
-  //   if (!loading) {
-  //     const table = $(tableRef.current).DataTable({
-  //       responsive: true,
-  //     });
-  //     return () => {
-  //       table.destroy();
-  //     };
-  //   }
-  // }, [loading]);
 
   const initializeDataTable = () => {
     if ($.fn.DataTable.isDataTable(tableRef.current)) {
@@ -207,13 +195,13 @@ const Center = () => {
                             </button>
                           </Link>
                           {/* )} */}
-                          {/* {storedScreens?.centerListingDelete && (
+                          {/* {storedScreens?.centerListingDelete && ( */}
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteChildCare/${data.id}`}
                         style={{ display: "inline-block" }}
                       />
-                    )} */}
+                    {/* )} */}
                         </div>
                       </td>
                     </tr>

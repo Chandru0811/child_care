@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import fetchAllCentersWithIds from "../../List/CenterList";
 import api from "../../../config/URL";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 function HolidayEdit() {
   const validationSchema = Yup.object({
@@ -54,7 +54,7 @@ function HolidayEdit() {
         }
       } catch (error) {
         toast.error(
-          error.message || "An error occurred while submitting the form"
+          error?.message || "An error occurred while submitting the form"
         );
       } finally {
         setLoadIndicator(false);

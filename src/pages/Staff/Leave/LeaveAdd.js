@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import fetchAllTeacherListByCenter from "../../List/TeacherListByCenter";
 import fetchAllCentersWithIds from "../../List/CenterList";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import api from "../../../config/URL";
 
 const validationSchema = Yup.object({
@@ -52,7 +52,7 @@ function LeaveAdd() {
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      childCareId: "",
       centerName: "",
       employeeName: "",
       userId: "",
@@ -82,8 +82,8 @@ function LeaveAdd() {
       }
       const payload = {
         userId: userId,
-        centerId: centerId,
-        centerName: selectedCenterName,
+        childCareId: centerId,
+        childCareName: selectedCenterName,
         employeeName: datas.employeeName,
         leaveType: values.leaveType,
         noOfDays: daysDifference,

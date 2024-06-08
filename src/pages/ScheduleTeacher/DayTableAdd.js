@@ -5,17 +5,17 @@ import * as Yup from "yup";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FaPlusCircle } from "react-icons/fa";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import api from "../../config/URL";
 import fetchAllStudentListByCenter from "../List/StudentListByCenter";
 
-function DayTableAdd({ onSuccess, id, centerId, day }) {
+function DayTableAdd({ onSuccess, id, childCareId, day }) {
   const [show, setShow] = useState(false);
   const [studentData, setStudentData] = useState(false);
 
   const fetchData = async () => {
     try {
-      const studentData = await fetchAllStudentListByCenter(centerId);
+      const studentData = await fetchAllStudentListByCenter(childCareId);
       setStudentData(studentData);
     } catch (error) {
       toast.error(error);
@@ -34,12 +34,12 @@ function DayTableAdd({ onSuccess, id, centerId, day }) {
   const handleShow = () => setShow(true);
 
   const validationSchema = Yup.object({
-    studentId: Yup.string().required("*Student is required"),
+    childId: Yup.string().required("*Student is required"),
   });
 
   const formik = useFormik({
     initialValues: {
-      studentId: "",
+      childId: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -89,9 +89,9 @@ function DayTableAdd({ onSuccess, id, centerId, day }) {
                     Student<span className="text-danger">*</span>
                   </label>
                   <select
-                    {...formik.getFieldProps("studentId")}
+                    {...formik.getFieldProps("childId")}
                     class={`form-select  ${
-                      formik.touched.studentId && formik.errors.studentId
+                      formik.touched.childId && formik.errors.childId
                         ? "is-invalid"
                         : ""
                     }`}

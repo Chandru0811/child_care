@@ -102,10 +102,17 @@ import SendNotificationAdd from "../pages/SendNotification/SendNotificationAdd";
 import SendNotificationEdit from "../pages/SendNotification/SendNotificationEdit";
 import Home from "../pages/Home";
 import Student from "../pages/Student/Student";
+import Curriculum from "../pages/Curriculum/Curriculum";
+import { Toaster } from "react-hot-toast";
+import StaffingAttendance from "../pages/StaffingAttendance/StaffingAttendance";
+import StaffingAttendanceAdd from "../pages/StaffingAttendance/StaffingAttendanceAdd";
+import StaffingAttendanceView from "../pages/StaffingAttendance/StaffingAttendanceView";
+import StaffingAttendanceEdit from "../pages/StaffingAttendance/StaffingAttendanceEdit";
 
 function Admin({ handleLogout }) {
   return (
     <BrowserRouter>
+      <Toaster />
       <div className="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
         <Sidebar onLogout={handleLogout} />
         <div className="h-screen flex-grow-1 overflow-y-lg-auto">
@@ -122,8 +129,8 @@ function Admin({ handleLogout }) {
                 <Route path="/course/add" element={<CourseAdd />} />
                 <Route path="/course/edit/:id" element={<CourseEdit />} />
                 <Route path="/course/view/:id" element={<CourseView />} />
-                {/* <Route path="/course/curriculum/:id" element={<Curriculum />} />
-              <Route path="/curriculum" element={<Curriculum />} /> */}
+                <Route path="/course/curriculum/:id" element={<Curriculum />} />
+                {/*<Route path="/curriculum" element={<Curriculum />} /> */}
 
                 <Route path="/level" element={<Level />} />
                 <Route path="/level/add" element={<LevelAdd />} />
@@ -146,7 +153,10 @@ function Admin({ handleLogout }) {
                   element={<EnrollmentAdd />}
                 /> */}
                 <Route path="/lead/lead/add" element={<EnrollmentAdd />} />
-                <Route path="/lead/lead/edit/:id" element={<EnrollmentEdit />} />
+                <Route
+                  path="/lead/lead/edit/:id"
+                  element={<EnrollmentEdit />}
+                />
                 <Route path="/lead/lead/view/:id" element={<LeadView />} />
 
                 {/* Document  */}
@@ -185,10 +195,7 @@ function Admin({ handleLogout }) {
                 {/* Student */}
                 <Route path="/student" element={<Student />} />
                 <Route path="/student/add" element={<StudentAdd />} />
-                <Route
-                  path="/student/edit/:id"
-                  element={<StudentEdit />}
-                />
+                <Route path="/student/edit/:id" element={<StudentEdit />} />
                 <Route path="/student/view/:id" element={<StudentView />} />
                 <Route
                   path="/student/view/transferOut/:id"
@@ -266,6 +273,22 @@ function Admin({ handleLogout }) {
                 <Route path="/staff/leave" element={<StaffLeave />} />
                 <Route path="/staff/leave/view" element={<StaffLeaveView />} />
                 <Route path="/staff/payslip" element={<StaffPayslip />} />
+                <Route
+                  path="/staffing/attendance"
+                  element={<StaffingAttendance />}
+                />
+                <Route
+                  path="/staffing/attendance/add"
+                  element={<StaffingAttendanceAdd />}
+                />
+                <Route
+                  path="/staffing/attendance/view/:id"
+                  element={<StaffingAttendanceView />}
+                />
+                <Route
+                  path="/staffing/attendance/edit/:id"
+                  element={<StaffingAttendanceEdit />}
+                />
 
                 <Route path="/teacher" element={<Teacher />} />
                 <Route path="/teacher/add" element={<TeacherAdd />} />

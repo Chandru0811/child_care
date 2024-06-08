@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import fetchAllCentersWithIds from "../List/CenterList";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import fetchAllCoursesWithIdsC from "../List/CourseListByCenter";
 import fetchAllClassesWithIdsC from "../List/ClassListByCourse";
 import api from "../../config/URL";
@@ -81,7 +81,7 @@ function ScheduleTeacherAdd({ onSuccess }) {
   // };
 
   const validationSchema = Yup.object({
-    centerId: Yup.string().required("*Centre is required"),
+    childCareId: Yup.string().required("*Centre is required"),
     courseId: Yup.string().required("*Course  is required"),
     classId: Yup.string().required("*Class is required"),
     days: Yup.string().required("*Days is required"),
@@ -91,7 +91,7 @@ function ScheduleTeacherAdd({ onSuccess }) {
 
   const formik = useFormik({
     initialValues: {
-      centerId: "",
+      childCareId: "",
       courseId: "",
       classId: "",
       days: "",
@@ -110,7 +110,7 @@ function ScheduleTeacherAdd({ onSuccess }) {
 
       centerData.forEach((center) => {
         if (parseInt(values.centerId) === center.id) {
-          selectedCenterName = center.centerNames || "--";
+          selectedCenterName = center.childCareNames || "--";
         }
       });
 
@@ -135,13 +135,13 @@ function ScheduleTeacherAdd({ onSuccess }) {
       });
 
       let requestBody = {
-        childCareId: values.centerId,
+        childCareId: values.childCareId,
         childCareName: selectedCenterName,
         className: selectedClassName,
         classId: values.classId,
         course: selectedCourseName,
         courseId: values.courseId,
-        // batch: batch12hr,
+        // batchId: batch12hr,
         userId: values.userId,
         teacher: selectedTeacherName,
         days: values.days,
@@ -178,7 +178,7 @@ function ScheduleTeacherAdd({ onSuccess }) {
     setClassData(null);
     setTeacherData(null);
     const centerId = event.target.value;
-    formik.setFieldValue("centerId", centerId);
+    formik.setFieldValue("childCareId", centerId);
     fetchCourses(centerId);
     fetchTeacher(centerId); // Fetch courses for the selected center
   };
@@ -236,9 +236,9 @@ function ScheduleTeacherAdd({ onSuccess }) {
                     Centre<span className="text-danger">*</span>
                   </label>
                   <select
-                    {...formik.getFieldProps("centerId")}
+                    {...formik.getFieldProps("childCareId")}
                     className={`form-select ${
-                      formik.touched.centerId && formik.errors.centerId
+                      formik.touched.childCareId && formik.errors.childCareId
                         ? "is-invalid"
                         : ""
                     }`}
@@ -253,9 +253,9 @@ function ScheduleTeacherAdd({ onSuccess }) {
                         </option>
                       ))}
                   </select>
-                  {formik.touched.centerId && formik.errors.centerId && (
+                  {formik.touched.childCareId && formik.errors.childCareId && (
                     <div className="invalid-feedback">
-                      {formik.errors.centerId}
+                      {formik.errors.childCareId}
                     </div>
                   )}
                 </div>

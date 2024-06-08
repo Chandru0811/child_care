@@ -4,7 +4,7 @@ import "datatables.net-responsive-dt";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-//import Delete from "../../components/common/Delete";
+import Delete from "../../components/common/Delete";
 import api from "../../config/URL";
 import { FaFileInvoice } from "react-icons/fa";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -139,12 +139,12 @@ const Course = () => {
                             </button>
                           </Link>
                         {/* )} */}
-                        {/* {storedScreens?.courseDelete && (
+                        {/* {storedScreens?.courseDelete && ( */}
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteCourse/${data.id}`}
                     />
-                  )} */}
+                  {/* // )} */}
 
                         {/* {storedScreens?.curriculumIndex && ( */}
                           <OverlayTrigger

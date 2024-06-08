@@ -24,7 +24,7 @@ function Sidebar({ onLogout }) {
       enrollmentIndex: true,
       staffIndex: true,
       teacherIndex: true,
-      staffAttendanceIndex: false,
+      staffAttendanceIndex: true,
       leaveAdminIndex: true,
       leaveIndex: true,
       holidayIndex: true,
@@ -92,11 +92,11 @@ function Sidebar({ onLogout }) {
             path: "lead/lead",
             access: storedScreens.leadListingIndex,
           },
-          {
-            title: "Enrollment",
-            path: "/lead/enrollment/add",
-            access: storedScreens.enrollmentIndex,
-          },
+          // {
+          //   title: "Enrollment",
+          //   path: "/lead/enrollment/add",
+          //   access: storedScreens.enrollmentIndex,
+          // },
         ],
       },
       {
@@ -185,23 +185,23 @@ function Sidebar({ onLogout }) {
           },
         ],
       },
-      {
-        title: "Document Management",
-        icon: "bx bx-folder-open icon-large",
-        isOpen: false,
-        subMenus: [
-          {
-            title: "Document Folder",
-            path: "/document",
-            access: storedScreens.documentListingIndex,
-          },
-          {
-            title: "Document Files",
-            path: "/documentfile",
-            access: storedScreens.documentFileIndex,
-          },
-        ],
-      },
+      // {
+      //   title: "Document Management",
+      //   icon: "bx bx-folder-open icon-large",
+      //   isOpen: false,
+      //   subMenus: [
+      //     {
+      //       title: "Document Folder",
+      //       path: "/document",
+      //       access: storedScreens.documentListingIndex,
+      //     },
+      //     {
+      //       title: "Document Files",
+      //       path: "/documentfile",
+      //       access: storedScreens.documentFileIndex,
+      //     },
+      //   ],
+      // },
       {
         title: "Invoice and Payment",
         icon: "bx bx-spreadsheet icon-large",
@@ -212,11 +212,11 @@ function Sidebar({ onLogout }) {
             path: "/invoice",
             access: storedScreens.invoiceIndex,
           },
-          {
-            title: "Payment",
-            path: "/payment",
-            access: storedScreens.paymentIndex,
-          },
+          // {
+          //   title: "Payment",
+          //   path: "/payment",
+          //   access: storedScreens.paymentIndex,
+          // },
         ],
       },
 

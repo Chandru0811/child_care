@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import api from "../../../config/URL";
 import { FaDownload } from "react-icons/fa6";
 
-// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 function Payslip() {
   const [selectedMonth, setSelectedMonth] = useState("");
@@ -32,9 +32,9 @@ function Payslip() {
     } catch (error) {
       if (error?.response?.status === 404) {
         setData({});
-        console.log("Error Fetching Data ", error);
+        toast.warning("Error Fetching Data ", error);
       } else {
-        console.log("Error Fetching Data ", error);
+        toast.error("Error Fetching Data ", error);
       }
     } finally {
       setLoading(false);

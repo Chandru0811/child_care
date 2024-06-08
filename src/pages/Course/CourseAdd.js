@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../styles/custom.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import api from "../../config/URL";
 import fetchAllCentersWithIds from "../List/CenterList";
 import fetchAllLevelsWithIds from "../List/LevelList";
@@ -81,7 +81,7 @@ function CourseAdd({ onSuccess }) {
           ...values,
           classReplacementAllowed: classReplacementAllowed,
         };
-        const response = await api.post("/createCourses", updatedData, {
+        const response = await api.post("/createCourse", updatedData, {
           headers: {
             "Content-Type": "application/json",
           },

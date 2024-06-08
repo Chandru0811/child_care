@@ -3,9 +3,9 @@ import $ from "jquery";
 import "datatables.net-dt";
 import { Link } from "react-router-dom";
 import { FaEye, FaEdit } from "react-icons/fa";
-// import Delete from "../../../components/common/Delete";
+import Delete from "../../../components/common/Delete";
 import api from "../../../config/URL";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import fetchAllCentersWithIds from "../../List/CenterList";
 
 const Holiday = () => {
@@ -75,7 +75,7 @@ const Holiday = () => {
       setDatas(response.data);
       initializeDataTable(); // Reinitialize DataTable after successful data update
     } catch (error) {
-      console.error("Error refreshing data:", error);
+      toast.error("Error refreshing data:", error);
     }
     setLoading(false);
   };
@@ -155,13 +155,13 @@ const Holiday = () => {
                         </button>
                       </Link>
                     {/* )} */}
-                    {/* {storedScreens?.holidayDelete && (
+                    {/* {storedScreens?.holidayDelete && ( */}
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteUserHoliday/${data.id}`}
                         style={{ display: "inline-block" }}
                       />
-                    )} */}
+                    {/* )} */}
                   </div>
                 </td>
               </tr>

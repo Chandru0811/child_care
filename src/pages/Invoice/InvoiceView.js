@@ -6,7 +6,7 @@ import api from "../../config/URL";
 import fetchAllCoursesWithIds from "../List/CourseList";
 import fetchAllStudentsWithIds from "../List/StudentList";
 import { BsFillSendFill } from "react-icons/bs";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 // import jsPDF from "jspdf";
 // import "jspdf-autotable";
 // import SendAndPublish from "../../components/SendAndPublish";
@@ -30,7 +30,7 @@ function InvoiceView() {
       setCourseData(courseData);
       setStudentData(studentData);
     } catch (error) {
-      toast.error(error.message || "Error fetching data");
+      toast.error(error?.message || "Error fetching data");
     } finally {
       setLoadIndicator(false);
     }
@@ -236,7 +236,7 @@ function InvoiceView() {
   //     }
   //   } catch (error) {
   //     toast.error(
-  //       error.message || "An error occurred while submitting the form"
+  //       error?.message || "An error occurred while submitting the form"
   //     );
   //   }
   // };

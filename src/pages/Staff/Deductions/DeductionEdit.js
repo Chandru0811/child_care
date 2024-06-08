@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../config/URL";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import fetchAllCentersWithIds from "../../List/CenterList";
 import fetchAllEmployeeListByCenter from "../../List/EmployeeList";
 
@@ -46,7 +46,7 @@ function DeductionEdit() {
           toast.error(response.data.message);
         }
       } catch (error) {
-        toast.error(error.message);
+        toast.error(error?.message);
       } finally {
         setLoadIndicator(false);
       }
@@ -60,7 +60,7 @@ function DeductionEdit() {
     try {
       await fetchUserName(centerId);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error?.message);
     }
   };
 
@@ -69,7 +69,7 @@ function DeductionEdit() {
       const centers = await fetchAllCentersWithIds();
       setCenterData(centers);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error?.message);
     }
   };
 
@@ -78,7 +78,7 @@ function DeductionEdit() {
       const userNames = await fetchAllEmployeeListByCenter(centerId);
       setUserNameData(userNames);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error?.message);
     }
   };
 
