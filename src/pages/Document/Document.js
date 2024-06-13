@@ -84,6 +84,7 @@ const Document = () => {
             <h2>Document</h2>
           </div>
           <div className="">
+          {storedScreens?.documentListingCreate && (
             <Link to="/document/add">
               <button
                 type="button"
@@ -93,6 +94,7 @@ const Document = () => {
                 Add <i className="bx bx-plus"></i>
               </button>
             </Link>
+          )}
           </div>
         </div>
         <hr />
@@ -135,7 +137,7 @@ const Document = () => {
               <td>{data.mobile}</td>
               <td>
                 <div className="d-flex justify-content-center align-items-center ">
-                  {storedScreens?.centerListingCreate && (
+                  {storedScreens?.documentListingCreate && (
                     <div class="dropdown" style={{ display: "inline-block" }}>
                       <button
                         class="btn dropdown-toggle"
@@ -148,7 +150,7 @@ const Document = () => {
                      
                     </div>
                   )}
-                  {storedScreens?.centerListingRead && (
+                  {storedScreens?.documentListingRead && (
                     <Link
                       to={`/center/view/${data.id}`}
                       style={{ display: "inline-block" }}
@@ -158,7 +160,7 @@ const Document = () => {
                       </button>
                     </Link>
                   )}
-                  {storedScreens?.centerListingUpdate && (
+                  {storedScreens?.documentListingUpdate && (
                     <Link
                       to={`/center/edit/${data.id}`}
                       style={{ display: "inline-block" }}

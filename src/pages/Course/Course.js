@@ -77,11 +77,13 @@ const Course = () => {
               <h2>Course</h2>
             </div>
             <div className="">
+            {storedScreens?.courseCreate && (
               <Link to="/course/add">
                 <button type="button" className="btn btn-button btn-sm">
                   Add <i class="bx bx-plus"></i>
                 </button>
               </Link>
+            )}
             </div>
           </div>
           <hr />
@@ -125,28 +127,28 @@ const Course = () => {
                         )}
                       </td>
                       <td>
-                        {/* {storedScreens?.courseRead && ( */}
+                        {storedScreens?.courseRead && (
                           <Link to={`/course/view/${data.id}`}>
                             <button className="btn btn-sm">
                               <FaEye />
                             </button>
                           </Link>
-                        {/* )}
-                        {storedScreens?.courseUpdate && ( */}
+                         )}
+                        {storedScreens?.courseUpdate && ( 
                           <Link to={`/course/edit/${data.id}`}>
                             <button className="btn btn-sm">
                               <FaEdit />
                             </button>
                           </Link>
-                        {/* )} */}
-                        {/* {storedScreens?.courseDelete && ( */}
+                       )} 
+                      {storedScreens?.courseDelete && (
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteCourse/${data.id}`}
                     />
-                  {/* // )} */}
+             )}
 
-                        {/* {storedScreens?.curriculumIndex && ( */}
+                       {storedScreens?.curriculumIndex && ( 
                           <OverlayTrigger
                             placement="top"
                             overlay={
@@ -159,7 +161,7 @@ const Course = () => {
                               </button>
                             </Link>
                           </OverlayTrigger>
-                        {/* )} */}
+                   )} 
                       </td>
                     </tr>
                   ))}

@@ -88,13 +88,13 @@ const Student = () => {
           <div className="card shadow border-0 mb-2 top-header">
             <div className="container my-4">
               <div className="my-3 d-flex justify-content-end">
-                {/* {storedScreens?.studentListingCreate && ( */}
+                {storedScreens?.childListingCreate && ( 
                   <Link to="/student/add">
                     <button type="button" className="btn btn-button btn-sm">
                       Add <i class="bx bx-plus"></i>
                     </button>
                   </Link>
-                {/* )} */}
+                )} 
               </div>
               <table ref={tableRef} className="display">
                 <thead>
@@ -125,26 +125,26 @@ const Student = () => {
                   <td>{data.status}</td> */}
                       <td>
                         <div className="d-flex">
-                          {/* {storedScreens?.studentListingRead && ( */}
+                          {storedScreens?.childListingRead && ( 
                             <Link to={`/student/view/${data.id}`}>
                               <button className="btn btn-sm">
                                 <FaEye />
                               </button>
                             </Link>
-                          {/* )}
-                          {storedScreens?.studentListingUpdate && ( */}
+                        )}
+                          {storedScreens?.childListingUpdate && (
                             <Link to={`/student/edit/${data.id}`}>
                               <button className="btn btn-sm">
                                 <FaEdit />
                               </button>
                             </Link>
-                          {/* )} */}
-                          {/* {storedScreens?.studentListingDelete && ( */}
+                           )} 
+                         {storedScreens?.childListingDelete && ( 
                         <DeleteModel
                           onSuccess={refreshData}
                           path={`/deleteChildDetail/${data.id}`}
                         />
-                      {/* )} */}
+                      )} 
                         </div>
                       </td>
                     </tr>

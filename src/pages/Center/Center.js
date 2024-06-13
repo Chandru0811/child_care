@@ -84,6 +84,7 @@ const Center = () => {
               <h2>Centre Listing</h2>
             </div>
             <div className=" mt-3 d-flex justify-content-end">
+            {storedScreens?.childCareListingCreate && (
               <Link to="/center/add">
                 <button
                   type="button"
@@ -93,6 +94,7 @@ const Center = () => {
                   Add <i className="bx bx-plus"></i>
                 </button>
               </Link>
+            )}
             </div>
           </div>
           <hr />
@@ -134,7 +136,7 @@ const Center = () => {
                       <td>{data.mobile}</td>
                       <td>
                         <div className="d-flex justify-content-center align-items-center ">
-                          {/* {storedScreens?.centerListingCreate && ( */}
+                          {storedScreens?.childCareListingCreate && (
                           <div
                             class="dropdown"
                             style={{ display: "inline-block" }}
@@ -174,8 +176,8 @@ const Center = () => {
                               </li>
                             </ul>
                           </div>
-                          {/* )} */}
-                          {/* {storedScreens?.centerListingRead && ( */}
+                          )}
+                          {storedScreens?.childCareListingRead && (
                           <Link
                             to={`/center/view/${data.id}`}
                             style={{ display: "inline-block" }}
@@ -184,8 +186,8 @@ const Center = () => {
                               <FaEye />
                             </button>
                           </Link>
-                          {/* )}
-                    {storedScreens?.centerListingUpdate && ( */}
+                       )} 
+                    {storedScreens?.childCareListingUpdate && ( 
                           <Link
                             to={`/center/edit/${data.id}`}
                             style={{ display: "inline-block" }}
@@ -194,14 +196,14 @@ const Center = () => {
                               <FaEdit />
                             </button>
                           </Link>
-                          {/* )} */}
-                          {/* {storedScreens?.centerListingDelete && ( */}
+                        )} 
+                          {storedScreens?.childCareListingDelete && (
                       <Delete
                         onSuccess={refreshData}
                         path={`/deleteChildCare/${data.id}`}
                         style={{ display: "inline-block" }}
                       />
-                    {/* )} */}
+                     )} 
                         </div>
                       </td>
                     </tr>

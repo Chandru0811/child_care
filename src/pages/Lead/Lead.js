@@ -107,11 +107,13 @@ const Lead = () => {
                   <h2>Lead</h2>
                 </div>
                 <div className="">
+                {storedScreens?.leadListingCreate && ( 
                   <Link to="/lead/lead/add">
                     <button type="button" className="btn btn-button btn-sm">
                       Add <i class="bx bx-plus"></i>
                     </button>
                   </Link>
+                )}
                 </div>
               </div>
               <hr />
@@ -183,26 +185,26 @@ const Lead = () => {
 
                       <td>
                         <div className="d-flex">
-                          {/* {storedScreens?.leadListingRead && ( */}
+                           {storedScreens?.leadListingRead && (
                             <Link to={`/lead/lead/view/${data.id}`}>
                               <button className="btn btn-sm">
                                 <FaEye />
                               </button>
                             </Link>
-                          {/* )}
-                          {storedScreens?.leadListingUpdate && ( */}
+                        )}
+                          {storedScreens?.leadListingUpdate && (
                             <Link to={`/lead/lead/edit/${data.id}`}>
                               <button className="btn btn-sm">
                                 <FaEdit />
                               </button>
                             </Link>
-                          {/* )} */}
-                          {/* {storedScreens?.leadListingDelete && ( */}
+                          )} 
+                         {storedScreens?.leadListingDelete && ( 
                         <Delete
                           onSuccess={refreshData}
                           path={`/deleteLeadInfo/${data.id}`}
                         />
-                      {/* )} */}
+                  )}
                         </div>
                       </td>
                       {/* <td className="text-center">

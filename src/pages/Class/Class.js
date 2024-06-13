@@ -76,11 +76,13 @@ const Class = () => {
               <h2>Class</h2>
             </div>
             <div className="">
+            {storedScreens?.classCreate && (
               <Link to="/class/add">
                 <button type="button" className="btn btn-button btn-sm">
                   Add <i class="bx bx-plus"></i>
                 </button>
               </Link>
+            )}
             </div>
           </div>
           <hr />
@@ -115,26 +117,26 @@ const Class = () => {
                       <td>{data.classType}</td>
                       <td>{data.remark}</td>
                       <td>
-                        {/* {storedScreens?.classRead && ( */}
+                        {storedScreens?.classRead && (
                           <Link to={`/class/view/${data.id}`}>
                             <button className="btn btn-sm">
                               <FaEye />
                             </button>
                           </Link>
-                        {/* )}
-                        {storedScreens?.classUpdate && ( */}
+                        )}
+                        {storedScreens?.classUpdate && ( 
                           <Link to={`/class/edit/${data.id}`}>
                             <button className="btn btn-sm">
                               <FaEdit />
                             </button>
                           </Link>
-                        {/* )} */}
-                        {/* {storedScreens?.classDelete && ( */}
+                     )} 
+                        {storedScreens?.classDelete && (
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteCourseClassListing/${data.id}`}
                     />
-                  {/* )} */}
+               )} 
                       </td>
                     </tr>
                   ))}

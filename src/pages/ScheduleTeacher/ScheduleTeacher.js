@@ -134,7 +134,9 @@ const ScheduleTeacher = () => {
                   <h2> Schedule</h2>
                 </div>
                 <div>
+                {storedScreens?.scheduleTeacherCreate && (
                   <ScheduleTeacherAdd onSuccess={refreshData} />
+                )}
                 </div>
               </div>
               <hr />
@@ -164,24 +166,24 @@ const ScheduleTeacher = () => {
                         <td>{data.days}</td>
                         <td>
                           <div className="d-flex justify-content-center align-item-center">
-                            {/* {storedScreens?.scheduleTeacherRead && ( */}
+                         {storedScreens?.scheduleTeacherRead && (
                               <ScheduleTeacherView id={data.id} />
-                            {/* )} */}
-                            {/* {storedScreens?.scheduleTeacherUpdate && ( */}
+                            )} 
+                           {storedScreens?.scheduleTeacherUpdate && ( 
                         <ScheduleTeacherEdit
                           id={data.id}
                           onSuccess={refreshData}
                         />
-                      {/* )} */}
-                            {/* {storedScreens?.scheduleTeacherDelete && ( */}
+                   )} 
+                         {storedScreens?.scheduleTeacherDelete && ( 
                               <button
                                 className="btn btn-sm"
                                 onClick={() => handleShow(data)}
                               >
                                 <FaTrash />
                               </button>
-                            {/* )}
-                            {storedScreens?.timeScheduleIndex && ( */}
+                            )}
+                            {storedScreens?.timeScheduleIndex && ( 
                               <Link
                                 to={`/scheduleteacher/scheduletime/${data.userId}?childCareId=${data.childrenId}`}
                               >
@@ -189,7 +191,7 @@ const ScheduleTeacher = () => {
                                   <BsTable className="text-dark" />
                                 </button>
                               </Link>
-                            {/* )} */}
+                           )} 
                           </div>
                         </td>
                       </tr>

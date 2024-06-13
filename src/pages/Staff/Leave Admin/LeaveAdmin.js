@@ -132,7 +132,7 @@ const LeaveAdmin = () => {
                         </button>
                       </Link>
                     )}
-                    {/* {storedScreens?.leaveAdminUpdate && ( */}
+                     {storedScreens?.leaveAdminUpdate && ( 
                       <Link
                         to={`/leaveadmin/edit`}
                         style={{ display: "inline-block" }}
@@ -141,7 +141,7 @@ const LeaveAdmin = () => {
                           <FaEdit />
                         </button>
                       </Link>
-                    {/* )} */}
+                 )} 
                   </div>
                 </td>
               </tr>

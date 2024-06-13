@@ -11,7 +11,7 @@ function CenterView() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await api.get(`/getAllChildCareById/${id}`);
+        const response = await api.get(`/getAllChildCareByIds/${id}`);
         setData(response.data);
       } catch (error) {
         toast.error("Error Fetching Data", error);

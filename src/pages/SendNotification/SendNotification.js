@@ -116,9 +116,9 @@ const SendNotification = () => {
             <div>
               <h2>Send Notification</h2>
             </div>
-      {/* {storedScreens?.sendNotificationCreate && ( */}
+      {storedScreens?.sendNotificationCreate && ( 
         <SendNotificationAdd onSuccess={refreshData} />
-      {/* )} */}
+    )} 
       </div>
       <hr />
       {/* {/ <SendNotificationAdd /> /} */}
@@ -152,12 +152,12 @@ const SendNotification = () => {
                 <td>{data.messageDescription}</td>
                 <td>{data.datePosted}</td>
                 <td>
-                  {/* {storedScreens?.sendNotificationUpdate && ( */}
+               {storedScreens?.sendNotificationUpdate && (
                     <SendNotificationEdit
                       id={data.id}
                       onSuccess={refreshData}
                     />
-                  {/* )} */}
+                  )} 
                 </td>
               </tr>
             ))}

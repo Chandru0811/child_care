@@ -79,7 +79,9 @@ const Subject = () => {
               <h2>Subject</h2>
             </div>
             <div className="">
+            {storedScreens?.subjectCreate && (
               <SubjectAdd />
+            )}
             </div>
           </div>
           <hr />

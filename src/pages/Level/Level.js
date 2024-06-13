@@ -77,7 +77,9 @@ const Level = () => {
             </div>
 
             <div className="">
+            {storedScreens?.levelCreate && (
               <LevelAdd onSuccess={refreshData}/>
+            )}
             </div>
           </div>
           <hr />
@@ -117,22 +119,22 @@ const Level = () => {
                         )}
                       </td>
                       <td>
-                        {/* {storedScreens?.levelRead && ( */}
+                      {storedScreens?.levelRead && (
                           <Link to={`/level/view/${data.id}`}>
                             <button className="btn btn-sm">
                               <FaEye />
                             </button>
                           </Link>
-                        {/* )}
-                        {storedScreens?.levelUpdate && ( */}
+                       )}
+                        {storedScreens?.levelUpdate && ( 
                           <LevelEdit id={data.id} onSuccess={refreshData} />
-                        {/* )} */}
-                        {/* {storedScreens?.levelDelete && ( */}
+                    )} 
+                      {storedScreens?.levelDelete && (
                     <Delete
                       onSuccess={refreshData}
                       path={`/deleteCourseLevel/${data.id}`}
                     />
-                  {/* )} */}
+           )} 
                       </td>
                     </tr>
                   ))}

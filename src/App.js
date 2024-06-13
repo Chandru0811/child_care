@@ -13,18 +13,20 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   // const navigate = useNavigate();
 
+  // 
   const handleLogin = async (id) => {
     setIsLoading(true);
-    sessionStorage.setItem("isAuthenticated", true); 
-    console.log("object",isAuthenticated)   
+    setIsAuthenticated(true);
+    sessionStorage.setItem("isAuthenticated", true);
     try {
       if (id) {
         const response = await api.get(`/getAllRoleInfoById/${id}`);
         const rolePermissions = response.data;
-        updateScreens(rolePermissions);
-        setIsAuthenticated(true);
+        sessionStorage.setItem("screens", JSON.stringify(rolePermissions));
+
+        // Delay the execution by 2 seconds
         sessionStorage.setItem("isAuthenticated", true);
-        // sessionStorage.setItem("userName", userName);
+        setIsAuthenticated(true);
       } else {
         setIsLoading(false);
         toast.error("Invalid email or password");
@@ -78,11 +80,21 @@ function App() {
   return (
     <div>
       <div>
-      {isAuthenticated ? (
-        <Admin handleLogout={handleLogout} />
-      ) : (
-        <Auth handleLogin={handleLogin} />
-      )}
+        {isLoading ? (
+          <div className="loader-container">
+            <div class="loading">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        ) : isAuthenticated ? (
+          <Admin handleLogout={handleLogout} />
+        ) : (
+          <Auth handleLogin={handleLogin} />
+        )}
       </div>
     </div>
   );
