@@ -23,7 +23,7 @@ function CourseView() {
       setSubjectData(subjectData);
       setLevelData(levelData);
     } catch (error) {
-      toast.error(error);
+      toast.error(error.message);
     }
   };
 
@@ -33,7 +33,7 @@ function CourseView() {
         const response = await api.get(`/getAllCoursesById/${id}`);
         setData(response.data);
       } catch (error) {
-        toast.error("Error Fetching Data ", error);
+        toast.error("Error Fetching Data ", error.message);
       }
     };
     getData();

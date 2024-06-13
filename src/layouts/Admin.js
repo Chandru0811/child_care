@@ -108,6 +108,9 @@ import StaffingAttendance from "../pages/StaffingAttendance/StaffingAttendance";
 import StaffingAttendanceAdd from "../pages/StaffingAttendance/StaffingAttendanceAdd";
 import StaffingAttendanceView from "../pages/StaffingAttendance/StaffingAttendanceView";
 import StaffingAttendanceEdit from "../pages/StaffingAttendance/StaffingAttendanceEdit";
+import AddPayroll from "../pages/PayrollAdmin/AddPayroll";
+import Payroll from "../pages/PayrollAdmin/Payroll";
+import EditPayroll from "../pages/PayrollAdmin/EditPayroll";
 
 function Admin({ handleLogout }) {
   return (
@@ -272,7 +275,7 @@ function Admin({ handleLogout }) {
                 <Route path="/staff/view/:id" element={<StaffView />} />
                 <Route path="/staff/leave" element={<StaffLeave />} />
                 <Route path="/staff/leave/view" element={<StaffLeaveView />} />
-                <Route path="/staff/payslip" element={<StaffPayslip />} />
+                {/* <Route path="/staff/payslip" element={<StaffPayslip />} />s */}
                 <Route
                   path="/staffing/attendance"
                   element={<StaffingAttendance />}
@@ -316,6 +319,12 @@ function Admin({ handleLogout }) {
                   element={<InvoicePayment />}
                 />
                 <Route path="/payment" element={<Payment />} />
+
+                {/* payroll */}
+                <Route path="/Payroll/add" element={<AddPayroll />} />
+                <Route path="/Payroll" element={<Payroll />} />
+                <Route path="/Payroll/edit/:id" element={<EditPayroll />} />
+                <Route path="/Payroll/view/:id" element={<ViewPayslip />} />
 
                 {/* Send Notification */}
                 <Route

@@ -30,7 +30,7 @@ const LeadAccountAdd = forwardRef(
         remark: formData.remark || "",
         preferredTimeSlot: formData.preferredTimeSlot || "",
       },
-      validationSchema: validationSchema,
+      // validationSchema: validationSchema,    
       onSubmit: async (data) => {
         // console.log("form parent",formData );
         // console.log("data", data);
@@ -49,6 +49,7 @@ const LeadAccountAdd = forwardRef(
             toast.success(response.data.message);
             setFormData((prv) => ({ ...prv, ...data }));
             navigate("/lead/lead");
+            handleNext();
           } else {
             toast.error(response.data.message);
           }

@@ -38,7 +38,7 @@ const StaffAccountAdd = forwardRef(
         const centerData = await fetchAllCentersWithIds();
         setCenterData(centerData);
       } catch (error) {
-        toast.error(error);
+        toast.error(error.message);
       }
     };
 
